@@ -1,9 +1,13 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 const Mcq = () => {
+    const navigate = useNavigate()
     const { register, handleSubmit } = useForm();
-    const onSubmit = data => console.log(data);
+    const onSubmit = data => {
+        navigate('/chapters')
+    };
     return (
         <div className='flex flex-col items-center'>
             <div class="hero min-h-screen bg-base-200">
@@ -11,10 +15,10 @@ const Mcq = () => {
                     <img src="https://placeimg.com/260/400/arch" class="w-80 rounded-lg shadow-2xl" alt=''/>
                     <div className=''>
                         <form onSubmit={handleSubmit(onSubmit)} className=''>
-                            <div className="my-1">
-                                <h1>Chouse Quiz Type</h1>
-                                <dv class="flex justify-between">
-                                    <label className="cursor-pointer flex items-center">
+                            <div className="my-2">
+                                <h1 className='text-[18px]'>Chouse Quiz Type</h1>
+                                <dv class="flex ">
+                                    <label className="cursor-pointer flex items-center mr-8">
                                         <input type="radio" name="radio-2" value='mcq' class="radio mr-3 radio-primary" {...register("type")} />                                
                                         <span class="label-text font-bold">MCQ</span> 
                                     </label>      
@@ -24,12 +28,12 @@ const Mcq = () => {
                                     </label>
                                 </dv>
                             </div>
-                            <div className="my-1">
+                            <div className="my-2">
                                 <label class="label">
-                                    <span class="">Select Your Class</span>
+                                    <h1 class="text-[18px]">Select Your Class</h1>
                                 </label>
-                                <select class="select select-bordered w-60" {...register("class")}>
-                                    <option disabled selected>Pick one</option>
+                                <select class="select select-bordered w-72 text-[20px]" {...register("class")}>
+                                    <option disabled selected value=''>Pick one</option>
                                     <option>Calss 5</option>
                                     <option>Classs 6</option>
                                     <option>Lord of the Rings</option>
@@ -37,12 +41,12 @@ const Mcq = () => {
                                     <option>Star Trek</option>
                                 </select>
                             </div>
-                            <div className="my-1">
+                            <div className="my-2">
                                 <label class="label">
-                                    <span class="">Select Subject</span>
+                                    <h1 class="text-[18px]">Select Subject</h1>
                                 </label>
-                                <select class="select select-bordered w-60" {...register("subject")}>
-                                    <option disabled selected>Pick one</option>
+                                <select class="select select-bordered w-72 text-[20px]" {...register("subject")}>
+                                    <option disabled selected value=''>Pick one</option>
                                     <option >Bangla</option>
                                     <option >English</option>
                                     <option >Physic</option>
