@@ -1,0 +1,23 @@
+.background-radial-gradient {
+    background-color: hsl(218, 41%, 15%);
+    background-image: radial-gradient(
+      650px circle at 0% 0%,
+      hsl(218, 41%, 35%) 15%,
+      hsl(218, 41%, 30%) 35%,
+      hsl(218, 41%, 20%) 75%,
+      hsl(218, 41%, 19%) 80%,
+      transparent 100%
+    ),
+    radial-gradient(
+      1250px circle at 100% 100%,
+      hsl(218, 41%, 45%) 15%,
+      hsl(218, 41%, 30%) 35%,
+      hsl(218, 41%, 20%) 75%,
+      hsl(218, 41%, 19%) 80%,
+      transparent 100%
+    );
+  }
+  .hero{
+    /* clip-path: polygon(0 0, 100% 0, 100% 20%, 100% 96%, 69% 100%, 30% 96%, 0% 100%, 0% 20%); */
+    /* clip-path: polygon(0 0, 100% 0, 100% 20%, 100% 79%, 68% 76%, 34% 81%, 0 77%, 0% 20%); */
+  }
