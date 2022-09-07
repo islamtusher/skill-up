@@ -26,7 +26,7 @@ const HeroArea2 = () => {
                 <div class="hero-content flex flex-col lg:flex-row gap-x-10 gap-y-20">
                     <div class="max-w-lg text-center lg:text-start">
                         <h1 class='text-5xl md:text-6xl xl:text-7xl text-white font-["Caveat_Brush"] uppercase font-bold '>Develop your skills with <br /> <span class="text-primary">Skill up</span></h1>
-                        <p class="mb-5 text-white font-[jost]">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
+                        <p class="mb-5 text-lg text-white font-[jost]">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
                         <button class="btn btn-primary">Enrolled Now</button>
                     </div>
                     <div className="">

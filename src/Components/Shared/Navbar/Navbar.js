@@ -1,7 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
+    const navigate = useNavigate()
     const user = false
     return (
         <nav className='fixed top-0 left-0 right-0 z-10 bg-[#0099ff] '>
@@ -26,8 +27,7 @@ const Navbar = () => {
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal font-[jost] text-white p-0">
                         <li><Link to=''>Home</Link></li>
-                        <li><Link to=''>About Us</Link></li>
-                        <li><Link to=''>Courses</Link></li>                        
+                        <li><Link to=''>About Us</Link></li>                      
                         <li><Link to='/mcq'>Quiz</Link></li>
                         <li><Link to=''>Courses</Link></li>
                         <li><Link to=''>Teachers</Link></li>
@@ -49,8 +49,8 @@ const Navbar = () => {
                             user ? <img className='rounded-full w-10' src="https://placeimg.com/80/80/people" alt='' /> 
                                 :
                                 <div div className='flex items-center  font-[jost] '>
-                                    <button className='btn bg-transparent py-0 tracking-[2px] mr-2'><Link to=''>Login</Link></button>
-                                    <button className='btn bg-transparent py-0 tracking-[2px] '><Link to=''>Sign-Up</Link></button>
+                                    <Link to='/login'><button  className='btn bg-transparent py-0 tracking-[2px] mr-2'>Login</button></Link>
+                                    <Link to='/signup'><button className='btn bg-transparent py-0 tracking-[2px] '>Sign-Up</button></Link>
                                 </div>
                         }
                         

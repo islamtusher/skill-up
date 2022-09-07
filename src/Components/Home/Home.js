@@ -1,6 +1,6 @@
 import React from 'react';
 import About from '../About/About';
-import HeroArea from '../HeroArea/HeroArea';
+import AllClassQuiz from '../AllCalssQuiz/AllClassQuiz';
 import HeroArea2 from '../HeroArea2/HeroArea2';
 import Quiz2 from '../Quiz2/Quiz2';
 
