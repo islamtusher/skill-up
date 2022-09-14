@@ -4,170 +4,95 @@ import { useNavigate } from 'react-router-dom';
 
 const Mcq = () => {
     const navigate = useNavigate()
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm();
+
+    // fake data Classes
+    const classes = [
+        {id:6, className:"6th"},
+        {id:7, className:"7th"},
+        {id:8, className:"8th"},
+        {id:9, className:"9th"},
+        {id:10, className:"10th"},
+    ]
+
+    // fake data subjects
+    const subjects = [
+        {id:1, subName:"Bangla"},
+        {id:2, subName:"English"},
+        {id:3, subName:"Islam"},
+        {id:4, subName:"Social"},
+    ]
+
     const onSubmit = data => {
-        navigate('/chapters')
+        navigate(`/class-${data.class}/${data.subject}`)
+        console.log(data);
     };
     return (
         <div className='flex flex-col items-center'>
-            <div class="hero min-h-screen bg-base-200">
-                <div class="hero-content w-full flex-col lg:flex-row-reverse justify-around">
-                    <img src="https://placeimg.com/260/400/arch" class="w-80 rounded-lg shadow-2xl" alt=''/>
+            <div className="hero min-h-screen bg-base-200">
+                <div className="hero-content w-full flex-col lg:flex-row-reverse justify-evenly">
+                    <img src="./images/quizImage.png" className="w-[500px] rounded-lg" alt=''/>
                     <div className=''>
                         <form onSubmit={handleSubmit(onSubmit)} className=''>
                             <div className="my-2">
                                 <h1 className='text-[18px]'>Chouse Quiz Type</h1>
-                                <dv class="flex ">
+                                <div className="flex ">
                                     <label className="cursor-pointer flex items-center mr-8">
-                                        <input type="radio" name="radio-2" value='mcq' class="radio mr-3 radio-primary" {...register("type")} />                                
-                                        <span class="label-text font-bold">MCQ</span> 
+                                        <input type="radio" name="radio-2" value='mcq' className="radio mr-3 radio-primary" {...register("type")} />                                
+                                        <span className="label-text font-bold">MCQ</span> 
                                     </label>      
                                     <label className="cursor-pointer flex items-center">
-                                        <input type="radio" name="radio-1" value='written' class="radio mr-3 radio-primary" {...register("type")} />
-                                        <span class="label-text font-bold">Written</span> 
+                                        <input type="radio" name="radio-1" value='written' className="radio mr-3 radio-primary" {...register("type")} />
+                                        <span className="label-text font-bold">Written</span> 
                                     </label>
-                                </dv>
+                                </div>
                             </div>
                             <div className="my-2">
-                                <label class="label">
-                                    <h1 class="text-[18px]">Select Your Class</h1>
+                                <label className="label">
+                                    <h1 className="text-[18px]">Select Your Class</h1>
                                 </label>
-                                <select class="select select-bordered w-72 text-[20px]" {...register("class")}>
+                                <select
+                                    className="select select-bordered w-72 text-[20px]"
+                                    {...register("class", { 
+                                        required: {
+                                            value: true,
+                                            message: 'Please Select Your Class'
+                                        }
+                                    })}>
                                     <option disabled selected value=''>Pick one</option>
-                                    <option>Calss 5</option>
-                                    <option>Classs 6</option>
-                                    <option>Lord of the Rings</option>
-                                    <option>Planet of the Apes</option>
-                                    <option>Star Trek</option>
+                                    {
+                                        classes.map( cls => <option key={cls.id} value={cls.id}>{cls.className}</option>)
+                                    }                                    
                                 </select>
+                                {errors?.class?.type === 'required' && <p className='text-red-500'>{errors?.class?.message}</p>}
                             </div>
                             <div className="my-2">
-                                <label class="label">
-                                    <h1 class="text-[18px]">Select Subject</h1>
+                                <label className="label">
+                                    <h1 className="text-[18px]">Select Subject</h1>
                                 </label>
-                                <select class="select select-bordered w-72 text-[20px]" {...register("subject")}>
+                                <select
+                                    className="select select-bordered w-72 text-[20px]"
+                                    {...register("subject", {
+                                        required: {
+                                            value: true,
+                                            message: "Please Select Subject"
+                                        }
+                                    })}>
+                                    
                                     <option disabled selected value=''>Pick one</option>
-                                    <option >Bangla</option>
-                                    <option >English</option>
-                                    <option >Physic</option>
-                                    <option >Mathematics</option>
-                                    <option >Social Science</option>                                
+                                    {
+                                        subjects.map( sub => <option key={sub.id}>{sub.subName}</option>)
+                                    }                                                                    
                                 </select>
+                                {errors?.subject?.type === 'required' && <p className='text-red-500'>{errors?.subject?.message}</p>}
                             </div>
-                            <div><button type="submit" className='btn bg-primary my-4 text-black hover:bg-white'>Next</button></div>
+                            <div>
+                                <button type="submit" className='btn btn-primary my-4'>Next</button>
+                            </div>
                         </form>
                     </div>
                 </div>
             </div>
-
-
-
-            
-            <div class="form-control w-full max-w-xs">
-                
-            </div>
-            {/* <div class="accordion lg:min-w-[800px] lg:max-w-[800px]" id="accordionExample">
-                <div class="accordion-item  bg-white border border-gray-200">
-                    <h2 class="accordion-header mb-0" id="headingOne">
-                        <button class="
-                            accordion-button
-                            relative
-                            flex
-                            items-center
-                            w-full
-                            py-4
-                            px-5
-                            text-base text-gray-800 text-left
-                            bg-white
-                            border-0
-                            rounded-none
-                            transition
-                            focus:outline-none
-                        " type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true"
-                            aria-controls="collapseOne">
-                            Class Five
-                        </button>
-                    </h2>
-                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                    data-bs-parent="#accordionExample">
-                        <div class="accordion-body py-4 px-5">
-                            <ul class="menu bg-primary rounded">
-                                <li className='border-b-2 border-black'><Link to=''>Bangla</Link></li>
-                                <li className='border-b-2 border-black'><Link to=''>English</Link></li>
-                                <li className='border-b-2 border-black'><Link to=''>Mathematics</Link></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item bg-white border border-gray-200">
-                    <h2 class="accordion-header mb-0" id="headingTwo">
-                    <button class="
-                        accordion-button
-                        collapsed
-                        relative
-                        flex
-                        items-center
-                        w-full
-                        py-4
-                        px-5
-                        text-base text-gray-800 text-left
-                        bg-white
-                        border-0
-                        rounded-none
-                        transition
-                        focus:outline-none
-                    " type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false"
-                        aria-controls="collapseTwo">
-                        Class Six
-                    </button>
-                    </h2>
-                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
-                    data-bs-parent="#accordionExample">
-                    <div class="accordion-body py-4 px-5">
-                        <strong>This is the second item's accordion body.</strong> It is hidden by default,
-                        until the collapse plugin adds the appropriate classes that we use to style each
-                        element. These classes control the overall appearance, as well as the showing and
-                        hiding via CSS transitions. You can modify any of this with custom CSS or overriding
-                        our default variables. It's also worth noting that just about any HTML can go within
-                        the <code>.accordion-body</code>, though the transition does limit overflow.
-                    </div>
-                    </div>
-                </div>
-                <div class="accordion-item bg-white border border-gray-200">
-                    <h2 class="accordion-header mb-0" id="headingThree">
-                    <button class="
-                        accordion-button
-                        collapsed
-                        relative
-                        flex
-                        items-center
-                        w-full
-                        py-4
-                        px-5
-                        text-base text-gray-800 text-left
-                        bg-white
-                        border-0
-                        rounded-none
-                        transition
-                        focus:outline-none
-                    " type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false"
-                        aria-controls="collapseThree">
-                        Class Seven
-                    </button>
-                    </h2>
-                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
-                    data-bs-parent="#accordionExample">
-                    <div class="accordion-body py-4 px-5">
-                        <strong>This is the third item's accordion body.</strong> It is hidden by default,
-                        until the collapse plugin adds the appropriate classes that we use to style each
-                        element. These classes control the overall appearance, as well as the showing and
-                        hiding via CSS transitions. You can modify any of this with custom CSS or overriding
-                        our default variables. It's also worth noting that just about any HTML can go within
-                        the <code>.accordion-body</code>, though the transition does limit overflow.
-                    </div>
-                    </div>
-                </div>
-            </div> */}
         </div>
     );
 };

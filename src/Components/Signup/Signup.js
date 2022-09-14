@@ -7,54 +7,58 @@ const Signup = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
 
     const onSubmit = (data) => {
-        if (data.password === data.confirm_password) {
+        if (data.password === data.password_confirmation) {
 
-            let myHeaders = new Headers();
-            myHeaders.append("Accept", "application/json");
-            myHeaders.append("Content-Type", "application/json");
+            // let myHeaders = new Headers();
+            // myHeaders.append("Accept", "application/json");
+            // myHeaders.append("Content-Type", "application/json");
 
-            let raw = JSON.stringify({
-                "name": "Rafiqual Islam TUsher"
-            });
+            // let raw = JSON.stringify({
+            //     "name": data.name,
+            //     "password": data.password,
+            //     "password_confirmation": data.password_confirmation,
+            //     "phone_no": data.phone_no,
+            // });
 
-            let requestOptions = {
-                method: 'POST',
-                headers: myHeaders,
-                body: raw,
-                redirect: 'follow'
-            };
+            // let requestOptions = {
+            //     method: 'POST',
+            //     headers: myHeaders,
+            //     body:  JSON.stringify(data),
+            //     redirect: 'follow'
+            // };
 
-            fetch("http://127.0.0.1:8000/api/register", requestOptions)
-                .then(response => response.text())
-                .then(result => console.log(result))
-                .catch(error => console.log('error', error));
+            // fetch("http://127.0.0.1:8000/api/register", requestOptions)
+            //     .then(response => response.text())
+            //     .then(result => console.log(result))
+            //     .catch(error => console.log('error', error));
 
             console.log('matched');
-            // fetch("http://127.0.0.1:8000/api/register", {
-            //     method: 'POST',
-            //     headers: {
-            //         'Content-type': 'application/json',
-            //     },
-            //     body: JSON.stringify(data)
-            // })
-            //     .then(res => res.json())
-            //     .then(data => console.log(data))
+            fetch("http://127.0.0.1:8000/api/register", {
+                method: 'POST',
+                headers: {
+                    "Accept":"application/json",
+                    'Content-type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+                .then(res => console.log(res.text()))
+                .then(data => console.log(data))
         } else {
             console.log('Not Matched');
         }
         // console.log(data)
     }
     return (
-        <div class="hero min-h-secreen lg:w-3/4 mx-auto pt-20">
-            <div class="hero-content flex-col lg:flex-row-reverse">
-                <div class="text-center lg:text-left lg:pl-8">
-                    <h1 class="text-5xl font-bold">Sign Up Now!</h1>
-                    <p class="py-6">
+        <div className="hero min-h-secreen lg:w-3/4 mx-auto pt-20">
+            <div className="hero-content flex-col lg:flex-row-reverse">
+                <div className="text-center lg:text-left lg:pl-8">
+                    <h1 className="text-5xl font-bold">Sign Up Now!</h1>
+                    <p className="py-6">
                         If you dont't have any user accout on AutoManufac site then feel free to Register now. It will be give you more comfortable and easiest visiting.
                     </p>
                 </div>
-                <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-                    <div class="card-body pt-3">
+                <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+                    <div className="card-body pt-3">
 
                         <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col mt-4'>
                             <div className="form-control w-full max-w-xs">
@@ -125,7 +129,7 @@ const Signup = () => {
                                 <input
                                     type='password'
                                     className="input input-bordered focus:outline-0 focus:border-primary w-full  "
-                                    {...register("confirm_password", {
+                                    {...register("password_confirmation", {
                                         required: {
                                             value: true,
                                             message: 'Password Must Required'
@@ -139,16 +143,7 @@ const Signup = () => {
                                 Allready Registered?
                                 <span onClick={()=>navigate('/login')} className='text-blue-600 cursor-pointer'> Please Log In</span>
                             </p>
-                        </form>  
-                        
-                        <div className="divider my-[5px]">OR</div>
-                        <button
-                            // onClick={() => signInWithGoogle()}
-                            className="btn bg-white flex items-center text-black "
-                            type='submit'>
-                            <img className='w-8 mr-3' src="./images/google.png" alt="img" />                            
-                            Google Sign In
-                        </button>                                                 
+                        </form>                                                                                               
                     </div>
                 </div>
             </div>

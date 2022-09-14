@@ -22,7 +22,7 @@ const Navbar = () => {
                             <li><Link to=''>Contact</Link></li>
                         </ul>
                     </div>
-                    <Link to='' className="font-['Caveat_Brush'] text-3xl text-primary font-bold">SKILL UP</Link>
+                    <Link to='' className="font-['Caveat_Brush'] text-3xl text-secondary font-bold">SKILL UP</Link>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal font-[jost] text-white p-0">
@@ -36,19 +36,19 @@ const Navbar = () => {
                 </div>
                 <div className="navbar-end">
                     <div className="">
-                        { user && <label tabindex="0" class="btn btn-ghost btn-circle">
-                            <div class="indicator">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
-                                <span class="badge badge-sm indicator-item">8</span>
+                        { user && <label tabindex="0" className="btn btn-ghost btn-circle">
+                            <div className="indicator">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                                <span className="badge badge-sm indicator-item">8</span>
                             </div>
                         </label> }
                     </div>
-                    <div class="">
+                    <div className="">
 
                         {
                             user ? <img className='rounded-full w-10' src="https://placeimg.com/80/80/people" alt='' /> 
                                 :
-                                <div div className='flex items-center  font-[jost] '>
+                                <div className='flex items-center  font-[jost] '>
                                     <Link to='/login'><button  className='btn bg-transparent py-0 tracking-[2px] mr-2'>Login</button></Link>
                                     <Link to='/signup'><button className='btn bg-transparent py-0 tracking-[2px] '>Sign-Up</button></Link>
                                 </div>

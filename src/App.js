@@ -18,12 +18,13 @@ function App() {
       <Routes>
         <Route path='/' element={<Home></Home>}></Route>
         <Route path='/mcq' element={<Mcq></Mcq>}></Route>
-        <Route path='/chapters' element={<Chapters></Chapters>}></Route>
-        <Route path='allclassquiz' element={<AllClassQuiz></AllClassQuiz>}>
+        <Route path='/class-:id/:subject' element={<Chapters></Chapters>}></Route>
+        {/* <Route path='allclassquiz' element={<AllClassQuiz></AllClassQuiz>}>
           <Route index element={<Class6th></Class6th>}></Route>
           <Route path='class6th' element={<Class6th></Class6th>}></Route>
           <Route path='class7th' element={<Class7th></Class7th>}></Route>
-        </Route>
+        </Route> */}
+
         <Route path='/signup' element={<Signup></Signup>}></Route>
         <Route path='/login' element={<Login></Login>}></Route>
       </Routes>

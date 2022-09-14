@@ -5,10 +5,10 @@ import React from 'react';
 const Quiz2 = () => {
     return (
         <div className="max-w-[1320px] mx-auto">
-            <div class="hero min-h-screen">
-                <div class="hero-content flex flex-col lg:flex-row items-start justify-between gap-y-20">
-                    <div class="lg:w-[50%] flex flex-col gap-y-6">
-                        <h1 class='text-7xl font-["Caveat_Brush"] uppercase font-bold'>
+            <div className="hero min-h-screen">
+                <div className="hero-content flex flex-col lg:flex-row items-start justify-between gap-y-20">
+                    <div className="lg:w-[50%] flex flex-col gap-y-6">
+                        <h1 className='text-7xl font-["Caveat_Brush"] uppercase font-bold'>
                             Attend <span className='text-primary' > QUIZ'S</span> Almost All your Levels
                         </h1> 
                         <p className='font-[Jost]'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit Lorem ipsum dolor sit amet consectetur adipisicing elit amet consectetur adipisicing elit</p>
