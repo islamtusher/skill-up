@@ -33,58 +33,43 @@ const Chapters = () => {
         // {id:9, chapterName:"9th"},
     ]
 
-    const allSubjectsQuestions = [
+    const allChapterQuestions = [
         [
-            { id: 1, question: "This is the Question No 1", options: ["option-1", "option-2", "option-3"] },
-            { id: 2, question: "This is the Question No 2", options: ["option-1", "option-2", "option-3", "option-4"] },
-            { id: 3, question: "This is the Question No 3", options: ["option-1", "option-2"] },
+            { id: 1, question: "This is the Question No 1", options: [{optionId: 1, option: "option-1"}, {optionId: 2, option: "option-2"}, {optionId: 3, option: "option-3"}] },
+            { id: 2, question: "This is the Question No 2", options: [{optionId: 1, option: "option-1"}, {optionId: 2, option: "option-2"}, {optionId: 3, option: "option-3"}, {optionId: 4, option: "option-4"}] },
+            { id: 3, question: "This is the Question No 3", options: [{optionId: 1, option: "option-1"}, {optionId: 2, option: "option-2"}] },
         ],
 
         [
-            { id: 1, question: "This is the Question No 1", options: ["option-1", "option-2"] },
-            { id: 2, question: "This is the Question No 2", options: ["option-1", "option-2", "option-3"] },
-            { id: 3, question: "This is the Question No 3", options: ["option-1", "option-2", "option-3", "option-4"] },
-            { id: 4, question: "This is the Question No 4", options: ["option-1", "option-2", "option-3"] },
-            { id: 5, question: "This is the Question No 5", options: ["option-1", "option-2"] },
+            { id: 1, question: "This is the Question No 1", options: [{optionId: 1, option: "option-1"}, {optionId: 2, option: "option-2"}] },
+            { id: 2, question: "This is the Question No 2", options: [{optionId: 1, option: "option-1"}, {optionId: 2, option: "option-2"}, {optionId: 3, option: "option-3"}] },
+            { id: 3, question: "This is the Question No 3", options: [{optionId: 1, option: "option-1"}, {optionId: 2, option: "option-2"}, {optionId: 3, option: "option-3"}, {optionId: 4, option: "option-4"}] },
+            { id: 4, question: "This is the Question No 4", options: [{optionId: 1, option: "option-1"}, {optionId: 2, option: "option-2"}, {optionId: 3, option: "option-3"}] },
+            { id: 5, question: "This is the Question No 5", options: [{optionId: 1, option: "option-1"}, {optionId: 2, option: "option-2"}] },
         ],
 
         [
-            { id: 1, question: "This is the Question No 1", options: ["option-1", "option-2", "option-3", "option-4"] },
-            { id: 2, question: "This is the Question No 2", options: ["option-1", "option-2", "option-3"] },
-            { id: 3, question: "This is the Question No 3", options: ["option-1", "option-2"] },
-            { id: 4, question: "This is the Question No 4", options: ["option-1", "option-2", "option-3"] },
-            { id: 5, question: "This is the Question No 5", options: ["option-1", "option-2"] },
+            { id: 1, question: "This is the Question No 1", options: [{optionId: 1, option: "option-1"}, {optionId: 2, option: "option-2"}, {optionId: 3, option: "option-3"}, {optionId: 4, option: "option-4"}] },
+            { id: 2, question: "This is the Question No 2", options: [{optionId: 1, option: "option-1"}, {optionId: 2, option: "option-2"}, {optionId: 3, option: "option-3"}] },
+            { id: 3, question: "This is the Question No 3", options: [{optionId: 1, option: "option-1"}, {optionId: 2, option: "option-2"}] },
+            { id: 4, question: "This is the Question No 4", options: [{optionId: 1, option: "option-1"}, {optionId: 2, option: "option-2"}, {optionId: 3, option: "option-3"}] },
+            { id: 5, question: "This is the Question No 5", options: [{optionId: 1, option: "option-1"}, {optionId: 2, option: "option-2"}] },
         ],
         [
-            { id: 1, question: "This is the Question No 1", options: ["option-1", "option-2", "option-3"] },
-            { id: 2, question: "This is the Question No 2", options: ["option-1", "option-2"] },
-            { id: 3, question: "This is the Question No 3", options: ["option-1", "option-2", "option-3", "option-4"] },
-            { id: 4, question: "This is the Question No 4", options: ["option-1", "option-2", "option-3"] },
-            { id: 5, question: "This is the Question No 5", options: ["option-1", "option-2"] },
+            { id: 1, question: "This is the Question No 1", options: [{optionId: 1, option: "option-1"}, {optionId: 2, option: "option-2"}, {optionId: 3, option: "option-3"}] },
+            { id: 2, question: "This is the Question No 2", options: [{optionId: 1, option: "option-1"}, {optionId: 2, option: "option-2"}] },
+            { id: 3, question: "This is the Question No 3", options: [{optionId: 1, option: "option-1"}, {optionId: 2, option: "option-2"}, {optionId: 3, option: "option-3"}, {optionId: 4, option: "option-4"}] },
+            { id: 4, question: "This is the Question No 4", options: [{optionId: 1, option: "option-1"}, {optionId: 2, option: "option-2"}, {optionId: 3, option: "option-3"}] },
+            { id: 5, question: "This is the Question No 5", options: [{optionId: 1, option: "option-1"}, {optionId: 2, option: "option-2"}] },
         ],
         [
-            {id:1, question:"This is the Question No 1", options:["option-1", "option-2"]},
-            {id:2, question:"This is the Question No 2", options:["option-1", "option-2", "option-3"]},
-            {id:3, question:"This is the Question No 3", options:["option-1", "option-2", "option-3", "option-4"]},
-            {id:4, question:"This is the Question No 4", options:["option-1", "option-2", "option-3"]},
-            {id:5, question:"This is the Question No 5", options:["option-1", "option-2"]},
+            {id:1, question:"This is the Question No 1", options:[{optionId: 1, option: "option-1"}, {optionId: 2, option: "option-2"}]},
+            {id:2, question:"This is the Question No 2", options:[{optionId: 1, option: "option-1"}, {optionId: 2, option: "option-2"}, {optionId: 3, option: "option-3"}]},
+            {id:3, question:"This is the Question No 3", options:[{optionId: 1, option: "option-1"}, {optionId: 2, option: "option-2"}, {optionId: 3, option: "option-3"}, {optionId: 4, option: "option-4"}]},
+            {id:4, question:"This is the Question No 4", options:[{optionId: 1, option: "option-1"}, {optionId: 2, option: "option-2"}, {optionId: 3, option: "option-3"}]},
+            {id:5, question:"This is the Question No 5", options:[{optionId: 1, option: "option-1"}, {optionId: 2, option: "option-2"}]},
         ]
 
-    ]
-    
-    // fake Data chapter one questions
-    const capOneQuestions = [
-        {id:1, question:"Apply the Question 1", options:["option-1", "option-2", "option-3"]},
-        {id:2, question:"Apply the Question 2", options:["option-1", "option-2", "option-3", "option-4"]},
-        {id:3, question:"Apply the Question 3", options:["option-1", "option-2"]},
-    ]
-    // fake Data chapter two questions
-    const capTwoQuestions = [
-        {id:1, question:"Apply the Question 2", options:["option-1", "option-2", "option-3"]},
-        {id:3, question:"Apply the Question 1", options:["option-1", "option-2"]},
-        {id:2, question:"Apply the Question 3", options:["option-1", "option-2", "option-3", "option-4"]},
-        {id:2, question:"Apply the Question 4", options:["option-1", "option-2", "option-3"]},
-        {id:2, question:"Apply the Question 5", options:["option-1", "option-2"]},
     ]
 
     // Handle chapter list click
@@ -100,13 +85,14 @@ const Chapters = () => {
     // handle Previous Btn
     const handlePreviousBtn = data => {
         setQuestionNo((count) => count - 1)
-        setLastAns(selectedAns[-1])
+        setLastAns(selectedAns[selectedAns.length-1])
+        // console.log(selectedAns[selectedAns.length-1]);
+        
     };
-    
-    console.log(lastAns);
 
+    // set Submit btn on last question
     useEffect(() => {
-        if (questionNo + 1 === allSubjectsQuestions[currentChapter - 1].length) {
+        if (questionNo + 1 === allChapterQuestions[currentChapter - 1].length) {
             setIsSubmit(true)        
         }
     }, [questionNo])
@@ -114,17 +100,16 @@ const Chapters = () => {
     // handle from submition
     const onSubmit = data => { 
         if (isSubmit) {
-            console.log('submit');
             setSelectedAns([...selectedAns, data])
             setSubmitSuccess(true)
             return
         }
         setQuestionNo(questionNo + 1)
         setSelectedAns([...selectedAns, data])
-        console.log(questionNo);
+        // console.log(questionNo);
         reset()
     };
-    // console.log(selectedAns);
+    console.log(lastAns);
 
     return (
         <div className='min-h-screen mx-auto font-["jost"] bg-slate-100 pt-[100px] pb-[30px]'>
@@ -170,23 +155,23 @@ const Chapters = () => {
                                 :
                                 <form onSubmit={handleSubmit(onSubmit)} className="h-[100%] flex flex-col gap-y-6">                        
                                     <h1 className='text-lg font-bold'>
-                                        {allSubjectsQuestions[currentChapter - 1][questionNo]?.question}
+                                        {allChapterQuestions[currentChapter - 1][questionNo]?.question}
                                     </h1> 
                                     
                                     <div className="flex flex-col justify-self-start gap-y-4"> 
                                         {/* Loop on Options  */}
                                         {
-                                            allSubjectsQuestions[currentChapter - 1][questionNo]?.options.map((opt, index) =>
-                                                <label key={index} className=" cursor-pointer flex items-center justify-evenly text-lg border-2 bg-slate-100 hover:bg-slate-200 rounded p-4">
+                                            allChapterQuestions[currentChapter - 1][questionNo]?.options.map((opt) =>
+                                                <label key={opt.optionId} className=" cursor-pointer flex items-center justify-evenly text-lg border-2 bg-slate-100 hover:bg-slate-200 rounded p-4">
                                                     <input
                                                         type="radio"
-                                                        id={allSubjectsQuestions[currentChapter -1][questionNo]?.id}
-                                                        defaultValue={index + 1}
+                                                        id={allChapterQuestions[currentChapter -1][questionNo]?.id}
+                                                        defaultValue={opt.optionId + 1}
                                                         className="radio mr-3 radio-primary bg-white "
-                                                        {...register(`question-${allSubjectsQuestions[currentChapter -1][questionNo]?.id}`)}
+                                                        {...register(`question-${allChapterQuestions[currentChapter -1][questionNo]?.id}`)}
                                                         
                                                     />                                
-                                                    <span className="font-bold">{opt}</span> 
+                                                    <span className="font-bold">{opt.option}</span> 
                                                 </label> 
                                             )
                                         }   
