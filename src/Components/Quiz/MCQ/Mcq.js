@@ -1,3 +1,5 @@
+import { faArrowLeftLong, faArrowRightLong } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -28,14 +30,14 @@ const Mcq = () => {
         console.log(data);
     };
     return (
-        <div className='flex flex-col items-center'>
-            <div className="hero min-h-screen bg-base-200">
-                <div className="hero-content w-full flex-col lg:flex-row-reverse justify-evenly">
+            <div className='bg-base-200 flex flex-col items-center'>
+                <div className="hero min-h-screen  pt-16">
+                <div className="hero-content w-full flex-col-reverse lg:flex-row-reverse justify-evenly gap-y-10">
                     <img src="./images/quizImage.png" className="w-[500px] rounded-lg" alt=''/>
-                    <div className=''>
-                        <form onSubmit={handleSubmit(onSubmit)} className=''>
+                    <div className='shadow-xl p-6'>
+                        <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-y-4'>
                             <div className="my-2">
-                                <h1 className='text-[18px]'>Chouse Quiz Type</h1>
+                                <h1 className='text-xl font-[jost] font-bold text-primary mb-1'>Chouse Quiz Type</h1>
                                 <div className="flex ">
                                     <label className="cursor-pointer flex items-center mr-8">
                                         <input type="radio" name="radio-2" value='mcq' className="radio mr-3 radio-primary" {...register("type")} />                                
@@ -49,7 +51,7 @@ const Mcq = () => {
                             </div>
                             <div className="my-2">
                                 <label className="label">
-                                    <h1 className="text-[18px]">Select Your Class</h1>
+                                    <h1 className="text-xl font-[jost] font-bold text-primary">Select Your Class</h1>
                                 </label>
                                 <select
                                     className="select select-bordered w-72 text-[20px]"
@@ -68,7 +70,7 @@ const Mcq = () => {
                             </div>
                             <div className="my-2">
                                 <label className="label">
-                                    <h1 className="text-[18px]">Select Subject</h1>
+                                    <h1 className="text-xl font-[jost] font-bold text-primary">Select Subject</h1>
                                 </label>
                                 <select
                                     className="select select-bordered w-72 text-[20px]"
@@ -87,7 +89,10 @@ const Mcq = () => {
                                 {errors?.subject?.type === 'required' && <p className='text-red-500'>{errors?.subject?.message}</p>}
                             </div>
                             <div>
-                                <button type="submit" className='btn btn-primary my-4'>Next</button>
+                                <button type="submit" className='w-[68px] font-[jost] flex items-center justify-between border-b-2 border-zinc-500 hover:text-primary hover:border-primary hover:cursor-pointer transition ease-in-out duration-300'>
+                                    <span className='text-lg tracking-[2px]'>Next</span>
+                                    <FontAwesomeIcon className=' text-md mt-1' icon={faArrowRightLong} />
+                                </button>
                             </div>
                         </form>
                     </div>

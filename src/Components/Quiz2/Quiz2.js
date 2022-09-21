@@ -8,7 +8,7 @@ const Quiz2 = () => {
             <div className="hero min-h-screen">
                 <div className="hero-content flex flex-col lg:flex-row items-start justify-between gap-y-20">
                     <div className="lg:w-[50%] flex flex-col gap-y-6">
-                        <h1 className='text-7xl font-["Caveat_Brush"] uppercase font-bold'>
+                        <h1 className='text-6xl xl:text-7xl font-["Caveat_Brush"] uppercase font-bold'>
                             Attend <span className='text-primary' > QUIZ'S</span> Almost All your Levels
                         </h1> 
                         <p className='font-[Jost]'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit Lorem ipsum dolor sit amet consectetur adipisicing elit amet consectetur adipisicing elit</p>
@@ -17,7 +17,7 @@ const Quiz2 = () => {
                         </div>
                     </div>
                     <div className="lg:w-[50%] font-[jost]">                        
-                        <div className="flex gap-x-8">
+                        <div className="flex flex-col md:flex-row gap-8">
                             <div className=" lg:w-[300px] flex flex-col items-center p-2 gap-y-2 rounded transition hover:cursor-pointer hover:scale-105 hover:-translate-y-2 hover:shadow-2xl ease-in-out duration-500 shadow-2xl ">
                                 <img className='' src="../images/c6-8.png" alt="" />
                                 <h1 className=' text-lg  font-bold'>Class 6th to 8th All Subjects</h1> 

@@ -1,14 +1,14 @@
-import { faArrowRight, faArrowRightLong } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRightLong } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 
 const About = () => {
     return (
-        <div className="max-w-[1320px] mx-auto">
+        <div className="max-w-[1320px] mx-auto mt-16">
             <div className="hero min-h-screen">
                 <div className="hero-content flex-col lg:flex-row-reverse font-[jost] gap-x-10">
                     <div className="lg:w-[50%] ">
-                        <h3 className='text-3xl font-bold mb-8'>
+                        <h3 className='text-3xl font-bold mb-4 lg;mb-8'>
                             Who and Why We Are
                             <hr className='w-[20%] mt-4 border-primary' />
                         </h3>

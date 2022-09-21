@@ -5,11 +5,11 @@ const Navbar = () => {
     const navigate = useNavigate()
     const user = false
     return (
-        <nav className='fixed top-0 left-0 right-0 z-10 bg-[#0099ff] '>
+        <nav className='fixed top-0 left-0 right-0 z-20 bg-[#0099ff] '>
             <div className="navbar max-w-[1320px] mx-auto ">
                 <div className="navbar-start">
                     <div className="dropdown">
-                        <label tabIndex="0" className="btn btn-ghost lg:hidden">
+                        <label tabIndex="0" className="btn btn-ghost lg:hidden pl-2">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
                         </label>
                         <ul tabIndex="0" className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
@@ -29,6 +29,7 @@ const Navbar = () => {
                         <li><Link to=''>Home</Link></li>
                         <li><Link to=''>About Us</Link></li>                      
                         <li><Link to='/mcq'>Quiz</Link></li>
+                        <li><Link to='/dashboard'>Dashboard</Link></li>
                         <li><Link to=''>Courses</Link></li>
                         <li><Link to=''>Teachers</Link></li>
                         <li><Link to=''>Contact </Link></li>
@@ -48,9 +49,9 @@ const Navbar = () => {
                         {
                             user ? <img className='rounded-full w-10' src="https://placeimg.com/80/80/people" alt='' /> 
                                 :
-                                <div className='flex items-center  font-[jost] '>
-                                    <Link to='/login'><button  className='btn bg-transparent py-0 tracking-[2px] mr-2'>Login</button></Link>
-                                    <Link to='/signup'><button className='btn bg-transparent py-0 tracking-[2px] '>Sign-Up</button></Link>
+                                <div className='flex items-center font-[jost] text-xl'>
+                                    <Link to='/login'><button  className='text-white bg-transparent py-0 mr-2'>Login</button></Link>
+                                    <Link to='/signup'><button className='text-white bg-transparent py-0 '>Sign-Up</button></Link>
                                 </div>
                         }
                         
