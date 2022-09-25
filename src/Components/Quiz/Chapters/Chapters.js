@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { faArrowLeftLong, faArrowRightLong } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useMemo } from 'react';
 import ShowCorrectAns from '../ShowCorrectAns/ShowCorrectAns';
 
 const Chapters = () => {
@@ -30,15 +29,7 @@ const Chapters = () => {
         {id:8, chapterName:"8th"},
         {id:9, chapterName:"9th"},
     ]
-
-
-    const allChapterAns =
-        [
-            { id: 1, question: "What is the Capital of Bangladesh", options: [{optionId: 1, option: "Dhaka"}, {optionId: 2, option: "Rajshahi"}, {optionId: 3, option: "Barishal"}], correctAns: "Dhaka" },
-            { id: 2, question: "This is the Question No 2", options: [{optionId: 1, option: "option-1"}, {optionId: 2, option: "option-2"}, {optionId: 3, option: "option-3"}, {optionId: 4, option: "option-4"}] },
-            { id: 3, question: "This is the Question No 3", options: [{optionId: 1, option: "option-1"}, {optionId: 2, option: "option-2"}] },
-        ]
-
+    console.log(selectedAns);
     const allChapterQuestions = [
         [
             { id: 1, question: "What is the Capital of Bangladesh", options: [{optionId: 1, option: "Dhaka"}, {optionId: 2, option: "Rajshahi"}, {optionId: 3, option: "Barishal"}, {optionId: 4, option: "Comilla"}], correctAns: "Dhaka" },
@@ -79,7 +70,6 @@ const Chapters = () => {
 
     // Handle chapter list onClick
     const handleChapter = (id) => {
-        console.log(id);
         reset()
         setCurrentChapter(id) 
         setQuestionNo(0)
@@ -92,7 +82,6 @@ const Chapters = () => {
 
     // handle Previous Btn
     const handlePreviousBtn = data => {
-        console.log(data);
         reset()
         setQuestionNo((count) => count - 1)
         selectedAns.pop()
@@ -151,28 +140,7 @@ const Chapters = () => {
                                 }
                             </ul>
                         </div>
-                    </div>
-                    {/* <div className="block lg:hidden">
-                        <label className="label">
-                            <h1 className="text-xl font-[jost] font-bold text-primary">Select Chapter</h1>
-                        </label>
-                        <select
-                            // onChange={()=>handleChapter(chapter.id)}
-                            className="select select-bordered w-72 text-[20px]"
-                            {...register("chapter", { 
-                                required: {
-                                    value: true,
-                                    message: 'Please Select Your Class'
-                                }
-                            })}>
-                            <option disabled selected value=''>Pick one</option>
-                            {
-                                chapters.map( chapter => <option key={chapter.id} onClick={() => handleChapter(chapter.id)} value={chapter.id}>{chapter.chapterName} Chapter</option>)
-                            }                                    
-                        </select>
-                        {errors?.class?.type === 'required' && <p className='text-red-500'>{errors?.class?.message}</p>}
-                    </div> */}
-                
+                    </div>                
                 </div>
                 <div className="lg:w-[50%] px-4">
                     <div className="flex justify-between bg-primary rounded-lg text-xl text-white font-bold mb-2 py-2 px-6">
