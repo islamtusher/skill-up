@@ -7,31 +7,7 @@ const Signup = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
 
     const onSubmit = (data) => {
-        if (data.password === data.password_confirmation) {
-
-            // let myHeaders = new Headers();
-            // myHeaders.append("Accept", "application/json");
-            // myHeaders.append("Content-Type", "application/json");
-
-            // let raw = JSON.stringify({
-            //     "name": data.name,
-            //     "password": data.password,
-            //     "password_confirmation": data.password_confirmation,
-            //     "phone_no": data.phone_no,
-            // });
-
-            // let requestOptions = {
-            //     method: 'POST',
-            //     headers: myHeaders,
-            //     body:  JSON.stringify(data),
-            //     redirect: 'follow'
-            // };
-
-            // fetch("http://127.0.0.1:8000/api/register", requestOptions)
-            //     .then(response => response.text())
-            //     .then(result => console.log(result))
-            //     .catch(error => console.log('error', error));
-
+        if (data.password === data.password_confirmation) {            
             console.log('matched');
             fetch("http://127.0.0.1:8000/api/register", {
                 method: 'POST',
@@ -107,10 +83,10 @@ const Signup = () => {
                                             value: true,
                                             message: 'Password Must Required'
                                         },
-                                        pattern: {
-                                            value: /(?=.*[!@#$%^&*])/,
-                                            message: 'Need Minimum 1 Special Character'
-                                        },
+                                        // pattern: {
+                                        //     value: /(?=.*[!@#$%^&*])/,
+                                        //     message: 'Need Minimum 1 Special Character'
+                                        // },
                                         minLength: {
                                             value: 6,
                                             message: 'Need Minimum 6 characters'
