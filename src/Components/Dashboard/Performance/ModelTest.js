@@ -1,4 +1,6 @@
 import React from "react";
+import { useEffect } from "react";
+import { useState } from "react";
 import {
   Area,
   AreaChart,
@@ -17,53 +19,7 @@ import {
 } from "recharts";
 
 const ModelTest = () => {
-  //   const allSubjects = [
-  //     {
-  //       name: "Bangla",
-  //       modelTestMark: {
-  //         testOne: 50,
-  //         testTwo: 80,
-  //         testThree: 75,
-  //       },
-  //       amt: 100,
-  //     },
-  //     {
-  //       name: "English",
-  //       modelTestMark: {
-  //         testOne: 50,
-  //         testTwo: 80,
-  //         testThree: 75,
-  //       },
-  //       amt: 100,
-  //     },
-  //     {
-  //       name: "Physic",
-  //       modelTestMark: {
-  //         testOne: 50,
-  //         testTwo: 80,
-  //         testThree: 75,
-  //       },
-  //       amt: 100,
-  //     },
-  //     {
-  //       name: "Math",
-  //       modelTestMark: {
-  //         testOne: 50,
-  //         testTwo: 80,
-  //         testThree: 75,
-  //       },
-  //       amt: 100,
-  //     },
-  //     {
-  //       name: "Islam",
-  //       modelTestMark: {
-  //         testOne: 50,
-  //         testTwo: 80,
-  //         testThree: 75,
-  //       },
-  //       amt: 100,
-  //     },
-  //   ];
+
   const allSubjects = [
     {
       subject: "Bangla",
@@ -166,26 +122,93 @@ const ModelTest = () => {
       ],
     },
   ];
+
+  const [allAverage, setAllAverage] = useState([]);
+
+  useEffect(() => {
+    for (const sub of allSubjects) {
+      let sum = 0;
+      sub.modelTests.map((test) => {
+        sum += test.testMark;
+        return 0;
+      });
+      const average = sum / sub.modelTests.length;
+      setAllAverage((current) => [
+        ...current,
+        { name: sub.subject, mark: average, amt: 100 },
+      ]);
+    }
+  }, []);
+
   return (
-    <div>
-      <div className="py-20">
+    <div className="py-24">
+      <div className="flex flex-col justify-center items-center gap-y-4 mb-12 ">
+        <h1 className=" font-bold font-[jost] text-2xl text-center mb-4">
+          All Subjects Average Performance
+        </h1>
+        <div className="w-full lg:w-[600px] h-[350px] bg-white rounded-2xl shadow-xl pt-5 pb-2 pr-4">
+          <ResponsiveContainer>
+            <ComposedChart data={allAverage} margin={{ top: 20 }}>
+              <CartesianGrid />
+              <XAxis
+                dataKey="name"
+                scale="point"
+                padding={{ left: 20, right: 20 }}
+              />
+              <YAxis dataKey="amt" />
+              <Tooltip />
+              <Area type="monotone" dataKey="mark" fill="#82ca9d" />
+              <Bar
+                dataKey="mark"
+                barSize={20}
+                fill="#8884d8"
+                label={{ position: "top" }}
+              />
+              <Line type="monotone" dataKey="mark" stroke="#ff7300" />
+            </ComposedChart>
+          </ResponsiveContainer>
+        </div>
+        {/* <div className="">
+          <div className="overflow-x-auto">
+            <table className="table w-full">
+              <thead className="bg-black">
+                <tr>
+                  <th></th>
+                  <th>Subjects</th>
+                  <th>Mark</th>
+                  <th>Grade</th>
+                </tr>
+              </thead>
+              <tbody>
+                {allAverage.map((sub, index) => (
+                  <tr
+                    key={index}
+                    className={`${index % 2 === 0 ? "active" : ""}`}
+                  >
+                    <th>{index}</th>
+                    <td>{sub.name}</td>
+                    <td>{sub?.mark}</td>
+                    <td>Blue</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div> */}
+      </div>
+      <div className="">
         <h1 className="text-primary font-bold text-2xl text-center mb-4">
-          All Subjects Model Test
+          Performance On All Model Test
         </h1>
         <div className="grid lg:grid-cols-2 gap-y-12 ">
-          {/* <div className="flex flex-col lg:flex-row gap-y-12 "> */}
           {allSubjects.map((sub, index) => (
             <div
               key={index}
-              className="w-[100%] lg:w-[600px] h-[350px] lg:mx-4 bg-white rounded-2xl shadow-xl pt-5 pb-12 pr-2 "
+              className="w-[100%] lg:w-[600px] h-[350px] lg:mx-4 bg-white rounded-2xl shadow-xl pt-5 pb-12 pr-2"
             >
               <h1 className="text-xl font-bold  text-center mb-4">
                 {sub.subject} Model Tests
               </h1>
-              <h1 className="text-xl font-bold  text-center mb-4">
-                {/* {sub.modelTests.map(test=> )} */}
-              </h1>
-
               <ResponsiveContainer key={index}>
                 <ComposedChart data={sub.modelTests} margin={{ top: 20 }}>
                   <CartesianGrid />
@@ -209,7 +232,6 @@ const ModelTest = () => {
           ))}
         </div>
       </div>
-      <div className=""></div>
     </div>
   );
 };

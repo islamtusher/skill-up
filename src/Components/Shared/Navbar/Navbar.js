@@ -1,19 +1,20 @@
-import React, { useState } from "react";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { userLogout } from "../../../redux/apiCalls/apiCall";
+import './Navbar.css'
 
 const Navbar = () => {
-  const [token, setToken] = useState("");
   const navigate = useNavigate();
   const user = useSelector((state) => state.user.userInfo);
   const dispatch = useDispatch();
 
-  const handleLogOut = () => {
-    userLogout(dispatch, navigate);
-  };
+  //TODO: Handle User Log Out
+  const handleLogOut = () => userLogout(dispatch, navigate)
+  
   return (
-    <nav className="fixed top-0 left-0 right-0 z-20 bg-[#0099ff] ">
+    <nav className="fixed top-0 left-0 right-0 z-20 bg-white ">
       <div className="navbar max-w-[1320px] mx-auto ">
         <div className="navbar-start">
           <div className="dropdown">
@@ -32,6 +33,7 @@ const Navbar = () => {
                   d="M4 6h16M4 12h8m-8 6h16"
                 />
               </svg>
+              {/* E Acadimic */}
             </label>
             <ul
               tabIndex="0"
@@ -60,87 +62,301 @@ const Navbar = () => {
               </li>
             </ul>
           </div>
-          <Link
-            to=""
-            className="font-['Caveat_Brush'] text-3xl text-secondary font-bold"
-          >
-            SKILL UP
+          <Link to="" className="w-[100px] text-lg">
+            {/* <img src="https://shikho.com/shikho-logo.svg" alt="" /> */}
+            E Academic
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal font-[jost] text-white p-0">
-            <li>
-              <Link to="">Home</Link>
+          <ul className="menu menu-horizontal font-[jost] p-0">
+            <li className=" ">
+              <Link
+                className="font-bold tracking-[1px] px-3 hover:bg-transparent hover:text-success"
+                to=""
+              >
+                হোম
+              </Link>
             </li>
-            <li>
-              <Link to="">About Us</Link>
-            </li>
-            <li>
-              <Link to="/mcq">Quiz</Link>
-            </li>
-            <li>
-              <Link to="/dashboard/mcqChart">Dashboard</Link>
-            </li>
-            <li>
-              <Link to="">Courses</Link>
-            </li>
-            <li>
-              <Link to="">Teachers</Link>
-            </li>
-            <li>
-              <Link to="">Contact </Link>
-            </li>
+            {/* {user?.phone_no && ( */}
+            <>
+              <li>
+                <Link
+                  className="font-bold tracking-[1px] hover:bg-transparent hover:text-success px-2"
+                  to="/mcq"
+                >
+                  একাডেমিক
+                </Link>
+              </li>
+              <li className="">
+                <label
+                  tabIndex={0}
+                  className="font-bold tracking-[1px] hover:bg-transparent hover:text-success px-2 "
+                >
+                  আইসিটি স্কিলস
+                </label>
+                <ul
+                  tabIndex={0}
+                  className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+                >
+                  <li className=" dropdown-right text-black">
+                    <label tabIndex={0} className="">
+                      MS Office
+                    </label>
+                    <ul
+                      tabIndex={0}
+                      className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 "
+                    >
+                      <li>
+                        <Link className="" to="/msword">
+                          MS Word
+                        </Link>
+                      </li>
+                      <li>
+                        <Link className="" to="/msexcle">
+                          MS Excel
+                        </Link>
+                      </li>
+                      <li>
+                        <Link className="" to="/mspowerpoint">
+                          MS Power-Point
+                        </Link>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <Link className="text-black " to="webdesign">
+                      Web Design
+                    </Link>
+                    <Link className="text-black " to="graphicsdesign">
+                      Graphics Design
+                    </Link>
+                  </li>
+                </ul>
+              </li>
+              <li className=" ">
+                <label
+                  tabIndex={0}
+                  className="font-bold tracking-[1px] hover:bg-transparent hover:text-success px-2 "
+                >
+                  ল্যাংগুয়েজ স্কিলস
+                </label>
+                <ul
+                  tabIndex={0}
+                  className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 text-black"
+                >
+                  <li>
+                    <label tabIndex={0} className="">
+                      English
+                    </label>
+                    <ul
+                      tabIndex={0}
+                      className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 "
+                    >
+                      <li>
+                        <Link className="" to="/english/grammer">
+                          Grammar
+                        </Link>
+                      </li>
+                      <li>
+                        <Link className="" to="/english/spoken-english">
+                          Spoken English
+                        </Link>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <label tabIndex={0} className="">
+                      Arabic
+                    </label>
+                    <ul
+                      tabIndex={0}
+                      className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 "
+                    >
+                      <li>
+                        <Link className="" to="/quran/norani">
+                          Norani
+                        </Link>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <label
+                  tabIndex={0}
+                  className="font-bold tracking-[1px] hover:bg-transparent hover:text-success px-2"
+                >
+                  প্রফেশনাল ট্রেনিং
+                </label>
+                <ul
+                  tabIndex={0}
+                  className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 text-black"
+                >
+                  <li>
+                    <Link className="" to="">
+                      Account Management
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="" to="">
+                      Finance
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="" to="">
+                      Supply Chain
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="" to="">
+                      Personal Management
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="" to="">
+                      Emotional Intelligence
+                    </Link>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <Link
+                  to=""
+                  className="font-bold tracking-[1px] hover:bg-transparent hover:text-success px-2"
+                >
+                  এডমিশন টেস্ট
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to=""
+                  className="font-bold tracking-[1px] hover:bg-transparent hover:text-success px-2"
+                >
+                  আমাদের সম্পর্কে
+                </Link>
+              </li>
+            </>
+            {/* )} */}
           </ul>
         </div>
         <div className="navbar-end">
           <div className="">
-            {user?.phone && (
-              <label tabIndex="0" className="btn btn-ghost btn-circle">
-                <div className="indicator">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-                    />
-                  </svg>
-                  <span className="badge badge-sm indicator-item">8</span>
+            {user?.name ? (
+              <>
+                <div className="flex justify-center">
+                  <div>
+                    <div className="dropdown relative">
+                      <Link
+                        to=""
+                        className="
+                        dropdown-toggle
+                        px-4
+                        py-2.5
+                        bg-success
+                        text-white
+                        font-medium
+                        leading-tight
+                        uppercase
+                        rounded
+                        hover:bg-blue-700
+                        focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0                       
+                        transition
+                        duration-150
+                        ease-in-out
+                        flex
+                        items-center
+                        whitespace-nowrap
+                      "
+                        type="button"
+                        id="dropdownMenuButton2"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      >
+                        <FontAwesomeIcon className="w-[30px]" icon={faUser} />
+                        {user?.name}
+                        <svg
+                          aria-hidden="true"
+                          focusable="false"
+                          data-prefix="fas"
+                          data-icon="caret-down"
+                          className="w-2 ml-2"
+                          role="img"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 320 512"
+                        >
+                          <path
+                            fill="currentColor"
+                            d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                          ></path>
+                        </svg>
+                      </Link>
+                      <ul
+                        className="
+                        dropdown-menu
+                        w-[194px]
+                        absolute
+                        hidden
+                        bg-white
+                        text-base
+                        z-50
+                        py-2
+                        text-left
+                        rounded-lg
+                        shadow-lg
+                        hidden
+                        m-0
+                        bg-clip-padding
+                        border-none
+                      "
+                        aria-labelledby="dropdownMenuButton2"
+                      >
+                        <li
+                          onClick={() => navigate("/dashboard/mcqChart")}
+                          className="
+                            dropdown-item
+                            text-sm
+                            py-2
+                            px-4
+                            w-full
+                            bg-transparent
+                            text-gray-700
+                            hover:bg-gray-100
+                            hover:cursor-pointer                            
+                          "
+                        >
+                          ডেসবোর্ড
+                        </li>
+                        <li
+                          onClick={handleLogOut}
+                          className="
+                            dropdown-item
+                            text-sm
+                            py-2
+                            px-4
+                            w-full
+                            bg-transparent
+                            text-gray-700
+                            hover:bg-gray-100
+                            hover:cursor-pointer                            
+                          "
+                        >
+                          লগ আউট
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
-              </label>
-            )}
-          </div>
-          <div className="">
-            {user ? (
-              <div className="flex items-center font-[jost] text-xl gap-x-4">
-                <img
-                  className="rounded-full w-10"
-                  src="https://placeimg.com/80/80/people"
-                  alt=""
-                />
-                <button
-                  onClick={handleLogOut}
-                  className="text-white bg-transparent py-0 mr-2"
-                >
-                  Logout
-                </button>
-              </div>
+              </>
             ) : (
-              <div className="flex items-center font-[jost] text-xl">
+              <div className="flex gap-x-4 items-center font-[jost]">
                 <Link to="/login">
-                  <button className="text-white bg-transparent py-0 mr-2">
-                    Login
+                  <button className="text-white bg-primary py-2 px-6 rounded text-lg mr-2">
+                    লগ ইন
                   </button>
                 </Link>
                 <Link to="/signup">
-                  <button className="text-white bg-transparent py-0 ">
-                    Sign-Up
+                  <button className="text-white bg-primary py-2 px-6 rounded text-lg  ">
+                    সাইন আপ
                   </button>
                 </Link>
               </div>

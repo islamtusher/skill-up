@@ -3,25 +3,30 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../redux/apiCalls/apiCall";
+import Loading from "../Loading/Loading";
 
 const Login = () => {
   const navigate = useNavigate();
-  // react form hook
   const {
     register,
     reset,
     formState: { errors },
     handleSubmit,
-  } = useForm();
+  } = useForm(); // react form hook
 
   // Redux Toolkit
-  const userInfo = useSelector((state) => state.user.userInfo);
+  const loading = useSelector((state) => state.user.panding);
   const dispatch = useDispatch();
 
   // User Login Handler
   const onSubmit = (data) => {
     loginUser(data, dispatch, reset, navigate);
   };
+
+  // Show Loading on login panding
+  // if (loading) {
+  //   return <Loading></Loading>;
+  // }
   return (
     <div className="hero min-h-secreen lg:w-3/4 mx-auto pt-20">
       <div className="hero-content flex-col lg:flex-row-reverse items-center">

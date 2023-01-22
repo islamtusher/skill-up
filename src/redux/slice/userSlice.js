@@ -6,22 +6,22 @@ export const userSlice = createSlice({
     userInfo: null,
     panding: false,
     error: false,
-    token: null,
   },
   reducers: {
     loginStart: (state) => {
       state.panding = true;
+      state.error = false;
     },
     loginSuccess: (state, action) => {
       state.panding = false;
       state.userInfo = action.payload;
+      state.error = false;
     },
     loginError: (state) => {
       state.error = true;
       state.panding = false;
     },
     logOut: (state) => {
-      state.token = null;
       state.userInfo = null;
     },
   },

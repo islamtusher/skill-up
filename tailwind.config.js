@@ -2,15 +2,17 @@
 module.exports = {
   content: [
     "./src/**/*.{html,js}",
-    "./node_modules/tw-elements/dist/js/**/*.js"
+    "./node_modules/tw-elements/dist/js/**/*.js",
   ],
   theme: {
     extend: {
       colors: {
-        'primary': '#0099ff',
-        'secondary': '#02f5e9',
+        main: "#100d63",
+        // primary: "#0099ff",
+        success: "#0099ff",
+        secondary: "#028ce8",
       },
-    }
+    },
   },
-  plugins: [require("daisyui"), require('tw-elements/dist/plugin')]
-}
+  plugins: [require("daisyui"), require("tw-elements/dist/plugin")],
+};

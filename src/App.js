@@ -10,8 +10,24 @@ import Login from "./Components/Login/Login";
 import Dashboard from "./Components/Dashboard/Dashboard";
 import McqChart from "./Components/Dashboard/Performance/McqChart";
 import MyProfile from "./Components/Dashboard/MyProfile/MyProfile";
-import TeacherPortal from "./Components/Dashboard/TeacherPortal/TeacherPortal";
 import ModelTest from "./Components/Dashboard/Performance/ModelTest";
+import QusestionUpload from "./Components/Dashboard/TeacherPortal/QusestionUpload";
+import { ToastContainer } from "react-toastify";
+import Classes from "./Components/Dashboard/StudyMaterial/Class/Classes";
+import ClassEdit from "./Components/Dashboard/StudyMaterial/Class/ClassEdit";
+import MsWord from "./Components/ICT_Skills/MS_Office/MsWord";
+import MsExcle from "./Components/ICT_Skills/MS_Office/MsExcle";
+import MsPowerpoint from "./Components/ICT_Skills/MS_Office/MsPowerpoint";
+import Grammar from "./Components/Language_Skills/English/Grammer";
+import SpokenEnglish from "./Components/Language_Skills/English/SpokenEnglish";
+import Norani from "./Components/Language_Skills/Arabic/Norani";
+import WebDesign from "./Components/ICT_Skills/WebDesign/WebDesign";
+import GraphicsDesign from "./Components/ICT_Skills/GraphicsDesign/GraphicsDesign";
+import Staffs from "./Components/Dashboard/TeacherPortal/Staffs/Staffs";
+import AssignTeacher from "./Components/Dashboard/TeacherPortal/AssignTeacher/AssignTeacher";
+import StaffsEdit from "./Components/Dashboard/TeacherPortal/Staffs/StaffsEdit";
+import Subjects from "./Components/Dashboard/StudyMaterial/Subject/Subjects";
+import AllChapters from "./Components/Dashboard/StudyMaterial/AllChapter/AllChapters";
 
 function App() {
   return (
@@ -21,21 +37,55 @@ function App() {
         <Route path="/" element={<Home></Home>}></Route>
         <Route path="/mcq" element={<Mcq></Mcq>}></Route>
         <Route
-          path="/class-:id/:subject"
+          path="/exam-type-:examType/:subjectId"
           element={<Chapters></Chapters>}
         ></Route>
-        <Route path="/dashboard" element={<Dashboard></Dashboard>}>
-          <Route path="mcqChart" element={<McqChart></McqChart>}></Route>
-          <Route path="modelTest" element={<ModelTest></ModelTest>}></Route>
-          <Route path="myprofile" element={<MyProfile></MyProfile>}></Route>
-          <Route
-            path="teacherPortal"
-            element={<TeacherPortal></TeacherPortal>}
-          ></Route>
+        <Route path="/dashboard" element={<Dashboard />}>
+          <Route path="mcqChart" element={<McqChart />}></Route>
+          <Route path="modelTest" element={<ModelTest />}></Route>
+          <Route path="myprofile" element={<MyProfile />}></Route>
+          <Route path="classes" element={<Classes />}></Route>
+          <Route path="class-edit/:id" element={<ClassEdit />}></Route>
+          <Route path="subjects" element={<Subjects />}></Route>
+          <Route path="chapters" element={<AllChapters />}></Route>
+          <Route path="addQuestion" element={<QusestionUpload />}></Route>
+          <Route path="staffs" element={<Staffs />}></Route>
+          <Route path="staffsEdit/:id" element={<StaffsEdit />}></Route>
+          <Route path="assignTeacher" element={<AssignTeacher />}></Route>
+          {/* <Route path="addQuestion" element={<TeacherPortal></TeacherPortal>}> */}
+          {/* </Route> */}
         </Route>
-        <Route path="/signup" element={<Signup></Signup>}></Route>
-        <Route path="/login" element={<Login></Login>}></Route>
+
+        <Route path="/msword" element={<MsWord />}></Route>
+        <Route path="/msexcle" element={<MsExcle />}></Route>
+        <Route path="/mspowerpoint" element={<MsPowerpoint />}></Route>
+        <Route path="/webdesign" element={<WebDesign />}></Route>
+        <Route path="/graphicsdesign" element={<GraphicsDesign />}></Route>
+
+        <Route path="/english/grammer" element={<Grammar />}></Route>
+        <Route
+          path="/english/spoken-english"
+          element={<SpokenEnglish />}
+        ></Route>
+
+        <Route path="/quran/norani" element={<Norani />}></Route>
+
+        <Route path="/signup" element={<Signup />}></Route>
+        <Route path="/login" element={<Login />}></Route>
       </Routes>
+
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </div>
   );
 }

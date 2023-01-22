@@ -6,320 +6,153 @@ import {
   faArrowRightLong,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import API from "../../../Network/API";
 import ShowCorrectAns from "../ShowCorrectAns/ShowCorrectAns";
+import { useDispatch, useSelector } from "react-redux";
+import { getStudentExamScore } from "../../../redux/apiCalls/apiCall";
+import Billing from "./Billing";
+import { paySuccess } from "../../../redux/slice/billingSlice";
+import { toast } from "react-toastify";
+import Loading from "../../Loading/Loading";
 
 const Chapters = () => {
-  const { id, subject } = useParams();
-  const {
-    handleSubmit,
-    register,
-    reset,
-    formState: { errors },
-  } = useForm(); // react form hook
+  const {subjectId, examType } = useParams();
+  const {handleSubmit, register, reset, formState: { errors }} = useForm(); // react form hook
 
-  const [currentChapter, setCurrentChapter] = useState(1);
+  const [currentSubject, setCurrentSubject] = useState(" ");
+  const [currentChapterId, setCurrentChapterId] = useState(null);
+  const [currentChapter, setCurrentChapter] = useState(0);
+  const [chapters, setChapters] = useState([]);
+  const [currentChapterQuestions, setCurrentChapterQuestions] = useState([]);
+
+  const [examId, setExamId] = useState([]);
   const [questionNo, setQuestionNo] = useState(0);
-  const [selectedAns, setSelectedAns] = useState([]);
+  const [selectedAns, setSelectedAns] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
-  const [correctAnsCount, setCorrectAnsCount] = useState(0);
   const [IsShowCorrectAns, setIsShowCorrectAns] = useState(false);
+  const [isMcqStart, setIsMcqStart] = useState(true);
+  const [correctAnsCount, setCorrectAnsCount] = useState(0);
+  const [isBelling, setBelling] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  // fake data Chapters
-  const chapters = [
-    { id: 1, chapterName: "1st" },
-    { id: 2, chapterName: "2nd" },
-    { id: 3, chapterName: "3rd" },
-    { id: 4, chapterName: "4th" },
-    { id: 5, chapterName: "5th" },
-    { id: 6, chapterName: "6th" },
-    { id: 7, chapterName: "7th" },
-    { id: 8, chapterName: "8th" },
-    { id: 9, chapterName: "9th" },
-  ];
+  const dispatch = useDispatch();
 
-  const allChapterQuestions = [
-    [
-      {
-        id: 1,
-        question: "What is the Capital of Bangladesh",
-        options: [
-          { optionId: 1, option: "Dhaka" },
-          { optionId: 2, option: "Rajshahi" },
-          { optionId: 3, option: "Barishal" },
-          { optionId: 4, option: "Comilla" },
-        ],
-        correctAns: "Dhaka",
-      },
-      {
-        id: 2,
-        question: "What is the Capital of India",
-        options: [
-          { optionId: 1, option: "Delhi" },
-          { optionId: 2, option: "Chennai" },
-          { optionId: 3, option: "Kalkata" },
-          { optionId: 4, option: "Mumbai" },
-        ],
-        correctAns: "Delhi",
-      },
-      {
-        id: 3,
-        question: "What is the Capital of Pakistan",
-        options: [
-          { optionId: 1, option: "Islamabad" },
-          { optionId: 2, option: "Lahor" },
-          { optionId: 3, option: "Karachi" },
-          { optionId: 4, option: "Multan" },
-        ],
-        correctAns: "Lahor",
-      },
-    ],
+  //test: testing the redux state for billPaid submit 
+  // const billPaid = useSelector((state) => state.billing.billPaid);
+  // console.log(currentChapterQuestions);
+  // useMemo(() => {
+  //   if (!billPaid) {
+  //     // console.log(billPaid, 'useMemo');
+  //     setBelling(false);
+  //   }
+  // }, [billPaid]);
 
-    [
-      {
-        id: 1,
-        question: "This is the Question No 1",
-        options: [
-          { optionId: 1, option: "option-1" },
-          { optionId: 2, option: "option-2" },
-        ],
-      },
-      {
-        id: 2,
-        question: "This is the Question No 2",
-        options: [
-          { optionId: 1, option: "option-1" },
-          { optionId: 2, option: "option-2" },
-          { optionId: 3, option: "option-3" },
-        ],
-      },
-      {
-        id: 3,
-        question: "This is the Question No 3",
-        options: [
-          { optionId: 1, option: "option-1" },
-          { optionId: 2, option: "option-2" },
-          { optionId: 3, option: "option-3" },
-          { optionId: 4, option: "option-4" },
-        ],
-      },
-      {
-        id: 4,
-        question: "This is the Question No 4",
-        options: [
-          { optionId: 1, option: "option-1" },
-          { optionId: 2, option: "option-2" },
-          { optionId: 3, option: "option-3" },
-        ],
-      },
-      {
-        id: 5,
-        question: "This is the Question No 5",
-        options: [
-          { optionId: 1, option: "option-1" },
-          { optionId: 2, option: "option-2" },
-        ],
-      },
-    ],
+  //TODO: Chapter data load
+  useEffect(() => {
+    (async () => {
+      const { data } = await API.get(`subject_wise_chapter/${subjectId}`);
+      setChapters(data.data.chapters);
+      setCurrentSubject(data.data.subject);
+    })();
+  }, [subjectId]);
+  console.log(chapters);
 
-    [
-      {
-        id: 1,
-        question: "This is the Question No 1",
-        options: [
-          { optionId: 1, option: "option-1" },
-          { optionId: 2, option: "option-2" },
-          { optionId: 3, option: "option-3" },
-          { optionId: 4, option: "option-4" },
-        ],
-      },
-      {
-        id: 2,
-        question: "This is the Question No 2",
-        options: [
-          { optionId: 1, option: "option-1" },
-          { optionId: 2, option: "option-2" },
-          { optionId: 3, option: "option-3" },
-        ],
-      },
-      {
-        id: 3,
-        question: "This is the Question No 3",
-        options: [
-          { optionId: 1, option: "option-1" },
-          { optionId: 2, option: "option-2" },
-        ],
-      },
-      {
-        id: 4,
-        question: "This is the Question No 4",
-        options: [
-          { optionId: 1, option: "option-1" },
-          { optionId: 2, option: "option-2" },
-          { optionId: 3, option: "option-3" },
-        ],
-      },
-      {
-        id: 5,
-        question: "This is the Question No 5",
-        options: [
-          { optionId: 1, option: "option-1" },
-          { optionId: 2, option: "option-2" },
-        ],
-      },
-    ],
-    [
-      {
-        id: 1,
-        question: "This is the Question No 1",
-        options: [
-          { optionId: 1, option: "option-1" },
-          { optionId: 2, option: "option-2" },
-          { optionId: 3, option: "option-3" },
-        ],
-      },
-      {
-        id: 2,
-        question: "This is the Question No 2",
-        options: [
-          { optionId: 1, option: "option-1" },
-          { optionId: 2, option: "option-2" },
-        ],
-      },
-      {
-        id: 3,
-        question: "This is the Question No 3",
-        options: [
-          { optionId: 1, option: "option-1" },
-          { optionId: 2, option: "option-2" },
-          { optionId: 3, option: "option-3" },
-          { optionId: 4, option: "option-4" },
-        ],
-      },
-      {
-        id: 4,
-        question: "This is the Question No 4",
-        options: [
-          { optionId: 1, option: "option-1" },
-          { optionId: 2, option: "option-2" },
-          { optionId: 3, option: "option-3" },
-        ],
-      },
-      {
-        id: 5,
-        question: "This is the Question No 5",
-        options: [
-          { optionId: 1, option: "option-1" },
-          { optionId: 2, option: "option-2" },
-        ],
-      },
-    ],
-    [
-      {
-        id: 1,
-        question: "This is the Question No 1",
-        options: [
-          { optionId: 1, option: "option-1" },
-          { optionId: 2, option: "option-2" },
-        ],
-      },
-      {
-        id: 2,
-        question: "This is the Question No 2",
-        options: [
-          { optionId: 1, option: "option-1" },
-          { optionId: 2, option: "option-2" },
-          { optionId: 3, option: "option-3" },
-        ],
-      },
-      {
-        id: 3,
-        question: "This is the Question No 3",
-        options: [
-          { optionId: 1, option: "option-1" },
-          { optionId: 2, option: "option-2" },
-          { optionId: 3, option: "option-3" },
-          { optionId: 4, option: "option-4" },
-        ],
-      },
-      {
-        id: 4,
-        question: "This is the Question No 4",
-        options: [
-          { optionId: 1, option: "option-1" },
-          { optionId: 2, option: "option-2" },
-          { optionId: 3, option: "option-3" },
-        ],
-      },
-      {
-        id: 5,
-        question: "This is the Question No 5",
-        options: [
-          { optionId: 1, option: "option-1" },
-          { optionId: 2, option: "option-2" },
-        ],
-      },
-    ],
-  ];
+  //TODO: Handle bill Paid submit
+  const onBillPayment = async() => { 
+    setBelling(false)
+    setIsLoading(true);
+    const { data } = await API.post(`/start_exam`, {
+      chapters_id: currentChapterId,
+      exam_type_id: examType,
+    });
+    setCurrentChapterQuestions(data.data.questions);
+    setIsMcqStart(false);
+    setExamId(data.data.exam_id);
+    setIsLoading(false);
+  }
 
-  // Handle chapter list onClick
-  const handleChapter = (id) => {
+  //TODO: Handle chapter list onClick
+  const handleChapter = async (chapterInfo) => {
+    // console.log(chapterInfo);
+    setBelling(true);
+    setCurrentChapter(chapterInfo?.name);
+    // setCurrentChapter(parseInt(chapterInfo?.name?.split(" ")[1]));
+    setCurrentChapterId(chapterInfo?.uuid);
     reset();
-    setCurrentChapter(id);
     setQuestionNo(0);
+    setIsMcqStart(true);
     setIsSubmit(false);
     setSubmitSuccess(false);
     setCorrectAnsCount(0);
     setSelectedAns([]);
     setIsShowCorrectAns(false);
+    
   };
 
-  // handle Previous Btn
-  const handlePreviousBtn = (data) => {
+  //TODO: handle Previous Btn
+  const handlePreviousBtn = (questionUuid) => {
     reset();
     setQuestionNo((count) => count - 1);
-    selectedAns.pop();
+    delete selectedAns[questionUuid];
     setIsSubmit(false);
   };
 
-  // set Submit btn on last question
+  //* NOt Used 
+  //TODO: Handle MCQ Start button
+  const handleMcqStart = async () => {
+    setIsLoading(true)
+    const { data } = await API.post(`/start_exam`, {
+      chapters_id: currentChapterId,
+      exam_type_id: examType,
+    });
+    setIsMcqStart(false);
+    setExamId(data.data.exam_id);
+    setCurrentChapterQuestions(data.data.questions);
+    setIsLoading(false)
+  };
+
+  //TODO: set Submit btn on last question
   useEffect(() => {
-    if (questionNo + 1 === allChapterQuestions[currentChapter - 1].length) {
+    if (questionNo + 1 === currentChapterQuestions?.length) {
       setIsSubmit(true);
     }
-  }, [questionNo]);
+  }, [questionNo, currentChapterQuestions]);
 
-  // handle from submition
-  const onSubmit = (data) => {
-    console.log(data);
+  //TODO:  handle from submition
+  const onSubmit = async (formData) => {
+    setSelectedAns({
+      ...selectedAns,
+      [currentChapterQuestions[questionNo]?.uuid]: formData.option,
+    }); // Push ans on ans-array
     if (isSubmit) {
-      setSelectedAns([
-        ...selectedAns,
-        { qestionNo: questionNo + 1, answer: data.option },
-      ]); // Push ans on ans-array
       setSubmitSuccess(true); // for success message
       return;
     }
     setQuestionNo(questionNo + 1); // read questons one by one
-    setSelectedAns([
-      ...selectedAns,
-      { qestionNo: questionNo + 1, answer: data.option },
-    ]); // Push ans on ans-array
     reset();
   };
 
-  // handle submit success view
+  //TODO:  Load MCQ Score
+  useMemo(() => {
+    if (submitSuccess) {
+      getStudentExamScore(examId, selectedAns, dispatch);
+    }
+  }, [submitSuccess]);
+
+  //TODO: handle submit success view
   useMemo(() => {
     let count = 0;
     if (submitSuccess) {
-      allChapterQuestions[currentChapter - 1].map((question) => {
+      currentChapterQuestions.map((question) => {
         if (
-          question.correctAns.toLowerCase() ===
-          selectedAns[count].answer.toLowerCase()
+          question?.answer?.toLowerCase() ===
+          selectedAns[question.uuid].toLowerCase()
         ) {
           setCorrectAnsCount((correctAnsCount) => correctAnsCount + 1);
         }
         count = count + 1;
+        return 0
       });
     }
   }, [submitSuccess]);
@@ -327,184 +160,434 @@ const Chapters = () => {
   return (
     <div className='min-h-screen mx-auto font-["jost"] bg-slate-100 pt-[100px] pb-[30px]'>
       <div className="flex flex-col-reverse lg:flex-row lg:justify-around lg:items-start ">
+        {/* Chapters List */}
         <div className="px-4 mt-16 lg:mt-0">
           <div className="">
             <h1 className="text-xl font-bold mb-2">
-              Subject :<span className="text-primary"> {subject} </span>{" "}
+              বিষয় :<span className="text-success"> {currentSubject} </span>{" "}
             </h1>
-            <div className=" h-[550px] overflow-y-scroll">
+            <div className="max-h-[550px] overflow-y-auto">
               <ul className="flex flex-col gap-y-4">
                 {chapters.map((chapter) => (
                   <li
-                    key={chapter.id}
-                    onClick={() => handleChapter(chapter.id)}
-                    className={`${
-                      currentChapter === chapter.id
-                        ? "bg-white hover:bg-slate-50 hover:border-primary text-black"
-                        : "bg-primary hover:bg-sky-600"
-                    } 
-                                        w-full lg:w-[300px] duration-300  text-white border-2 rounded-lg p-6 shadow-xl hover:cursor-pointer`}
+                    key={chapter.uuid}
+                    onClick={() => handleChapter(chapter)}
+                    className={`
+                      w-full lg:w-[300px] duration-300 text-white text-xl border-2 rounded-lg p-4 font-bold shadow-xl hover:cursor-pointer
+                      ${
+                        currentChapterId === chapter?.uuid
+                          ? "bg-white hover:bg-slate-50 hover:border-primary text-black"
+                          : "bg-success hover:bg-sky-600"
+                      }`}
                   >
-                    Chapter {chapter.chapterName}
+                    {chapter.name}
                   </li>
                 ))}
               </ul>
             </div>
           </div>
         </div>
-        <div className="lg:w-[50%] px-4">
-          <div className="flex justify-between bg-primary rounded-lg text-xl text-white font-bold mb-2 py-2 px-6">
-            <h1>Chapter : {currentChapter}</h1>
-            <h1>
-              Question: {questionNo + 1} /{" "}
-              {allChapterQuestions[currentChapter - 1].length}
-            </h1>
-          </div>
+        {/* Question-Answer part */}
+        <div className="lg:w-[50%] px-4 ">
+          {!isMcqStart && ( // header
+            <div className=" flex justify-between bg-success rounded-lg text-xl text-white font-bold mb-2 py-2 px-6">
+              <h1>{currentChapter}</h1>
+              <h1>
+                প্রশ্ন : {questionNo + 1} / {currentChapterQuestions?.length}
+              </h1>
+            </div>
+          )}
           <div
-            className={`lg:h-[540px] bg-white rounded-xl shadow-2xl border-primary py-10 lg:py-4 px-4 lg:px-32 ${
-              IsShowCorrectAns && "overflow-y-scroll"
-            }`}
+            className={`bg-[url('https://i.ibb.co/K0vqn7p/wave.png')] bg-contain bg-no-repeat bg-bottom lg:h-[540px] bg-white rounded-xl shadow-2xl border-primary py-10 lg:py-4 px-4 lg:px-32 
+              ${IsShowCorrectAns && "overflow-y-scroll"}
+              ${isMcqStart && "flex items-center justify-center"}`}
           >
-            {IsShowCorrectAns ? ( // show correct ans part
-              <ShowCorrectAns
-                currentChapterQuestions={
-                  allChapterQuestions[currentChapter - 1]
-                }
-                selectedAns={selectedAns}
-              ></ShowCorrectAns>
-            ) : (
-              // show MCQ part
-              <>
-                {submitSuccess ? ( // show mcq done successflly
-                  <div className="flex flex-col items-center justify-center text-center gap-y-2">
-                    <div>
-                      <img
-                        src="../images/tropy.png"
-                        className="w-40 mx-auto"
-                        alt=""
-                      />
-                      <h1 className="text-2xl font-bold mb-4">
-                        MCQ On Chapter {currentChapter}
-                      </h1>
-                    </div>
-                    <h1 className="text-xl ">
-                      Your Score <br />{" "}
-                      <span className=" text-3xl font-bold text-green-600 ">{`${correctAnsCount} / ${
-                        allChapterQuestions[currentChapter - 1].length
-                      }`}</span>
-                    </h1>
-                    <p
-                      onClick={() => setIsShowCorrectAns(true)}
-                      className="w-[230px] font-[jost] flex items-center justify-between mt-4 border-b-2 border-zinc-500 hover:text-primary hover:border-primary hover:cursor-pointer transition ease-in-out duration-300"
-                    >
-                      <span className="text-lg tracking-[2px]">
-                        See Correct Answers
-                      </span>
-                      <FontAwesomeIcon
-                        className=" text-sm mt-1"
-                        icon={faArrowRightLong}
-                      />
-                    </p>
-                    <p
-                      onClick={() => handleChapter(currentChapter + 1)}
-                      className="w-[210px] font-[jost] flex items-center justify-between mt-4 border-b-2 border-zinc-500 hover:text-primary hover:border-primary hover:cursor-pointer transition ease-in-out duration-300"
-                    >
-                      <span className="text-lg tracking-[2px]">
-                        Next Chapter MCQ
-                      </span>
-                      <FontAwesomeIcon
-                        className=" text-sm mt-1"
-                        icon={faArrowRightLong}
-                      />
-                    </p>
-                  </div>
+            {currentChapter === 0 ? (
+              <div className="flex flex-col gap-y-2 text-center">
+                <p className="text-2xl">
+                  বিষয় :{" "}
+                  <span className="text-success font-bold ">
+                    {" "}
+                    {currentSubject}{" "}
+                  </span>
+                </p>
+                {currentChapter === 0 ? (
+                  <p className="text-red-500 text-xl font-bold">
+                    অধ্যায় নির্বাচন কর
+                  </p>
                 ) : (
-                  // MCQ form
-                  <form
-                    onSubmit={handleSubmit(onSubmit)}
-                    className=" flex flex-col gap-y-6"
-                  >
-                    <h1 className="font-bold text-xl text-primary">
-                      {questionNo + 1}.{" "}
-                      {
-                        allChapterQuestions[currentChapter - 1][questionNo]
-                          ?.question
-                      }{" "}
-                      ?
-                    </h1>
-                    <div>
-                      <div className="flex flex-col gap-y-3">
-                        {
-                          // Loop on Options
-                          allChapterQuestions[currentChapter - 1][
-                            questionNo
-                          ]?.options.map((opt) => (
-                            <label
-                              key={opt.optionId}
-                              className=" cursor-pointer flex items-center text-lg border-2 bg-slate-100 hover:bg-slate-200 rounded p-4"
-                            >
-                              <input
-                                type="radio"
-                                id={
-                                  allChapterQuestions[currentChapter - 1][
-                                    questionNo
-                                  ]?.id
-                                }
-                                defaultValue={opt.option}
-                                className="radio mr-3 radio-primary bg-white "
-                                {...register(`option`, {
-                                  required: {
-                                    value: true,
-                                    message: "Please Select an Option",
-                                  },
-                                })}
-                              />
-                              <span className="font-bold">{opt.option}</span>
-                            </label>
-                          ))
-                        }
+                  <p className="text-[23px]">Start the MCQ</p>
+                )}
+                {!currentChapter === 0 && (
+                  <button onClick={() => setIsMcqStart(true)}>Start MCQ</button>
+                )}
+              </div>
+            ) : (
+              <div>
+                <div>
+                  {isBelling ? ( // Show Billing payment
+                    // <Billing
+                    //   examType={examType}
+                    //   chapter={currentChapter}
+                    // ></Billing>
+                    <form
+                      onSubmit={handleSubmit(onBillPayment)}
+                      className="flex flex-col gap-y-4"
+                    >
+                      <h1 className="text-2xl font-bold text-success">
+                        Please Pay for This Exam
+                      </h1>
+                      <div className="form-control w-full mx-auto max-w-xs">
+                        <label className="label">
+                          <span className="label-text text-lg">
+                            Give Card No
+                          </span>
+                        </label>
+                        <input
+                          type="text"
+                          className="input border-black focus:outline-0 focus:border-primary rounded"
+                          {...register("card_number", {
+                            required: {
+                              value: true,
+                              message: "Please Give your Card No",
+                            },
+                          })}
+                        />
+                        {errors?.cardNo?.type === "required" && (
+                          <p className="text-red-500">
+                            {errors?.cardNo?.message}
+                          </p>
+                        )}
                       </div>
-                      <p className="text-red-500">{errors.option?.message}</p>
-                      <div className="flex items-center justify-between gap-x-4 mt-2">
-                        {
-                          // Previous Button
-                          questionNo > 0 ? (
-                            <p
-                              onClick={handlePreviousBtn}
-                              className="w-[110px] font-[jost] flex items-center justify-between border-b-2 border-zinc-500 hover:text-primary hover:border-primary hover:cursor-pointer transition ease-in-out duration-300"
-                            >
-                              <FontAwesomeIcon
-                                className=" text-sm mt-1"
-                                icon={faArrowLeftLong}
-                              />
-                              <span className="text-lg tracking-[2px]">
-                                Previous
-                              </span>
-                            </p>
-                          ) : (
-                            <div className=""></div>
-                          )
-                        }
-                        {/* Next Button */}
+                      <div className="form-control w-full mx-auto max-w-xs">
+                        <label className="label">
+                          <span className="label-text text-lg">
+                            Card Pin No
+                          </span>
+                        </label>
+                        <input
+                          type="text"
+                          className="input border-black focus:outline-0 focus:border-primary rounded"
+                          {...register("pinNo", {
+                            required: {
+                              value: true,
+                              message: "Please Give your Card Pin No",
+                            },
+                          })}
+                        />
+                        {errors?.pinNo?.type === "required" && (
+                          <p className="text-red-500">
+                            {errors?.pinNo?.message}
+                          </p>
+                        )}
+                      </div>
+                      <div className="">
                         <button
                           type="submit"
-                          className={`${
-                            isSubmit ? " w-[92px]" : " w-[70px]"
-                          } text-lg font-[jost] flex items-center justify-between border-b-2 border-zinc-500 hover:text-primary hover:border-primary hover:cursor-pointer transition ease-in-out duration-300`}
+                          // onClick={handleBillPay}
+                          className={`btn mx-auto w-[150px] bg-success`}
                         >
-                          <span className="tracking-[2px]">
-                            {isSubmit ? "Submit" : "Next"}
-                          </span>
-                          <FontAwesomeIcon
-                            className="ml-1"
-                            icon={faArrowRightLong}
-                          />
+                          Bill Pay
                         </button>
                       </div>
+                    </form>
+                  ) : isLoading ? (
+                    <Loading />
+                  ) : (
+                    <div>
+                      {IsShowCorrectAns ? ( // show correct ans part
+                        <ShowCorrectAns
+                          currentChapterQuestions={currentChapterQuestions}
+                          selectedAns={selectedAns}
+                        ></ShowCorrectAns>
+                      ) : (
+                        // show MCQ part
+                        <>
+                          {submitSuccess ? ( // show mcq done successflly
+                            <div className="flex flex-col items-center justify-center text-center gap-y-2">
+                              <div>
+                                <img
+                                  src="../images/tropy.png"
+                                  className="w-40 mx-auto"
+                                  alt=""
+                                />
+                                <h1 className="text-2xl font-bold my-4">{currentChapter}</h1>
+                              </div>
+                              <h1 className="text-xl ">
+                                Your Score <br />{" "}
+                                <span className=" text-3xl font-bold text-green-600 ">{`${correctAnsCount} / ${currentChapterQuestions?.length}`}</span>
+                              </h1>
+                              <p
+                                onClick={() => setIsShowCorrectAns(true)}
+                                className="w-[230px] font-[jost] flex items-center justify-between mt-4 border-b-2 border-zinc-500 hover:text-success hover:border-primary hover:cursor-pointer transition ease-in-out duration-300"
+                              >
+                                <span className="text-lg tracking-[2px]">
+                                  See Correct Answers
+                                </span>
+                                <FontAwesomeIcon
+                                  className=" text-sm mt-1"
+                                  icon={faArrowRightLong}
+                                />
+                              </p>
+                              {chapters.length > currentChapter && (
+                                <p
+                                  onClick={() =>
+                                    handleChapter(chapters[currentChapter])
+                                  }
+                                  className="w-[210px] font-[jost] flex items-center justify-between mt-4 border-b-2 border-zinc-500 hover:text-success hover:border-primary hover:cursor-pointer transition ease-in-out duration-300"
+                                >
+                                  <span className="text-lg tracking-[2px]">
+                                    Next Chapter MCQ
+                                  </span>
+                                  <FontAwesomeIcon
+                                    className=" text-sm mt-1"
+                                    icon={faArrowRightLong}
+                                  />
+                                </p>
+                              )}
+                            </div>
+                          ) : (
+                            // MCQ form
+                            <form
+                              onSubmit={handleSubmit(onSubmit)}
+                              className=" flex flex-col gap-y-6"
+                            >
+                              <h1 className="font-bold text-xl text-sky-500">
+                                {`${questionNo + 1}. `}
+                                {
+                                  currentChapterQuestions[questionNo]?.question
+                                }{" "}
+                                ?
+                              </h1>
+                              <div>
+                                <div className="flex flex-col gap-y-3">
+                                  {
+                                    // Loop on Options
+                                    currentChapterQuestions[
+                                      questionNo
+                                    ]?.options.map((opt, index) => (
+                                      <label
+                                        key={index}
+                                        className=" cursor-pointer flex items-center text-lg border-2 bg-slate-100 hover:bg-slate-200 rounded p-4"
+                                      >
+                                        <input
+                                          type="radio"
+                                          // id={allChapterQuestions[currentChapter - 1][questionNo]?.id}
+                                          defaultValue={opt}
+                                          className="radio mr-3 radio-primary bg-white "
+                                          {...register(`option`, {
+                                            required: {
+                                              value: true,
+                                              message:
+                                                "Please Select an Option",
+                                            },
+                                          })}
+                                        />
+                                        <span className="font-bold">{opt}</span>
+                                      </label>
+                                    ))
+                                  }
+                                </div>
+                                <p className="text-red-500">
+                                  {errors.option?.message}
+                                </p>
+                                {/* Next and previous Button */}
+                                <div className="flex items-center justify-between gap-x-4 mt-2">
+                                  {
+                                    // Previous Button
+                                    questionNo > 0 ? (
+                                      <p
+                                        onClick={() =>
+                                          handlePreviousBtn(
+                                            currentChapterQuestions[questionNo]
+                                              ?.uuid
+                                          )
+                                        }
+                                        className="w-[110px] font-[jost] font-bold flex items-center justify-between border-b-2 border-black hover:text-slate-600 hover:border-slate-600 hover:cursor-pointer transition ease-in-out duration-300"
+                                      >
+                                        <FontAwesomeIcon
+                                          className=" text-sm mt-1"
+                                          icon={faArrowLeftLong}
+                                        />
+                                        <span className="text-lg tracking-[2px]">
+                                          Previous
+                                        </span>
+                                      </p>
+                                    ) : (
+                                      <div className=""></div>
+                                    )
+                                  }
+                                  {/* Next Button */}
+                                  <button
+                                    type="submit"
+                                    className={`${
+                                      isSubmit ? " w-[92px]" : " w-[70px]"
+                                    }
+                                      font-bold font-[jost] flex items-center justify-between border-b-2 border-black hover:border-slate-600 hover:text-slate-600 hover:cursor-pointer transition ease-in-out duration-300`}
+                                  >
+                                    <span className="tracking-[2px]">
+                                      {isSubmit ? "Submit" : "Next"}
+                                    </span>
+                                    <FontAwesomeIcon
+                                      className="ml-1"
+                                      icon={faArrowRightLong}
+                                    />
+                                  </button>
+                                </div>
+                              </div>
+                            </form>
+                          )}
+                        </>
+                      )}
                     </div>
-                  </form>
-                )}
-              </>
+                  )}
+                </div>
+              </div>
+
+              // <div>
+              //   {IsShowCorrectAns ? ( // show correct ans part
+              //     <ShowCorrectAns
+              //       currentChapterQuestions={currentChapterQuestions}
+              //       selectedAns={selectedAns}
+              //     ></ShowCorrectAns>
+              //   ) : (
+              //     // show MCQ part
+              //     <>
+              //       {submitSuccess ? ( // show mcq done successflly
+              //         <div className="flex flex-col items-center justify-center text-center gap-y-2">
+              //           <div>
+              //             <img
+              //               src="../images/tropy.png"
+              //               className="w-40 mx-auto"
+              //               alt=""
+              //             />
+              //             <h1 className="text-2xl font-bold mb-4">
+              //               MCQ On Chapter {currentChapter}
+              //             </h1>
+              //           </div>
+              //           <h1 className="text-xl ">
+              //             Your Score <br />{" "}
+              //             <span className=" text-3xl font-bold text-green-600 ">{`${correctAnsCount} / ${currentChapterQuestions?.length}`}</span>
+              //           </h1>
+              //           <p
+              //             onClick={() => setIsShowCorrectAns(true)}
+              //             className="w-[230px] font-[jost] flex items-center justify-between mt-4 border-b-2 border-zinc-500 hover:text-success hover:border-primary hover:cursor-pointer transition ease-in-out duration-300"
+              //           >
+              //             <span className="text-lg tracking-[2px]">
+              //               See Correct Answers
+              //             </span>
+              //             <FontAwesomeIcon
+              //               className=" text-sm mt-1"
+              //               icon={faArrowRightLong}
+              //             />
+              //           </p>
+              //           {chapters.length > currentChapter && (
+              //             <p
+              //               onClick={() =>
+              //                 handleChapter(chapters[currentChapter])
+              //               }
+              //               className="w-[210px] font-[jost] flex items-center justify-between mt-4 border-b-2 border-zinc-500 hover:text-success hover:border-primary hover:cursor-pointer transition ease-in-out duration-300"
+              //             >
+              //               <span className="text-lg tracking-[2px]">
+              //                 Next Chapter MCQ
+              //               </span>
+              //               <FontAwesomeIcon
+              //                 className=" text-sm mt-1"
+              //                 icon={faArrowRightLong}
+              //               />
+              //             </p>
+              //           )}
+              //         </div>
+              //       ) : (
+              //         // MCQ form
+              //         <form
+              //           onSubmit={handleSubmit(onSubmit)}
+              //           className=" flex flex-col gap-y-6"
+              //         >
+              //           <h1 className="font-bold text-xl text-success">
+              //             {`${questionNo + 1}. `}
+              //             {currentChapterQuestions[questionNo]?.question} ?
+              //           </h1>
+              //           <div>
+              //             <div className="flex flex-col gap-y-3">
+              //               {
+              //                 // Loop on Options
+              //                 currentChapterQuestions[
+              //                   questionNo
+              //                 ]?.options.map((opt, index) => (
+              //                   <label
+              //                     key={index}
+              //                     className=" cursor-pointer flex items-center text-lg border-2 bg-slate-100 hover:bg-slate-200 rounded p-4"
+              //                   >
+              //                     <input
+              //                       type="radio"
+              //                       // id={allChapterQuestions[currentChapter - 1][questionNo]?.id}
+              //                       defaultValue={opt}
+              //                       className="radio mr-3 radio-primary bg-white "
+              //                       {...register(`option`, {
+              //                         required: {
+              //                           value: true,
+              //                           message: "Please Select an Option",
+              //                         },
+              //                       })}
+              //                     />
+              //                     <span className="font-bold">{opt}</span>
+              //                   </label>
+              //                 ))
+              //               }
+              //             </div>
+              //             <p className="text-red-500">
+              //               {errors.option?.message}
+              //             </p>
+              //             {/* Next and previous Button */}
+              //             <div className="flex items-center justify-between gap-x-4 mt-2">
+              //               {
+              //                 // Previous Button
+              //                 questionNo > 0 ? (
+              //                   <p
+              //                     onClick={() =>
+              //                       handlePreviousBtn(
+              //                         currentChapterQuestions[questionNo]
+              //                           ?.uuid
+              //                       )
+              //                     }
+              //                     className="w-[110px] font-[jost] flex items-center justify-between border-b-2 border-zinc-500 hover:text-success hover:border-primary hover:cursor-pointer transition ease-in-out duration-300"
+              //                   >
+              //                     <FontAwesomeIcon
+              //                       className=" text-sm mt-1"
+              //                       icon={faArrowLeftLong}
+              //                     />
+              //                     <span className="text-lg tracking-[2px]">
+              //                       Previous
+              //                     </span>
+              //                   </p>
+              //                 ) : (
+              //                   <div className=""></div>
+              //                 )
+              //               }
+              //               {/* Next Button */}
+              //               <button
+              //                 type="submit"
+              //                 className={`${
+              //                   isSubmit ? " w-[92px]" : " w-[70px]"
+              //                 }
+              //             text-lg font-[jost] flex items-center justify-between border-b-2 border-zinc-500 hover:text-success hover:border-primary hover:cursor-pointer transition ease-in-out duration-300`}
+              //               >
+              //                 <span className="tracking-[2px]">
+              //                   {isSubmit ? "Submit" : "Next"}
+              //                 </span>
+              //                 <FontAwesomeIcon
+              //                   className="ml-1"
+              //                   icon={faArrowRightLong}
+              //                 />
+              //               </button>
+              //             </div>
+              //           </div>
+              //         </form>
+              //       )}
+              //     </>
+              //   )}
+              // </div>
             )}
           </div>
         </div>
