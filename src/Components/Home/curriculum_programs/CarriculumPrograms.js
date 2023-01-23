@@ -41,15 +41,10 @@ const CarriculumPrograms = () => {
   ];
   
   return (
-    <div className="carriculum_section py-8 flex items-center justify-center">
+    <div className="carriculum_section lg:pt-16 xl:pt-8 flex items-center justify-center">
       <div className="">
-        <div
-          className="md:max-w-[800px] mx-auto px-20 py-6 rounded-lg text-center"
-          style={{
-            background: " hsla(0, 0%, 100%, 0.1)",
-          }}
-        >
-          <h1 className="text-4xl text-main font-[Galada]">
+        <div className="md:max-w-[800px] mx-auto lg:px-20 xl:py-6 rounded-lg text-center">
+          <h1 className="lg:text-3xl xl:text-4xl 2xl:text-6xl md:leading-[75px] text-main font-[Galada]">
             নিজেকে পূর্ণাঙ্গ ভাবে প্রস্তুত এবং যাচাই করার জন্য আমাদের যে সকল
             প্রোগ্রাম রয়েছে
           </h1>
@@ -58,7 +53,7 @@ const CarriculumPrograms = () => {
           <div className="hero-content shadow-[#020240] max-w-[1320px] rounded-lg flex-col lg:flex-row gap-x-14 px-0 lg:items-start">
             <div className="">
               <img
-                className="w-[670px] rounded-lg "
+                className="lg:w-[520px] xl:w-[670px] rounded-lg "
                 src={images[currentImage]}
                 alt=""
               />
@@ -69,7 +64,7 @@ const CarriculumPrograms = () => {
                   <button
                     key={index}
                     onClick={() => setCurrentImage(index)}
-                    className="w-[350px] flex items-center rounded-lg bg-success text-white px-10 py-4 
+                    className="lg:w-[300px] xl:w-[350px] flex items-center rounded-lg bg-success text-white lg:px-6 xl:px-10 lg:py-2 xl:py-4 
                     transition
                     duration-[400ms]
                     focus:duration-[100ms]
@@ -85,6 +80,7 @@ const CarriculumPrograms = () => {
                     focus:outline-none"
                   >
                     <img
+                      // className='lg:w-[500px]'
                       src="https://cdn.apito.io/media/shikho_website_v2_8ma77/shikhoHomepageV3/13SX02ME9W_live_class.svg"
                       alt=""
                     />

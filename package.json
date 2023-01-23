@@ -1,5 +1,6 @@
 {
   "name": "skill-up",
+  "homepage": "https://eacademy.ajratech.com",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

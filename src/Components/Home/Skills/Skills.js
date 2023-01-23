@@ -6,20 +6,20 @@ import './Skills.css';
 const Skills = () => {
   return (
     <div className=" quiz-background">
-      <div className="hero min-h-screen max-w-[1320px] mx-auto">
+      <div className="hero min-h-screen lg:max-w-[1000px] xl:max-w-[1320px] mx-auto">
         <div className="hero-content flex flex-col lg:flex-row items-start justify-between gap-y-20">
-          <div className="lg:w-[50%] flex flex-col gap-y-4">
-            <h1 className="text-5xl tracking-[px] leading-[60px] font-[Galada] uppercase ">
+          <div className="lg:w-[50%] flex flex-col gap-y-2">
+            <h1 className="font-[Galada] lg:text-4xl xl:text-5xl 2xl:text-6xl ">
               দারুণ সব <span className="text-success"> স্কিলস </span>
               ডেভেলপমেন্ট করার জন্য রয়েছে অ্যানলিমেটেড ভিডিও
             </h1>
-            <p className="font-[Jost]">
+            <p className="font-[Jost] my-3 lg:text-sm xl:text-lg">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem
               ipsum dolor sit Lorem ipsum dolor sit amet consectetur adipisicing
               elit amet consectetur adipisicing elit
             </p>
             <div className="">
-              <button className="btn bg-success border-0 text-lg tracking-wider hover:bg-secondary transition duration-[300ms] ease-in-out">
+              <button className="btn bg-main font-[Galada] border-0 font-thin shadow-2xl lg:text-[16px] xl:text-lg tracking-wider hover:bg-white hover:text-main transition duration-[300ms] ease-in-out">
                 সকল কোর্স সমূহ
               </button>
             </div>

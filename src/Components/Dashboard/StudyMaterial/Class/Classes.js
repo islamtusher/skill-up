@@ -56,7 +56,7 @@ const Classes = () => {
 
   // TODO: Handle Class Delete
   const deleteClass = async (id) => {
-    const response = await API.delete(baseURL + `student_classes/${id}`, {
+    const response = await axios.delete(baseURL + `student_classes/${id}`, {
       headers: authHeader(),
     });
     if (response.status === 204) {

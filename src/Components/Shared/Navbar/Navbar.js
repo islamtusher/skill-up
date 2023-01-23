@@ -14,8 +14,8 @@ const Navbar = () => {
   const handleLogOut = () => userLogout(dispatch, navigate)
   
   return (
-    <nav className="fixed top-0 left-0 right-0 z-20 bg-white ">
-      <div className="navbar max-w-[1320px] mx-auto ">
+    <nav className="fixed top-0 left-0 right-0 z-20 bg-white">
+      <div className="navbar lg:max-w-[1130px] xl:max-w-[1320px] py-0 mx-auto ">
         <div className="navbar-start">
           <div className="dropdown">
             <label tabIndex="0" className="btn btn-ghost lg:hidden pl-2">
@@ -62,19 +62,20 @@ const Navbar = () => {
               </li>
             </ul>
           </div>
-          <Link to="" className="w-[100px] text-lg">
-            {/* <img src="https://shikho.com/shikho-logo.svg" alt="" /> */}
-            E Academic
+          <Link to="" className="w-[100px] text-lg lg:text-[15px]">
+            {/* <img src="https://shikho.com/shikho-logo.svg" alt="" /> */}E
+            Academic
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal font-[jost] p-0">
+          <ul className="menu menu-horizontal lg:text-[12px] xl:text-[16px] 2xl:text-[17px] font-[jost] p-0">
             <li className=" ">
               <Link
-                className="font-bold tracking-[1px] px-3 hover:bg-transparent hover:text-success"
+                className="font-bold tracking-[1px] px-2 hover:bg-transparent hover:text-success"
                 to=""
               >
-                হোম
+                {/* হোম */}
+                Home
               </Link>
             </li>
             {/* {user?.phone_no && ( */}
@@ -84,7 +85,8 @@ const Navbar = () => {
                   className="font-bold tracking-[1px] hover:bg-transparent hover:text-success px-2"
                   to="/mcq"
                 >
-                  একাডেমিক
+                  {/* একাডেমিক */}
+                  Academic
                 </Link>
               </li>
               <li className="">
@@ -92,7 +94,8 @@ const Navbar = () => {
                   tabIndex={0}
                   className="font-bold tracking-[1px] hover:bg-transparent hover:text-success px-2 "
                 >
-                  আইসিটি স্কিলস
+                  {/* আইসিটি স্কিলস */}
+                  ICT Skills
                 </label>
                 <ul
                   tabIndex={0}
@@ -138,7 +141,8 @@ const Navbar = () => {
                   tabIndex={0}
                   className="font-bold tracking-[1px] hover:bg-transparent hover:text-success px-2 "
                 >
-                  ল্যাংগুয়েজ স্কিলস
+                  {/* ল্যাংগুয়েজ স্কিলস */}
+                  Language Skills
                 </label>
                 <ul
                   tabIndex={0}
@@ -186,7 +190,8 @@ const Navbar = () => {
                   tabIndex={0}
                   className="font-bold tracking-[1px] hover:bg-transparent hover:text-success px-2"
                 >
-                  প্রফেশনাল ট্রেনিং
+                  {/* প্রফেশনাল ট্রেনিং */}
+                  Professional Training
                 </label>
                 <ul
                   tabIndex={0}
@@ -224,7 +229,8 @@ const Navbar = () => {
                   to=""
                   className="font-bold tracking-[1px] hover:bg-transparent hover:text-success px-2"
                 >
-                  এডমিশন টেস্ট
+                  {/* এডমিশন টেস্ট */}
+                  Admission Test
                 </Link>
               </li>
               <li>
@@ -232,7 +238,8 @@ const Navbar = () => {
                   to=""
                   className="font-bold tracking-[1px] hover:bg-transparent hover:text-success px-2"
                 >
-                  আমাদের সম্পর্কে
+                  {/* আমাদের সম্পর্কে */}
+                  About Us
                 </Link>
               </li>
             </>
@@ -348,14 +355,14 @@ const Navbar = () => {
                 </div>
               </>
             ) : (
-              <div className="flex gap-x-4 items-center font-[jost]">
-                <Link to="/login">
-                  <button className="text-white bg-primary py-2 px-6 rounded text-lg mr-2">
+              <div className="flex gap-x-4 items-center font-[jost] font-bold text-white lg:text-[13px] xl:text-[16px] 2xl:text-[17px]">
+                <Link className="" to="/login">
+                  <button className="bg-main py-2 px-6 lg:px-4 rounded ">
                     লগ ইন
                   </button>
                 </Link>
                 <Link to="/signup">
-                  <button className="text-white bg-primary py-2 px-6 rounded text-lg  ">
+                  <button className="bg-main py-2 px-6 lg:px-4 rounded  ">
                     সাইন আপ
                   </button>
                 </Link>

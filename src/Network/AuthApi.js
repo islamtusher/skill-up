@@ -11,6 +11,7 @@ function AuthApi (accessToken) {
     });
 }
 
+// export const baseURL = "https://eacademyapi.ajratech.com/api/";
 export const baseURL = "http://127.0.0.1:8000/api/";
 
 export default function authHeader() {
