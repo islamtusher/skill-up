@@ -1,7 +1,8 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
-import API from '../../../Network/API';
+import authHeader, { baseURL } from '../../../Network/AuthApi';
 
 const QusestionUpload = () => {
     const [currentClasses, setCurrentClasses] = useState([]);
@@ -18,20 +19,24 @@ const QusestionUpload = () => {
     // load current classes
     useEffect(() => {
       (async () => {
-        const response = await API.get("student_classes");
+        const response = await axios.get(baseURL + "student_classes", {
+          headers: authHeader(),
+        });
         setCurrentClasses(response.data.data);
       })();
     }, []);
 
     // handle class-change onSelect
     const onClassChange = async (e) => {
-      const response = await API.get(`class_wise_subject/${e.target.value}`);
+      const response = await axios.get(baseURL + `class_wise_subject/${e.target.value}`,
+        { headers: authHeader() });
       setAvailableSubjeccts(response.data.data.subjects);
     };
 
     // handle subject-change onSelect
     const onSubjectChange = async (e) => {
-      const { data } = await API.get(`subject_wise_chapter/${e.target.value}`);
+      const { data } = await axios.get(baseURL + `subject_wise_chapter/${e.target.value}`,
+        { headers: authHeader() });
       setChapters(data.data.chapters);
     };
 
@@ -54,7 +59,8 @@ const QusestionUpload = () => {
         chapters_id,
       };
       
-      const data = await API.post("/mcq_question", submitData);
+      const data = await axios.post(baseURL + "/mcq_question", submitData,
+        { headers: authHeader() });
       console.log(data);
       reset();
       toast.success('Question Upload Successful')

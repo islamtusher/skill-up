@@ -1,10 +1,11 @@
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import API from '../../../../Network/API';
+import authHeader, { baseURL } from '../../../../Network/AuthApi';
 
 const AssignTeacher = () => {
   const [staffs, setStaffs] = useState([]);
@@ -23,7 +24,9 @@ const AssignTeacher = () => {
   // TODO: Get All Teachers
   useEffect(() => {
     (async () => {
-      const { data } = await API.get("teacher");
+      const { data } = await axios.get(baseURL+"teacher",{
+        headers: authHeader(),
+      });
       setStaffs(data?.data);
     })();
   }, []);
@@ -31,7 +34,9 @@ const AssignTeacher = () => {
   // TODO: Get All Assigned Teacher Data
   useEffect(() => {
     (async () => {
-      const { data } = await API.get("teach-assign");
+      const { data } = await axios.get(baseURL+"teach-assign",{
+        headers: authHeader(),
+      });
       setAssignedTeacher(data?.data);
     })();
   }, [teacherAssignHandle]);
@@ -41,9 +46,10 @@ const AssignTeacher = () => {
   // TODO: GET All Classes
   useEffect(() => {
     (async () => {
-      const { data } = await API.get("student_classes");
+      const { data } = await axios.get(baseURL+"student_classes",{
+        headers: authHeader(),
+      });
       setClasses(data?.data);
-      // console.log(data?.data);
     })();
   }, []);
 
@@ -54,7 +60,9 @@ const AssignTeacher = () => {
 
   // TODO: handle class-change AND Load subjects
   const onClassChange = async (e) => {
-    const response = await API.get(`class_wise_subject/${e.target.value}`);
+    const response = await axios.get(baseURL+`class_wise_subject/${e.target.value}`,{
+        headers: authHeader(),
+      });
     setAvailableSubjeccts(response.data.data.subjects);
     setValue("class_id", e.target.value); // set the value on from Data
   };
@@ -66,7 +74,9 @@ const AssignTeacher = () => {
 
   // TODO: Handle form submit
   const onSubmit = async (data) => {
-    const response = await API.post("teach-assign", data);
+    const response = await axios.post(baseURL+"teach-assign", data,{
+        headers: authHeader(),
+      });
     if (response.status === 204) {
       setTeacherrAssignHandle(!teacherAssignHandle);
       toast.success("Teacher Assign Successfully");
@@ -84,7 +94,9 @@ const AssignTeacher = () => {
 
   // TODO: Handle Delete assigned-Teacher
   const handleDeleteAssignedTeacher = async (id) => {
-    const response = await API.delete(`teach-assign/${id}`);
+    const response = await axios.delete(baseURL+`teach-assign/${id}`,{
+        headers: authHeader(),
+      });
     if (response.status === 204) {
       setTeacherrAssignHandle(!teacherAssignHandle);
       toast.success("Teacher Delete Successfully");

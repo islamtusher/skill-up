@@ -1,11 +1,13 @@
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import API from "../../../../Network/API";
+import authHeader, { baseURL } from "../../../../Network/AuthApi";
 
 const Classes = () => {
   const navigate = useNavigate()
@@ -22,14 +24,18 @@ const Classes = () => {
   // TODO: GET All Classes
   useEffect(() => {
     (async () => {
-      const { data } = await API.get("student_classes");
+      const { data } = await axios.get(baseURL + "student_classes", {
+        headers: authHeader(),
+      });
       setClasses(data?.data);
     })();
   }, [classeHandle]);
 
   // TODO: Handle form submit
   const onSubmit = async (data) => {
-    const response = await API.post("student_classes", data);
+    const response = await axios.post(baseURL + "student_classes", data, {
+      headers: authHeader(),
+    });
      if (response.status === 204) {
        toast.success("Class Added Successfully");
        setClasseHandle(!classeHandle);
@@ -50,7 +56,9 @@ const Classes = () => {
 
   // TODO: Handle Class Delete
   const deleteClass = async (id) => {
-    const response = await API.delete(`student_classes/${id}`);
+    const response = await API.delete(baseURL + `student_classes/${id}`, {
+      headers: authHeader(),
+    });
     if (response.status === 204) {
       toast.success("Class Deleted Successfully");
       setClasseHandle(!classeHandle);

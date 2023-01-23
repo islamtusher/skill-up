@@ -1,11 +1,13 @@
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import API from "../../../../Network/API";
+import authHeader, { baseURL } from "../../../../Network/AuthApi";
 
 const Subjects = () => {
   const [subjects, setSubjects] = useState([]);
@@ -23,23 +25,24 @@ const Subjects = () => {
 
   useEffect(() => {
     (async () => {
-      const { data } = await API.get("subject");
+      const { data } = await axios.get(baseURL + "subject", { headers: authHeader()});
       setSubjects(data?.data);
-      console.log(data?.data);
     })();
   }, [subjectHandle]);
 
   // TODO: GET All Classes
   useEffect(() => {
     (async () => {
-      const { data } = await API.get("student_classes");
+      const { data } = await axios.get(baseURL + "student_classes", {  headers: authHeader()});
       setClasses(data?.data);
     })();
   }, []);
 
   // TODO: Handle form submit (Add Subject)
   const onSubmit = async (data) => {
-    const response = await API.post("subject", data);
+    const response = await axios.post(baseURL + "subject", data, {
+      headers: authHeader(),
+    });
      if (response.status === 204) {
        toast.success("Subject Added Successfully");
        setSubjectHandle(!subjectHandle);
@@ -51,14 +54,15 @@ const Subjects = () => {
 
   // TODO: Handle Subject Edit
   const editSubject = async (id, className) => {
-    const cls = className.split(" ")[0];
+    // const cls = className.split(" ")[0];
     navigate(`/dashboard/subject-edit/${className}/${id}`);
     // const data = await API.put(`student_subjects/${id}`);
-    console.log(cls);
   };
 
   const deleteSubject = async (id) => {
-    const response = await API.delete(`subject/${id}`);
+    const response = await axios.delete(baseURL + `subject/${id}`, {
+      headers: authHeader(),
+    });
     if (response.status === 204) {
       toast.success("Subject Deleted Successfully");
       setSubjectHandle(!subjectHandle);

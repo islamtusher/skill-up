@@ -1,11 +1,13 @@
 import { faEdit, faLock, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import API from "../../../../Network/API";
+import authHeader, { baseURL } from "../../../../Network/AuthApi";
+// import axios from "../../../../Network/axios";
 
 const StaffsEdit = () => {
     const { id } = useParams();
@@ -21,14 +23,18 @@ const StaffsEdit = () => {
     // TODO: Get All Teachers
     useEffect(() => {
       (async () => {
-        const { data } = await API.get("teacher");
+        const { data } = await axios.get(baseURL+"teacher",{
+        headers: authHeader(),
+      });
         setStaffs(data?.data);
       })();
     }, [teacherHandle]);
 
     // TODO: Handle form submit (Post Teacher Data)
     const onSubmit = async (formData) => {
-      const response = await API.post("teacher", formData);
+      const response = await axios.post(baseURL+"teacher", formData,{
+        headers: authHeader(),
+      });
       if (response.success === 204) {
         toast.success("Teacher Added Successfully");
         setTeacherHandle(!teacherHandle);
@@ -40,7 +46,9 @@ const StaffsEdit = () => {
 
     // TODO: Handle Teacher Delete
     const handleTeacherDeleted = async (id) => {
-      const response = await API.delete(`teacher/${id}`);
+      const response = await axios.delete(baseURL+`teacher/${id}`,{
+        headers: authHeader(),
+      });
       if (response.success === 204) {
         toast.success("Teacher Deleted Successfully");
         setTeacherHandle(!teacherHandle);
@@ -51,7 +59,9 @@ const StaffsEdit = () => {
 
     // TODO: Handle Teacher Update
     const handleTeacherEdit = async (id) => {
-      const response = await API.put(`update/${id}`);
+      const response = await axios.put(baseURL+`update/${id}`,{
+        headers: authHeader(),
+      });
       if (response.success === 204) {
         toast.success("Teacher Update Successfully");
         setTeacherHandle(!teacherHandle);

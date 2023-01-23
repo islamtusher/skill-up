@@ -1,11 +1,13 @@
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import API from "../../../../Network/API";
+import authHeader, { baseURL } from "../../../../Network/AuthApi";
 
 const AllChapters = () => {
   const [allSubjectsChapters, setAllSubjectsChapters] = useState([]);
@@ -24,33 +26,37 @@ const AllChapters = () => {
     formState: { errors },
   } = useForm(); // react form hooks
 
-    useEffect(() => {
-      (async () => {
-        const { data } = await API.get("chapter");
-        setAllSubjectsChapters(data?.data);
-        console.log(data?.data);
-      })();
-    }, []);
+  // TODO: Load All Chapters
+  useEffect(() => {
+    (async () => {
+      const { data } = await axios.get(baseURL + "chapter", {
+        headers: authHeader(),
+      });
+      setAllSubjectsChapters(data?.data);
+    })();
+  }, [chapterHandle]);
 
   // TODO: GET All Classes
   useEffect(() => {
     (async () => {
-      const { data } = await API.get("student_classes");
+      const { data } = await axios.get(baseURL+"student_classes",{headers : authHeader()});
       setAllClasses(data?.data);
     })();
   }, []);
 
   // TODO: Handle form submit (Add Subject)
-    const onSubmit = async (data) => {
-      console.log(data)
-    // const response = await API.post("chapter", data);
-    // if (response.status === 204) {
-    //   toast.success("Chapter Added Successfully");
-    //   setchapterHandle(!chapterHandle);
-    //   reset();
-    // } else {
-    //   toast.error("Something went wrong");
-    // }
+  const onSubmit = async (data) => {
+    console.log(data)
+    const response = await axios.post(baseURL + "chapter", data, {
+      headers: authHeader(),
+    });
+    if (response.status === 204) {
+      toast.success("Chapter Added Successfully");
+      setchapterHandle(!chapterHandle);
+      reset();
+    } else {
+      toast.error("Something went wrong");
+    }
   };
 
   //   const deleteSubject = async (id) => {
@@ -64,19 +70,39 @@ const AllChapters = () => {
   //   };
 
   //TODO: handle class-change onSelect
-  
   const onClassChange = async (e) => {
-    const response = await API.get(`class_wise_subject/${e.target.value}`);
+    const response = await axios.get(
+      baseURL + `class_wise_subject/${e.target.value}`,
+      { headers: authHeader() }
+    );
     setClassWiseSubjeccts(response.data.data.subjects);
-    
-    console.log(response.data.data);
   };
 
   //TODO: handle subject-change onSelect
   const onSubjectChange = async (e) => {
-    const response = await API.get(`subject_wise_chapter/${e.target.value}`);
+    const response = await axios.get(
+      baseURL + `subject_wise_chapter/${e.target.value}`,
+      {headers: authHeader()}
+    );
     setValue("subjects_id", e.target.value);
     setAllSubjectsChapters(response.data.data.chapters);
+  };
+
+  //TODO: Handle Chapter Delete 
+  const handleChapterDelete = async (id) => {
+    const response = await axios.delete(
+      baseURL + `chapter/${id}`,
+      { headers: authHeader() }
+    );
+    console.log(response.data.data);
+  };
+
+  //TODO: Handle Chapter Update 
+  const handleChapterUpdate = async (id) => {
+    const response = await axios.put(
+      baseURL + `chapter/${id}`,
+      { headers: authHeader() }
+    );
     console.log(response.data.data);
   };
   return (
@@ -134,33 +160,31 @@ const AllChapters = () => {
               <tr>
                 <th>Index</th>
                 <th>Chapter Name</th>
-                <th>Class</th>
                 <th>Status</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              {allSubjectsChapters?.map((subject, index) => {
+              {allSubjectsChapters?.map((chapter, index) => {
                 return (
                   <tr key={index} className={`${index % 2 !== 0 && ""} `}>
                     <td>{index + 1}</td>
-                    <td>{subject.name}</td>
-                    <td>{subject.class}</td>
+                    <td>{chapter.name}</td>
                     <td
                       className={`${
-                        subject.status === 1 ? "text-green-600" : "text-red-500"
+                        chapter.status === 1 ? "text-green-600" : "text-red-500"
                       }`}
                     >
-                      {subject.status === 1 ? "Active" : "Deactive"}
+                      {chapter.status === 1 ? "Active" : "Deactive"}
                     </td>
                     <td>
                       <FontAwesomeIcon
-                        // onClick={() => deleteSubject(subject?.uuid)}
+                        onClick={() => handleChapterDelete(chapter?.uuid)}
                         className=" text-xl w-[34px] text-red-600 mr-2 hover:cursor-pointer"
                         icon={faTrash}
                       />
                       <FontAwesomeIcon
-                        // onClick={() => editSubject(subject?.uuid, subject.name)}
+                        // onClick={() => editSubject(chapter?.uuid, chapter.name)}
                         className=" text-xl w-[34px] text-blue-400 hover:cursor-pointer"
                         icon={faEdit}
                       />
@@ -177,7 +201,7 @@ const AllChapters = () => {
             onSubmit={handleSubmit(onSubmit)}
             className="bg-white px-4 pt-2 pb-8 rounded"
           >
-            <div className="flex flex-col gap-y-4">
+            <div className="flex flex-col gap-y-1">
               <div className="form-control w-full mx-auto">
                 <label className="label">
                   <span className="label-text text-sm">Select Class</span>
@@ -272,8 +296,7 @@ const AllChapters = () => {
                   <p className="text-red-500">{errors?.status?.message}</p>
                 )}
               </div>
-
-              <button type="submit" className="btn btn-primary">
+              <button type="submit" className="btn btn-primary mt-1">
                 Save
               </button>
             </div>

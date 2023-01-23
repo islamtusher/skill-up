@@ -1,11 +1,13 @@
 import { faEdit, faLock, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import axios from 'axios';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import API from '../../../../Network/API';
+import authHeader, { baseURL } from '../../../../Network/AuthApi';
 
 const Staffs = () => {
   const navigate = useNavigate()
@@ -21,7 +23,9 @@ const Staffs = () => {
   // TODO: Get All Teachers
   useEffect(() => {
     (async () => {
-      const { data } = await API.get("teacher");
+      const { data } = await axios.get(baseURL + "teacher", {
+        headers: authHeader(),
+      });
       setStaffs(data?.data);
     })();
   }, [teacherHandle]);
@@ -29,7 +33,7 @@ const Staffs = () => {
 
   // TODO: Handle form submit (Post Teacher Data)
   const onSubmit = async (formData) => {
-    const response = await API.post("teacher", formData);
+    const response = await axios.post(baseURL+"teacher", formData,{headers: authHeader()});
     if (response.status === 204) {
       toast.success("Teacher Added Successfully");
       setTeacherHandle(!teacherHandle);
@@ -41,7 +45,9 @@ const Staffs = () => {
 
   // TODO: Handle Teacher Delete
   const handleTeacherDeleted = async(id) => { 
-    const response = await API.delete(`teacher/${id}`);
+    const response = await axios.delete(baseURL + `teacher/${id}`, {
+      headers: authHeader(),
+    });
    if (response.status === 204) {
      toast.success("Teacher Deleted Successfully");
      setTeacherHandle(!teacherHandle);

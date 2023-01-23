@@ -1,11 +1,13 @@
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import API from "../../../../Network/API";
+import authHeader, { baseURL } from "../../../../Network/AuthApi";
 
 const ClassEdit = () => {
   const { id, className } = useParams();
@@ -24,7 +26,9 @@ const ClassEdit = () => {
   //TODO: Load All Classes
   useEffect(() => {
     (async () => {
-      const { data } = await API.get("student_classes");
+      const { data } = await axios.get(baseURL + "student_classes", {
+        headers: authHeader(),
+      });
       setClasses(data?.data);
     })();
   }, [toggle, classeHandle]);
@@ -32,19 +36,24 @@ const ClassEdit = () => {
   //TODO: Load Single Class
   useEffect(() => {
     (async () => {
-      const { data } = await API.get(`student_classes/${id}`);
+      const { data } = await axios.get(baseURL + `student_classes/${id}`, {
+        headers: authHeader(),
+      });
       // setSingleClass(data?.data);
       reset(data.data);
-      console.log(data.data);
     })();
   }, [id, reset]);
 
   // TODO: Handle form submit
   const onSubmit = async (data) => {
-    const response = await API.put(`student_classes/${id}`, {
-      name: data?.name,
-      status: data?.status,
-    });
+    const response = await axios.put(baseURL + `student_classes/${id}`,
+      {
+        name: data?.name,
+        status: data?.status,
+      },
+      {
+        headers: authHeader(),
+      });
     if (response.status === 204) {
       toast.success("success");
       setToggle((prevState) => !prevState);
@@ -58,7 +67,9 @@ const ClassEdit = () => {
 
   // TODO: Handle Class Delete
   const deleteClass = async (id) => {
-    const response = await API.delete(`student_classes/${id}`);
+    const response = await axios.get(baseURL + `student_classes/${id}`, {
+      headers: authHeader(),
+    });
     if (response.status === 204) {
       toast.success("Class Deleted Successfully");
       setClasseHandle(!classeHandle);

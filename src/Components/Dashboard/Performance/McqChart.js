@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import {
@@ -16,86 +17,26 @@ import {
   YAxis,
 } from "recharts";
 import API from "../../../Network/API";
+import authHeader, { baseURL } from "../../../Network/AuthApi";
 
 const McqChart = () => {
   const [allSubjectsResult, setAllSubjectsResult] = useState([]);
   // const [preAvgMark, setPreAvgMark] = useState(0);
-  let preAvgMark = 0;
+
   // Redux State 
   const score = useSelector((state) => state.examScore.score);
-  // console.log(score)
-
-  const allSubjects = [
-    {
-      subject: "Bangla",
-      chapters: [
-        {
-          name: "C 1",
-          mcqMark: 10,
-          amt: 20,
-        },
-        {
-          name: "C 2",
-          mcqMark: 12,
-          amt: 20,
-        },
-        {
-          name: "C 3",
-          mcqMark: 16,
-          amt: 20,
-        },
-        {
-          name: "C 4",
-          mcqMark: 12,
-          amt: 20,
-        },
-        {
-          name: "C 5",
-          mcqMark: 20,
-          amt: 20,
-        },
-      ],
-    },
-    {
-      subject: "English",
-      chapters: [
-        {
-          name: "C 1",
-          mcqMark: 15,
-          amt: 20,
-        },
-        {
-          name: "C 2",
-          mcqMark: 12,
-          amt: 20,
-        },
-        {
-          name: "C 3",
-          mcqMark: 12,
-          amt: 20,
-        },
-        {
-          name: "C 4",
-          mcqMark: 19,
-          amt: 20,
-        },
-        {
-          name: "C 5",
-          mcqMark: 2,
-          amt: 20,
-        },
-      ],
-    },
-  ];
 
   // TODO: Load all subjects MCQ performance
   useEffect(() => {
     (async () => {
-      const response = await API.get("get_subject_wise_exam_performance");
+      const response = await axios.get(
+        baseURL + "get_subject_wise_exam_performance",
+        { headers: authHeader()}
+      );
       setAllSubjectsResult(response.data.data);
-      console.log(response.data.data);
     })();
   }, [])
+
   const data = [
     {
       uuid: "409f0683-a0aa-477d-90dd-7912d7a9a473",
@@ -141,18 +82,8 @@ const McqChart = () => {
       ],
     },
   ];
-  const renderCustomizedLabel = (props) => {
-    const { x, y, width, height, value } = props;
-    const radius = 10;
 
-    return (
-      <g>
-        <circle cx={x + width / 2} cy={y - radius} r={radius} fill="#8884d8" />
-        <text x={x + width / 2} y={y - radius} fill="#fff" textAnchor="middle" dominantBaseline="middle">
-          {value.split(' ')[1]}
-        </text>
-      </g>
-  )}
+
   return (
     <div className="py-20">
       <h1 className="text-xl text-peimary font-bold text-center py-6 ">
