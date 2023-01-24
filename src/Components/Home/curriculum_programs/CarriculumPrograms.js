@@ -39,21 +39,21 @@ const CarriculumPrograms = () => {
       title: "পরীক্ষা প্রস্তুতির ক্লাস",
     },
   ];
-  
+
   return (
     <div className="carriculum_section lg:pt-16 xl:pt-8 flex items-center justify-center">
       <div className="">
         <div className="md:max-w-[800px] mx-auto lg:px-20 xl:py-6 rounded-lg text-center">
-          <h1 className="lg:text-3xl xl:text-4xl 2xl:text-6xl md:leading-[75px] text-main font-[Galada]">
+          <h1 className=" px-2 text-xl lg:text-3xl xl:text-4xl 2xl:text-6xl md:leading-[75px] text-main font-[Galada]">
             নিজেকে পূর্ণাঙ্গ ভাবে প্রস্তুত এবং যাচাই করার জন্য আমাদের যে সকল
             প্রোগ্রাম রয়েছে
           </h1>
         </div>
         <div className="hero">
-          <div className="hero-content shadow-[#020240] max-w-[1320px] rounded-lg flex-col lg:flex-row gap-x-14 px-0 lg:items-start">
+          <div className="hero-content shadow-[#020240] max-w-[1320px] rounded-lg flex-col  lg:flex-row gap-x-14 px-0 lg:items-start">
             <div className="">
               <img
-                className="lg:w-[520px] xl:w-[670px] rounded-lg "
+                className="w-[90%] mx-auto lg:w-[520px] xl:w-[670px] rounded-lg "
                 src={images[currentImage]}
                 alt=""
               />

@@ -24,20 +24,22 @@ const Skills = () => {
               </button>
             </div>
           </div>
-          <div className="lg:w-[50%] font-[jost] ">
-            <div className="flex flex-col md:flex-row gap-8">
-              <div className="rounded-lg bg-white lg:w-[300px] flex flex-col items-center  gap-y-2 transition hover:cursor-pointer hover:scale-105 hover:-translate-y-2 hover:shadow-2xl ease-in-out duration-500 shadow-xl ">
+          <div className="lg:w-[50%] font-[jost]">
+            <div className="flex flex-col md:flex-row lg:gap-4 xl:gap-8">
+              <div className="rounded-lg bg-white lg:w-[300px]  flex flex-col items-center gap-y-2 transition hover:cursor-pointer hover:scale-105 hover:-translate-y-2 hover:shadow-2xl ease-in-out duration-500 shadow-xl ">
                 <img className="rounded-t-lg" src="../images/c6-8.png" alt="" />
                 <div className="text-center p-2">
-                  <h1 className=" text-lg  font-bold">
+                  <h1 className="lg:text-[15px] xl:text-lg font-bold">
                     Class 6th to 8th All Subjects
                   </h1>
-                  <p className=" leading-5 text-center">
+                  <p className=" leading-5 text-center lg:text-[13px] xl:text-[15px]">
                     Lorem ipsum dolor sit, amet consectetur adipisicing elit.
                     Minima modi culpa inventore, dolores,{" "}
                   </p>
-                  <p className="w-[140px] mx-auto font-[jost] flex items-center justify-between border-b-2 border-zinc-500 hover:text-zinc-500 hover:border-primary hover:cursor-pointer transition ease-in-out duration-300">
-                    <span className="text-lg tracking-[2px]">Learn More</span>
+                  <p className="lg:w-[115px] xl:w-[140px] mx-auto font-[jost] flex items-center justify-between border-b-2 border-zinc-500 hover:text-zinc-500 hover:border-primary hover:cursor-pointer transition ease-in-out duration-300">
+                    <span className="lg:text-sm xl:text-lg tracking-[2px]">
+                      Learn More
+                    </span>
                     <FontAwesomeIcon
                       className=" text-sm mt-1"
                       icon={faArrowRightLong}
@@ -52,15 +54,17 @@ const Skills = () => {
                   alt=""
                 />
                 <div className="text-center p-2 pb-4">
-                  <h1 className="  text-lg font-bold">
+                  <h1 className=" lg:text-[15px] xl:text-lg font-bold">
                     Class 9th to 10th All Subjects
                   </h1>
-                  <p className="leading-5 text-center">
+                  <p className="leading-5 text-center lg:text-[13px] xl:text-[15px]">
                     Lorem ipsum dolor sit, amet consectetur adipisicing elit.
                     Minima modi culpa inventore, dolores,{" "}
                   </p>
-                  <p className="w-[140px] mx-auto font-[jost] flex items-center justify-between  border-b-2 border-zinc-500 hover:text-zinc-500 hover:border-primary hover:cursor-pointer transition ease-in-out duration-300">
-                    <span className="text-lg tracking-[2px]">Learn More</span>
+                  <p className="lg:w-[115px] xl:w-[140px] mx-auto font-[jost] flex items-center justify-between  border-b-2 border-zinc-500 hover:text-zinc-500 hover:border-primary hover:cursor-pointer transition ease-in-out duration-300">
+                    <span className="lg:text-sm xl:text-lg tracking-[2px]">
+                      Learn More
+                    </span>
                     <FontAwesomeIcon
                       className=" text-sm mt-1"
                       icon={faArrowRightLong}
