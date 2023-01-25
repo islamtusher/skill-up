@@ -13,15 +13,16 @@ import {
 
 
 // get the current user Information after login
-export const getUserInfo = async ( accessToken, dispatch, formReset, navigate) => {
+export const getUserInfo = async( accessToken, dispatch, formReset, navigate, from) => {
   try {
     const response = await API.get(`/user`, {
       headers: { Authorization: `Bearer ${accessToken}` },
     });
-    
+
     dispatch(loginSuccess(response.data.data));
     localStorage.setItem("accessToken", accessToken);
-    navigate("/");
+    console.log(from)
+    navigate(from, { replace: true });
     // window.location.href = "/";
     formReset();
   } catch (error) {
@@ -30,20 +31,20 @@ export const getUserInfo = async ( accessToken, dispatch, formReset, navigate) =
 };
 
 // User Login Action
-export const loginUser = async (user, dispatch, formReset, navigate) => {
+export const loginUser = async ( user, dispatch, formReset, navigate, from) => {
   dispatch(loginStart());
   try {
-
-    //? Those are alternative APIs 
+    //? Those are alternative APIs
     // const { data } = await authHeader().post(`/login`, user);
     // const { data } = await axios.post(`http://127.0.0.1:8000/api/login`,  user);
 
-    const { data } = await axios.post(baseURL + 'login', user, {
+    const { data } = await axios.post(baseURL + "login", user, {
       headers: authHeader(),
     });
     if (data?.access_token) {
-      getUserInfo(data?.access_token, dispatch, formReset, navigate);
-      console.log(data?.access_token);
+      getUserInfo( data?.access_token, dispatch, formReset, navigate, from
+      );
+      // console.log(data?.access_token);
     }
   } catch (error) {
     dispatch(loginError());
@@ -104,9 +105,9 @@ export const userLogout = async(dispatch, navigate) => {
 export const getStudentExamScore = async (examId, selectedAns, dispatch) => {
   dispatch(scoreLoading());
   try {
-    const { data } = await API.post(`/mcq_exam_check/${examId}`, {
+    const { data } = await axios.post(baseURL+`mcq_exam_check/${examId}`, {
       question_answer: selectedAns,
-    });
+    }, { headers: authHeader() });
     dispatch(scoreLoadSuccess(data));
   } catch (error) {
     console.log(error);

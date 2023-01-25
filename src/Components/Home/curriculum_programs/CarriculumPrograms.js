@@ -3,32 +3,48 @@ import "./CarriculumPrograms.css"
 
 const CarriculumPrograms = () => {
   const [currentImage, setCurrentImage] = useState(0);
+  // const images = [
+  //   "https://res.cloudinary.com/cross-border-education-technologies-pte-ltd/image/upload/q_auto/f_auto/c_scale,w_841/v1670221272/Shikho%20Website%20V3/Homepage/Feature%20Image%20Carousel/Website_Banner_%E0%A6%AA%E0%A7%8D%E0%A6%B0%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%95%E0%A6%9F%E0%A6%BF%E0%A6%B8_MCQ_%E0%A6%9F%E0%A7%87%E0%A6%B8%E0%A7%8D%E0%A6%9F_841x656_gt6s6z",
+  //   "https://res.cloudinary.com/cross-border-education-technologies-pte-ltd/image/upload/q_auto/f_auto/c_scale,w_841/v1671090148/Shikho%20Website%20V3/Homepage/Feature%20Image%20Carousel/Website_Banner_Live_class_841x656_1_yvfkbu",
+  //   "https://res.cloudinary.com/cross-border-education-technologies-pte-ltd/image/upload/q_auto/f_auto/c_scale,w_841/v1671090186/Shikho%20Website%20V3/Homepage/Feature%20Image%20Carousel/Website_Banner_Animeted_Video_841x656_qgv12n",
+  //   "https://res.cloudinary.com/cross-border-education-technologies-pte-ltd/image/upload/q_auto/f_auto/c_scale,w_841/v1670221271/Shikho%20Website%20V3/Homepage/Feature%20Image%20Carousel/Website_Banner_Live_Exam_841x656_om8gg0",
+  //   "https://res.cloudinary.com/cross-border-education-technologies-pte-ltd/image/upload/q_auto/f_auto/c_scale,w_841/v1670924728/Shikho%20Website%20V3/Homepage/Feature%20Image%20Carousel/Website_Banner_Class_Note_841x656_ksbwoy",
+  //   "https://res.cloudinary.com/cross-border-education-technologies-pte-ltd/image/upload/q_auto/f_auto/c_scale,w_841/v1670221271/Shikho%20Website%20V3/Homepage/Feature%20Image%20Carousel/Website_Banner_Smart_Note_841x656_ijvm1o",
+  //   "https://res.cloudinary.com/cross-border-education-technologies-pte-ltd/image/upload/q_auto/f_auto/c_scale,w_841/v1670221271/Shikho%20Website%20V3/Homepage/Feature%20Image%20Carousel/Website_Banner_Report_Card_841x656_weoyb8",
+  // ];
   const images = [
-    "https://res.cloudinary.com/cross-border-education-technologies-pte-ltd/image/upload/q_auto/f_auto/c_scale,w_841/v1670221272/Shikho%20Website%20V3/Homepage/Feature%20Image%20Carousel/Website_Banner_%E0%A6%AA%E0%A7%8D%E0%A6%B0%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%95%E0%A6%9F%E0%A6%BF%E0%A6%B8_MCQ_%E0%A6%9F%E0%A7%87%E0%A6%B8%E0%A7%8D%E0%A6%9F_841x656_gt6s6z",
-    "https://res.cloudinary.com/cross-border-education-technologies-pte-ltd/image/upload/q_auto/f_auto/c_scale,w_841/v1671090148/Shikho%20Website%20V3/Homepage/Feature%20Image%20Carousel/Website_Banner_Live_class_841x656_1_yvfkbu",
-    "https://res.cloudinary.com/cross-border-education-technologies-pte-ltd/image/upload/q_auto/f_auto/c_scale,w_841/v1671090186/Shikho%20Website%20V3/Homepage/Feature%20Image%20Carousel/Website_Banner_Animeted_Video_841x656_qgv12n",
-    "https://res.cloudinary.com/cross-border-education-technologies-pte-ltd/image/upload/q_auto/f_auto/c_scale,w_841/v1670221271/Shikho%20Website%20V3/Homepage/Feature%20Image%20Carousel/Website_Banner_Live_Exam_841x656_om8gg0",
-    "https://res.cloudinary.com/cross-border-education-technologies-pte-ltd/image/upload/q_auto/f_auto/c_scale,w_841/v1670924728/Shikho%20Website%20V3/Homepage/Feature%20Image%20Carousel/Website_Banner_Class_Note_841x656_ksbwoy",
-    "https://res.cloudinary.com/cross-border-education-technologies-pte-ltd/image/upload/q_auto/f_auto/c_scale,w_841/v1670221271/Shikho%20Website%20V3/Homepage/Feature%20Image%20Carousel/Website_Banner_Smart_Note_841x656_ijvm1o",
-    "https://res.cloudinary.com/cross-border-education-technologies-pte-ltd/image/upload/q_auto/f_auto/c_scale,w_841/v1670221271/Shikho%20Website%20V3/Homepage/Feature%20Image%20Carousel/Website_Banner_Report_Card_841x656_weoyb8",
+    // "https://i.ibb.co/DMhLqH8/exam-pre.jpg",
+    "/images/program10.jpg",
+    "/images/program3.jpg",
+    "/images/program5.jpg",
+    "/images/program2.jpg",
+
+    "/images/program6.jpg",
+    "/images/program4.jpg",
+    // "https://i.ibb.co/Y0N3CRL/animated-video.jpg",
+    // "https://i.ibb.co/jwVG72B/recorded-video.jpg",
+    // "https://i.ibb.co/JK7bTLR/live-class.jpg",
+    // "https://i.ibb.co/mG8FR1G/22343631-Content-creator-editing-video-footage-in-studio.jpg",
+    // "https://i.ibb.co/0ZjWFy3/online-test.jpg",
+    // "https://i.ibb.co/DMhLqH8/exam-pre.jpg",
   ];
   
   const data = [
     {
       id: "1",
-      title: "প্র্যাকটিস MCQ টেস্ট",
-    },
-    {
-      id: "2",
       title: "লাইভ MCQ টেস্ট",
     },
     {
+      id: "2",
+      title: "লাইভ ক্লাস",
+    },
+    {
       id: "3",
-      title: "অ্যানিমেটেড ভিডিও",
+      title: "অনলাইন রেকর্ডেড ক্লাস",
     },
     {
       id: "4",
-      title: "লাইভ এবং রেকর্ডেড ক্লাস",
+      title: "এডমিশন টেস্ট",
     },
     {
       id: "5",
@@ -36,7 +52,7 @@ const CarriculumPrograms = () => {
     },
     {
       id: "6",
-      title: "পরীক্ষা প্রস্তুতির ক্লাস",
+      title: "পরীক্ষা প্রস্তুতি টেস্ট",
     },
   ];
 
@@ -50,10 +66,10 @@ const CarriculumPrograms = () => {
           </h1>
         </div>
         <div className="hero">
-          <div className="hero-content shadow-[#020240] max-w-[1320px] rounded-lg flex-col  lg:flex-row gap-x-14 px-0 lg:items-start">
+          <div className="hero-content shadow-[#020240] max-w-[1320px] rounded-lg flex-col lg:flex-row gap-x-14 px-0 items-center">
             <div className="">
               <img
-                className="w-[90%] mx-auto lg:w-[520px] xl:w-[670px] rounded-lg "
+                className="w-[] h-full mx-auto lg:w-[470px] lg:h-[410px] xl:w-[610px] xl:h-[460px] rounded-lg "
                 src={images[currentImage]}
                 alt=""
               />
@@ -64,7 +80,7 @@ const CarriculumPrograms = () => {
                   <button
                     key={index}
                     onClick={() => setCurrentImage(index)}
-                    className="lg:w-[300px] xl:w-[350px] flex items-center rounded-lg bg-success text-white lg:px-6 xl:px-10 lg:py-2 xl:py-4 
+                    className="lg:w-[300px] xl:w-[350px] flex items-center rounded-lg bg-success text-white lg:px-6 xl:px-10 lg:py-2 xl:py-[12px] 
                     transition
                     duration-[400ms]
                     focus:duration-[100ms]

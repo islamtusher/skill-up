@@ -14,6 +14,8 @@ import Billing from "./Billing";
 import { paySuccess } from "../../../redux/slice/billingSlice";
 import { toast } from "react-toastify";
 import Loading from "../../Loading/Loading";
+import axios from "axios";
+import authHeader, { baseURL } from "../../../Network/AuthApi";
 
 const Chapters = () => {
   const {subjectId, examType } = useParams();
@@ -51,7 +53,11 @@ const Chapters = () => {
   //TODO: Chapter data load
   useEffect(() => {
     (async () => {
-      const { data } = await API.get(`subject_wise_chapter/${subjectId}`);
+      const { data } = await axios.get(
+        baseURL + `subject_wise_chapter/${subjectId}`,
+        { headers: authHeader() }
+      );
+      // const { data } = await API.get(`subject_wise_chapter/${subjectId}`);
       setChapters(data.data.chapters);
       setCurrentSubject(data.data.subject);
     })();
@@ -62,10 +68,18 @@ const Chapters = () => {
   const onBillPayment = async() => { 
     setBelling(false)
     setIsLoading(true);
-    const { data } = await API.post(`/start_exam`, {
-      chapters_id: currentChapterId,
-      exam_type_id: examType,
-    });
+    const { data } = await axios.post(
+      baseURL + `start_exam`,
+      {
+        chapters_id: currentChapterId,
+        exam_type_id: examType,
+      },
+      { headers: authHeader() }
+    );
+    // const { data } = await API.post(`/start_exam`, {
+    //   chapters_id: currentChapterId,
+    //   exam_type_id: examType,
+    // });
     setCurrentChapterQuestions(data.data.questions);
     setIsMcqStart(false);
     setExamId(data.data.exam_id);
@@ -98,7 +112,7 @@ const Chapters = () => {
     setIsSubmit(false);
   };
 
-  //* NOt Used 
+  //* Not Used 
   //TODO: Handle MCQ Start button
   const handleMcqStart = async () => {
     setIsLoading(true)

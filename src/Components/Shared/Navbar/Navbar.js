@@ -14,7 +14,7 @@ const Navbar = () => {
   const handleLogOut = () => userLogout(dispatch, navigate)
   
   return (
-    <nav className="fixed top-0 left-0 right-0 z-20 bg-white">
+    <nav className="fixed top-0 left-0 right-0 z-20 bg-white shadow-lg">
       <div className="navbar lg:max-w-[1130px] xl:max-w-[1320px] py-0 mx-auto ">
         <div className="navbar-start">
           <div className="dropdown">
@@ -62,16 +62,16 @@ const Navbar = () => {
               </li>
             </ul>
           </div>
-          <Link to="" className="w-[100px] text-lg lg:text-[15px]">
+          <Link to="" className="w-[100px] text-lg lg:text-[15px] ">
             {/* <img src="https://shikho.com/shikho-logo.svg" alt="" /> */}E
             Academic
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal lg:text-[12px] xl:text-[16px] 2xl:text-[17px] font-[jost] p-0">
+          <ul className="menu menu-horizontal lg:text-[11px] xl:text-[12px] 2xl:text-[13px] font-[jost] p-0">
             <li className=" ">
               <Link
-                className="font-bold tracking-[1px] px-2 hover:bg-transparent hover:text-success"
+                className="font-bold tracking-[1px] px-2 hover:bg-transparent hover:text-success uppercase"
                 to=""
               >
                 {/* হোম */}
@@ -82,7 +82,7 @@ const Navbar = () => {
             <>
               <li>
                 <Link
-                  className="font-bold tracking-[1px] hover:bg-transparent hover:text-success px-2"
+                  className="font-bold tracking-[1px] hover:bg-transparent hover:text-success px-2 uppercase"
                   to="/mcq"
                 >
                   {/* একাডেমিক */}
@@ -92,94 +92,108 @@ const Navbar = () => {
               <li className="">
                 <label
                   tabIndex={0}
-                  className="font-bold tracking-[1px] hover:bg-transparent hover:text-success px-2 "
+                  className="font-bold tracking-[1px] hover:bg-transparent hover:text-success px-2 uppercase"
                 >
                   {/* আইসিটি স্কিলস */}
-                  ICT Skills
+                  Soft Skills
                 </label>
                 <ul
                   tabIndex={0}
                   className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
                 >
-                  <li className=" dropdown-right text-black">
-                    <label tabIndex={0} className="">
-                      MS Office
+                  <li className="">
+                    <label
+                      tabIndex={0}
+                      className="font-bold tracking-[1px] hover:bg-transparent hover:text-success px-2 "
+                    >
+                      {/* আইসিটি স্কিলস */}
+                      ICT Skills
                     </label>
                     <ul
                       tabIndex={0}
-                      className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 "
+                      className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 text-[15px] "
                     >
-                      <li>
-                        <Link className="" to="/msword">
-                          MS Word
-                        </Link>
+                      <li className=" dropdown-right text-black">
+                        <label tabIndex={0} className="">
+                          MS Office
+                        </label>
+                        <ul
+                          tabIndex={0}
+                          className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 "
+                        >
+                          <li>
+                            <Link className="" to="/msword">
+                              MS Word
+                            </Link>
+                          </li>
+                          <li>
+                            <Link className="" to="/msexcle">
+                              MS Excel
+                            </Link>
+                          </li>
+                          <li>
+                            <Link className="" to="/mspowerpoint">
+                              MS Power-Point
+                            </Link>
+                          </li>
+                        </ul>
                       </li>
                       <li>
-                        <Link className="" to="/msexcle">
-                          MS Excel
+                        <Link className="text-black " to="webdesign">
+                          Web Design
                         </Link>
-                      </li>
-                      <li>
-                        <Link className="" to="/mspowerpoint">
-                          MS Power-Point
+                        <Link className="text-black " to="graphicsdesign">
+                          Graphics Design
                         </Link>
                       </li>
                     </ul>
                   </li>
-                  <li>
-                    <Link className="text-black " to="webdesign">
-                      Web Design
-                    </Link>
-                    <Link className="text-black " to="graphicsdesign">
-                      Graphics Design
-                    </Link>
-                  </li>
-                </ul>
-              </li>
-              <li className=" ">
-                <label
-                  tabIndex={0}
-                  className="font-bold tracking-[1px] hover:bg-transparent hover:text-success px-2 "
-                >
-                  {/* ল্যাংগুয়েজ স্কিলস */}
-                  Language Skills
-                </label>
-                <ul
-                  tabIndex={0}
-                  className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 text-black"
-                >
-                  <li>
-                    <label tabIndex={0} className="">
-                      English
+                  <li className=" ">
+                    <label
+                      tabIndex={0}
+                      className="font-bold tracking-[1px] hover:bg-transparent hover:text-success px-2 "
+                    >
+                      {/* ল্যাংগুয়েজ স্কিলস */}
+                      Language Skills
                     </label>
                     <ul
                       tabIndex={0}
-                      className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 "
+                      className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 text-black text-[15px] "
                     >
                       <li>
-                        <Link className="" to="/english/grammer">
-                          Grammar
-                        </Link>
+                        <label tabIndex={0} className="">
+                          English
+                        </label>
+                        <ul
+                          tabIndex={0}
+                          className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 "
+                        >
+                          <li>
+                            <Link className="" to="/english/grammer">
+                              Grammar
+                            </Link>
+                          </li>
+                          <li>
+                            <Link className="" to="/english/spoken-english">
+                              Spoken English
+                            </Link>
+                          </li>
+                        </ul>
                       </li>
                       <li>
-                        <Link className="" to="/english/spoken-english">
-                          Spoken English
-                        </Link>
-                      </li>
-                    </ul>
-                  </li>
-                  <li>
-                    <label tabIndex={0} className="">
-                      Arabic
-                    </label>
-                    <ul
-                      tabIndex={0}
-                      className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 "
-                    >
-                      <li>
-                        <Link className="" to="/quran/norani">
-                          Norani
-                        </Link>
+                        <label tabIndex={0} className="">
+                          Arabic
+                        </label>
+                        <ul
+                          tabIndex={0}
+                          className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 "
+                        >
+                          <li>
+                            <Link className="" to="/quran/norani">
+                              Norani
+                            </Link>
+                          </li>
+                        </ul>
                       </li>
                     </ul>
                   </li>
@@ -188,14 +202,14 @@ const Navbar = () => {
               <li>
                 <label
                   tabIndex={0}
-                  className="font-bold tracking-[1px] hover:bg-transparent hover:text-success px-2"
+                  className="font-bold tracking-[1px] hover:bg-transparent hover:text-success px-2 uppercase"
                 >
                   {/* প্রফেশনাল ট্রেনিং */}
                   Professional Training
                 </label>
                 <ul
                   tabIndex={0}
-                  className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 text-black"
+                  className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 text-black text-[15px] "
                 >
                   <li>
                     <Link className="" to="">
@@ -225,18 +239,45 @@ const Navbar = () => {
                 </ul>
               </li>
               <li>
-                <Link
-                  to=""
-                  className="font-bold tracking-[1px] hover:bg-transparent hover:text-success px-2"
+                <label
+                  tabIndex={0}
+                  className="font-bold tracking-[1px] hover:bg-transparent hover:text-success px-2 uppercase"
+                >
+                  {/* প্রফেশনাল ট্রেনিং */}
+                  Admission Test
+                </label>
+                <ul
+                  tabIndex={0}
+                  className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 text-black text-[15px] "
+                >
+                  <li>
+                    <Link className="" to="">
+                      University Admission Test
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="" to="">
+                      School Admission Test
+                    </Link>
+                  </li>
+                </ul>
+              </li>
+
+              <li>
+                <a
+                  href="http://school.ajratech.com/login"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-bold tracking-[1px] hover:bg-transparent hover:text-success px-2 uppercase"
                 >
                   {/* এডমিশন টেস্ট */}
-                  Admission Test
-                </Link>
+                  School Management
+                </a>
               </li>
               <li>
                 <Link
                   to=""
-                  className="font-bold tracking-[1px] hover:bg-transparent hover:text-success px-2"
+                  className="font-bold tracking-[1px] hover:bg-transparent hover:text-success px-2 uppercase"
                 >
                   {/* আমাদের সম্পর্কে */}
                   About Us

@@ -15,7 +15,7 @@ const Home = () => {
         <CarriculumPrograms />
         <About />
         <Skills />
-        <Testimonial/>
+        {/* <Testimonial/> */}
         <Footer />
       </div>
     );

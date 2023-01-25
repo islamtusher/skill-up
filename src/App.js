@@ -28,6 +28,8 @@ import AssignTeacher from "./Components/Dashboard/TeacherPortal/AssignTeacher/As
 import StaffsEdit from "./Components/Dashboard/TeacherPortal/Staffs/StaffsEdit";
 import Subjects from "./Components/Dashboard/StudyMaterial/Subject/Subjects";
 import AllChapters from "./Components/Dashboard/StudyMaterial/AllChapter/AllChapters";
+import RequireAuth from "./Aditional/RequirAuth";
+
 
 function App() {
   return (
@@ -35,12 +37,26 @@ function App() {
       <Navbar></Navbar>
       <Routes>
         <Route path="/" element={<Home></Home>}></Route>
-        <Route path="/mcq" element={<Mcq></Mcq>}></Route>
+        <Route
+          path="/mcq"
+          element={
+            <RequireAuth>
+              <Mcq></Mcq>
+            </RequireAuth>
+          }
+        ></Route>
         <Route
           path="/exam-type-:examType/:subjectId"
           element={<Chapters></Chapters>}
         ></Route>
-        <Route path="/dashboard" element={<Dashboard />}>
+        <Route
+          path="/dashboard"
+          element={
+            <RequireAuth>
+              <Dashboard />
+            </RequireAuth>
+          }
+        >
           <Route path="mcqChart" element={<McqChart />}></Route>
           <Route path="modelTest" element={<ModelTest />}></Route>
           <Route path="myprofile" element={<MyProfile />}></Route>

@@ -35,7 +35,10 @@ const Mcq = () => {
   // handle class-change AND Load subjects
   const onClassChange = async (e) => {
     // setIsLoading(!isLoading)
-    const response = await API.get(`class_wise_subject/${e.target.value}`);
+    const response = await axios.get(
+      baseURL + `class_wise_subject/${e.target.value}`,
+      { headers: authHeader()}
+    );
     setAvailableSubjeccts(response.data.data.subjects);
     // setIsLoading(!isLoading)
   };

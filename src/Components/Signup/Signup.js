@@ -41,12 +41,13 @@ const Signup = () => {
     <div className="hero min-h-secreen lg:w-3/4 mx-auto pt-20">
       <div className="hero-content flex-col lg:flex-row-reverse">
         <div className="text-center lg:text-left lg:pl-8">
-          <h1 className="text-5xl font-bold">Sign Up Now!</h1>
+          {/* <h1 className="text-5xl font-bold">সাইন আপ করুন!</h1>
           <p className="py-6">
             If you dont't have any user accout on AutoManufac site then feel
             free to Register now. It will be give you more comfortable and
             easiest visiting.
-          </p>
+          </p> */}
+          <img className="w-[700px]" src="../images/login_image.jpg" alt="" />
         </div>
         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
           <div className="card-body pt-3">
@@ -56,7 +57,7 @@ const Signup = () => {
             >
               <div className="form-control w-full max-w-xs">
                 <label className="label">
-                  <span className="label-text text-lg">Name</span>
+                  <span className="label-text text-lg">আপনার নাম</span>
                 </label>
                 <input
                   type="text"
@@ -74,7 +75,7 @@ const Signup = () => {
               </div>
               <div className="form-control w-full max-w-xs">
                 <label className="label">
-                  <span className="label-text text-lg">Phone Number</span>
+                  <span className="label-text text-lg">মোবাইল নম্বর লিখুন</span>
                 </label>
                 <input
                   type="tel"
@@ -92,7 +93,7 @@ const Signup = () => {
               </div>
               <div className="form-control w-full max-w-xs">
                 <label className="label">
-                  <span className="label-text text-lg">Password</span>
+                  <span className="label-text text-lg">পাসওয়ার্ড লিখুন</span>
                 </label>
                 <input
                   type="password"
@@ -121,7 +122,9 @@ const Signup = () => {
               </div>
               <div className="form-control w-full max-w-xs">
                 <label className="label">
-                  <span className="label-text text-lg">Confirm Password</span>
+                  <span className="label-text text-lg">
+                    পাসওয়ার্ডটি পুনরায় লিখুন
+                  </span>
                 </label>
                 <input
                   type="password"
@@ -144,18 +147,18 @@ const Signup = () => {
               </div>
               <button
                 type="submit"
-                className="btn bg-[#0099ff] hover:text-black hover:bg-white text-[17px] w-full mt-6 mb-2"
+                className="btn bg-main hover:text-black hover:bg-white text-[17px] w-full mt-6 mb-2"
               >
-                SIGN UP
+                সাইন আপ করুন
               </button>
-              <p className="text-center text-md ">
-                Allready Registered?
+              <p className="text-center text-md">
+                আপনার একাউন্ট রয়েছে ?
                 <span
                   onClick={() => navigate("/login")}
                   className="text-blue-600 cursor-pointer"
                 >
                   {" "}
-                  Please Log In
+                  লগ ইন করুন
                 </span>
               </p>
             </form>
