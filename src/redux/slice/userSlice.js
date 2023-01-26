@@ -4,25 +4,26 @@ export const userSlice = createSlice({
   name: "user",
   initialState: {
     userInfo: null,
-    panding: false,
+    pending: false,
     error: false,
   },
   reducers: {
     loginStart: (state) => {
-      state.panding = true;
+      state.pending = true;
       state.error = false;
     },
     loginSuccess: (state, action) => {
-      state.panding = false;
+      state.pending = false;
       state.userInfo = action.payload;
       state.error = false;
     },
-    loginError: (state) => {
+    loginError: (state, action) => {
       state.error = true;
-      state.panding = false;
+      state.pending = false;
     },
     logOut: (state) => {
       state.userInfo = null;
+      state.error = false
     },
   },
 });

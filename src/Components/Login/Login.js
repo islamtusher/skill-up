@@ -18,6 +18,7 @@ const Login = () => {
 
   // Redux Toolkit
   const loading = useSelector((state) => state.user.panding);
+  const loginError = useSelector((state) => state.user.error);
   const dispatch = useDispatch();
 
   // User Login Handler
@@ -31,15 +32,9 @@ const Login = () => {
   // }
   return (
     <div className="">
-      <div className="hero min-h-secreen pt-20">
+      <div className="hero min-h-screen pt-20">
         <div className=" hero-content flex-col lg:flex-row-reverse items-center">
           <div className=" text-center lg:text-left lg:pl-8">
-            {/* <h1 className="text-5xl font-bold">Login Now</h1>
-          <p className="py-6">
-            If you dont't have any user accout on AutoManufac site then feel
-            free to Register now. It will be give you more comfortable and
-            easiest visiting.
-          </p> */}
             <img className="w-[700px]" src="../images/login_image.jpg" alt="" />
           </div>
           <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
@@ -86,8 +81,8 @@ const Login = () => {
                   {errors?.password?.type === "required" && (
                     <p className="text-red-500">{errors?.password?.message}</p>
                   )}
+                  
                 </div>
-
                 <button
                   type="submit"
                   className="btn bg-main hover:text-black hover:bg-white text-[17px] w-full mt-6 mb-2"
@@ -95,7 +90,8 @@ const Login = () => {
                   লগ ইন করুন
                 </button>
                 <p className="text-center text-md ">
-                  <span className="text-main font-bold">ই-একাডেমিকে</span> নতুন ?
+                  <span className="text-main font-bold">ই-একাডেমিতে</span> নতুন
+                  ?{" "}
                   <span
                     onClick={() => navigate("/signup")}
                     className="text-blue-600 cursor-pointer"

@@ -127,24 +127,6 @@ const Subjects = () => {
             className="bg-white px-4 pt-2 pb-8 rounded"
           >
             <div className="flex flex-col gap-y-4">
-              <div className="form-control w-full mx-auto">
-                <label className="label">
-                  <span className="label-text text-sm">Subject Name</span>
-                </label>
-                <input
-                  type="text"
-                  className="input border-black focus:outline-0 focus:border-primary w-full  "
-                  {...register("name", {
-                    required: {
-                      value: true,
-                      message: "Subject Name Required",
-                    },
-                  })}
-                />
-                {errors?.name?.type === "required" && (
-                  <p className="text-red-500">{errors?.name?.message}</p>
-                )}
-              </div>
               <div className="my-2">
                 <label className="label">
                   <span className="label-text text-sm">Select Class</span>
@@ -164,11 +146,7 @@ const Subjects = () => {
                     Select
                   </option>
                   {classes?.map((cls) => (
-                    <option
-                      key={cls.id}
-                      value={cls.id}
-                      className=""
-                    >
+                    <option key={cls.id} value={cls.id} className="">
                       {cls.name}
                     </option>
                   ))}
@@ -177,6 +155,24 @@ const Subjects = () => {
                   <p className="text-red-500">
                     {errors?.student_class_id?.message}
                   </p>
+                )}
+              </div>
+              <div className="form-control w-full mx-auto">
+                <label className="label">
+                  <span className="label-text text-sm">Subject Name</span>
+                </label>
+                <input
+                  type="text"
+                  className="input border-black focus:outline-0 focus:border-primary w-full  "
+                  {...register("name", {
+                    required: {
+                      value: true,
+                      message: "Subject Name Required",
+                    },
+                  })}
+                />
+                {errors?.name?.type === "required" && (
+                  <p className="text-red-500">{errors?.name?.message}</p>
                 )}
               </div>
               <div className="form-control w-full mx-auto">
@@ -198,7 +194,7 @@ const Subjects = () => {
                 )}
               </div>
 
-              <button type="submit" className="btn btn-primary">
+              <button type="submit" className="btn bg-main hover:bg-primary">
                 Save
               </button>
             </div>

@@ -6,7 +6,7 @@ const MsWord = () => {
   const contents = [
     {
       id: 1,
-      title: "Microsoft Word Introduction",
+      title: "Microsoft Word Course Preview",
       duration: "9.30 minutes",
       contentLink: "https://www.youtube-nocookie.com/embed/Vq_jkdsjbK8",
     },
@@ -18,27 +18,21 @@ const MsWord = () => {
     },
     {
       id: 3,
-      title: "Microsoft Word Introduction",
+      title: "Microsoft Word Text Options",
       duration: "9.30 minutes",
       contentLink: "https://www.youtube-nocookie.com/embed/Gs7f-_vx05o",
     },
     {
       id: 4,
-      title: "Microsoft Word Introduction",
+      title: "Microsoft Word Bullet Points",
       duration: "9.30 minutes",
       contentLink: "https://www.youtube-nocookie.com/embed/uvhaIjqHsZY",
     },
     {
       id: 5,
-      title: "Microsoft Word Introduction",
+      title: "Microsoft Word Interfaces",
       duration: "9.30 minutes",
       contentLink: "https://www.youtube-nocookie.com/embed/nr0HJb-82H4",
-    },
-    {
-      id: 6,
-      title: "Microsoft Word Introduction",
-      duration: "9.30 minutes",
-      contentLink: "https://www.youtube-nocookie.com/embed/uvhaIjqHsZY",
     },
   ];
 
@@ -65,7 +59,7 @@ const MsWord = () => {
                     {content.id}
                   </p>
                   <div className="">
-                    <h1 className="font-bold text-lg mb-1">{content.title}</h1>
+                    <h1 className="font-bold text-md mb-1">{content.title}</h1>
                     <p>{content.duration}</p>
                   </div>
                 </div>

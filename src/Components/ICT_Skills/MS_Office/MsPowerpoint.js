@@ -8,7 +8,7 @@ const MsPowerpoint = () => {
   const contents = [
     {
       id: 1,
-      title: "Introduction with Powerpoint",
+      title: "Introduction with Powerpoint ",
       duration: "9.30 minutes",
       contentLink: "https://www.youtube.com/embed/l2WHeQP6y9s",
     },
@@ -38,7 +38,7 @@ const MsPowerpoint = () => {
     },
     {
       id: 6,
-      title: "Powerpoint Fontes",
+      title: "Powerpoint Fonts",
       duration: "9.30 minutes",
       contentLink: "https://www.youtube.com/embed/0t1pxbA-nKw",
     },

@@ -21,9 +21,7 @@ export const getUserInfo = async( accessToken, dispatch, formReset, navigate, fr
 
     dispatch(loginSuccess(response.data.data));
     localStorage.setItem("accessToken", accessToken);
-    console.log(from)
     navigate(from, { replace: true });
-    // window.location.href = "/";
     formReset();
   } catch (error) {
     console.log(error);
@@ -42,13 +40,12 @@ export const loginUser = async ( user, dispatch, formReset, navigate, from) => {
       headers: authHeader(),
     });
     if (data?.access_token) {
-      getUserInfo( data?.access_token, dispatch, formReset, navigate, from
-      );
-      // console.log(data?.access_token);
+      getUserInfo( data?.access_token, dispatch, formReset, navigate,from);
     }
   } catch (error) {
+    // dispatch(loginError(error.response.data.message));
     dispatch(loginError());
-    console.log(error.message);
+    console.log(error.response.data.message);
   }
 };
 

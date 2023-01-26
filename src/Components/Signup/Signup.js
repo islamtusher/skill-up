@@ -6,29 +6,45 @@ import API from "../../Network/API";
 import { loginStart } from "../../redux/slice/userSlice";
 import Loading from "../Loading/Loading";
 import { getUserInfo } from "../../redux/apiCalls/apiCall";
+import axios from "axios";
+import authHeader, { baseURL } from "../../Network/AuthApi";
+import { toast } from "react-toastify";
 
 const Signup = () => {
   const navigate = useNavigate();
   const [passwordError, setPasswordError] = useState(""); // password not matcing error
-  const {register,reset,formState: { errors },handleSubmit,} = useForm(); // React from Hook
+  const {
+    register,
+    reset,
+    setError,
+    formState: { errors },
+    handleSubmit,
+    watch,
+  } = useForm(); // React from Hook
+
 
   // Redux Toolkit
-  const loading = useSelector((state) => state.user.panding);
+  const loading = useSelector((state) => state.user.pending);
   const dispatch = useDispatch();
 
-  // Show Loading on Sign Up panding
+  // Show Loading on Sign Up pending
   if (loading) {
     return <Loading></Loading>;
   }
 
   // Form submit handle
   const onSubmit = async (formData) => {
+    
     dispatch(loginStart());
     try {
       if (formData.password === formData.password_confirmation) {
-        const { data } = await API.post(`/register`, formData); // store userInfo & get access token
+        
+        const { data } = await axios.post(baseURL + `register`, formData, { // store userInfo & get access token
+          headers: authHeader(),
+        });
         if (data?.access_token) {
-          getUserInfo(data?.access_token, dispatch, reset, navigate);
+          getUserInfo(data?.access_token, dispatch, reset, navigate, '/');
+          toast.success('Sign up success')
         }
       } else {
         setPasswordError("Confirm-Password Not Matched");
@@ -97,7 +113,6 @@ const Signup = () => {
                 </label>
                 <input
                   type="password"
-                  autoComplete="current-password"
                   className="input input-bordered focus:outline-0 focus:border-primary w-full  "
                   {...register("password", {
                     required: {
@@ -105,8 +120,8 @@ const Signup = () => {
                       message: "Password Must Required",
                     },
                     minLength: {
-                      value: 6,
-                      message: "Need Minimum 6 characters",
+                      value: 8,
+                      message: "Need Minimum 8 characters",
                     },
                   })}
                 />

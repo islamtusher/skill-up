@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const MsExcle = () => {
+const MsExcel = () => {
   const [content, setContent] = useState(
     "https://www.youtube.com/embed/9Vcvzgbuvec"
   );
@@ -8,7 +8,7 @@ const MsExcle = () => {
   const contents = [
     {
       id: 1,
-      title: "Microsoft Excle Introduction",
+      title: "Microsoft Excel Introduction",
       duration: "9.30 minutes",
       contentLink: "https://www.youtube.com/embed/9Vcvzgbuvec",
     },
@@ -20,7 +20,7 @@ const MsExcle = () => {
     },
     {
       id: 3,
-      title: "Microsoft Excle Introduction",
+      title: "Microsoft Excel Introduction",
       duration: "9.30 minutes",
       contentLink: "https://www.youtube.com/embed/M08VTyUHUo0",
     },
@@ -53,7 +53,7 @@ const MsExcle = () => {
     <div className="grid grid-cols-3 gap-8 m-24">
       <div className=" border-2 rounded-lg">
         <header className="font-bold text-2xl text-white bg-green-600 text-center py-4">
-          Microsoft Excle Lectures
+          Microsoft Excel Lectures
         </header>
         <div className="h-[60vh] overflow-auto bg-gray-50 px-4">
           {contents.map((content, index) => {
@@ -90,4 +90,4 @@ const MsExcle = () => {
   );
 };
 
-export default MsExcle;
+export default MsExcel;

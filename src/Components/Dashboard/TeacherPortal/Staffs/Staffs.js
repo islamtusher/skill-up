@@ -45,15 +45,17 @@ const Staffs = () => {
 
   // TODO: Handle Teacher Delete
   const handleTeacherDeleted = async(id) => { 
-    const response = await axios.delete(baseURL + `teacher/${id}`, {
-      headers: authHeader(),
-    });
-   if (response.status === 204) {
-     toast.success("Teacher Deleted Successfully");
-     setTeacherHandle(!teacherHandle);
-   } else {
-     toast.error("Something went wrong");
-   }
+    try {
+      const response = await axios.delete(baseURL + `teacher/${id}`, {
+        headers: authHeader(),
+      });
+      if (response.status === 204) {
+        toast.success("Teacher Deleted Successfully");
+        setTeacherHandle(!teacherHandle);
+      }
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
   }
 
   // TODO: Handle Teacher Update
@@ -197,7 +199,7 @@ const Staffs = () => {
                 )}
               </div>
 
-              <button type="submit" className="btn btn-primary">
+              <button type="submit" className="btn bg-main hover:bg-primary">
                 Save
               </button>
             </div>

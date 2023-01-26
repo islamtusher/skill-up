@@ -9,14 +9,14 @@ const Skills = () => {
       <div className="hero min-h-screen lg:max-w-[1000px] xl:max-w-[1320px] mx-auto">
         <div className="hero-content flex flex-col lg:flex-row items-start justify-between gap-y-20">
           <div className="lg:w-[50%] flex flex-col gap-y-2">
-            <h1 className="font-[Galada] lg:text-4xl xl:text-5xl 2xl:text-6xl ">
-              দারুণ সব <span className="text-success"> স্কিলস </span>
-              ডেভেলপমেন্ট করার জন্য রয়েছে অ্যানলিমেটেড ভিডিও
+            <h1 className="font-[Galada] lg:text-4xl xl:text-5xl 2xl:text-6xl leading-[40px] lg:leading-[48px] xl:leading-[60px]">
+              দারুণ সব স্কিলস ডেভেলপমেন্ট করার জন্য রয়েছে <br />
+              <span className="text-main">অ্যানলিমেটেড ভিডিও</span>
             </h1>
             <p className="font-[Jost] my-3 lg:text-sm xl:text-lg">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem
-              ipsum dolor sit Lorem ipsum dolor sit amet consectetur adipisicing
-              elit amet consectetur adipisicing elit
+              আমাদের প্লাটফর্ম রয়েছে একাডেমিকে এবং প্রফেশনাল স্কিকেলস সমূহ
+              ডেভেলপমেন্ট করার জন্য লাইভ এবং রেকর্ডেড ভিডিও, আমাদের লাইভ ক্লাস
+              গুল সম্পাদন করার জন্য রয়েছে অভিজ্ঞ শিক্ষক গন
             </p>
             <div className="">
               <button className="btn bg-main font-[Galada] border-0 font-thin shadow-2xl lg:text-[16px] xl:text-lg tracking-wider hover:bg-white hover:text-main transition duration-[300ms] ease-in-out">

@@ -15,13 +15,13 @@ const SpokenEnglish = () => {
     },
     {
       id: 2,
-      title: "English Speking Practice",
+      title: "English Speaking Practice",
       duration: "9.30 minutes",
       contentLink: "https://www.youtube.com/embed/Ch9WhP8k3r8",
     },
     {
       id: 3,
-      title: "Types Of Grammer",
+      title: "Types Of Grammar",
       duration: "9.30 minutes",
       contentLink: "https://www.youtube.com/embed/EAiojmfv79M",
     },
@@ -33,13 +33,13 @@ const SpokenEnglish = () => {
     },
     {
       id: 5,
-      title: "English Grammer A - Z",
+      title: "English Grammar A - Z",
       duration: "9.30 minutes",
       contentLink: "https://www.youtube.com/embed/wyKxkcc1DNI",
     },
     {
       id: 6,
-      title: "Sentence Macking",
+      title: "Sentence Making",
       duration: "9.30 minutes",
       contentLink: "https://www.youtube.com/embed/NmyAGraz5vs",
     },

@@ -190,7 +190,7 @@ const Navbar = () => {
                         >
                           <li>
                             <Link className="" to="/quran/norani">
-                              Norani
+                              Noorani
                             </Link>
                           </li>
                         </ul>
@@ -213,22 +213,17 @@ const Navbar = () => {
                 >
                   <li>
                     <Link className="" to="">
-                      Account Management
+                      Accounting and Finance
                     </Link>
                   </li>
                   <li>
                     <Link className="" to="">
-                      Finance
+                      Supply Chain management
                     </Link>
                   </li>
                   <li>
                     <Link className="" to="">
-                      Supply Chain
-                    </Link>
-                  </li>
-                  <li>
-                    <Link className="" to="">
-                      Personal Management
+                      Project Management
                     </Link>
                   </li>
                   <li>
@@ -253,6 +248,11 @@ const Navbar = () => {
                   <li>
                     <Link className="" to="">
                       University Admission Test
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="" to="">
+                      Collage Admission Test
                     </Link>
                   </li>
                   <li>
@@ -300,14 +300,16 @@ const Navbar = () => {
                         dropdown-toggle
                         px-4
                         py-2.5
-                        bg-success
+                        bg-main
+                        text-[12px]
+                        xl:text-[13px]
                         text-white
                         font-medium
                         leading-tight
                         uppercase
                         rounded
-                        hover:bg-blue-700
-                        focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0                       
+                        hover:bg-blue-600
+                        focus:shadow-lg focus:outline-none focus:ring-0                       
                         transition
                         duration-150
                         ease-in-out
@@ -341,7 +343,7 @@ const Navbar = () => {
                       <ul
                         className="
                         dropdown-menu
-                        w-[194px]
+                        w-[160px]
                         absolute
                         hidden
                         bg-white
@@ -359,7 +361,7 @@ const Navbar = () => {
                         aria-labelledby="dropdownMenuButton2"
                       >
                         <li
-                          onClick={() => navigate("/dashboard/mcqChart")}
+                          onClick={() => navigate("/dashboard/myprofile")}
                           className="
                             dropdown-item
                             text-sm

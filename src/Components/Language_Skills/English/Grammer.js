@@ -8,19 +8,19 @@ const Grammar = () => {
   const contents = [
     {
       id: 1,
-      title: "English Grammer Introduction",
+      title: "English Grammar Introduction",
       duration: "9.30 minutes",
       contentLink: "https://www.youtube.com/embed/LRKU5xmdLLQ",
     },
     {
       id: 2,
-      title: "English Speking Practice",
+      title: "English Speaking Practice",
       duration: "9.30 minutes",
       contentLink: "https://www.youtube.com/embed/Ch9WhP8k3r8",
     },
     {
       id: 3,
-      title: "Types Of Grammer",
+      title: "Types Of Grammar",
       duration: "9.30 minutes",
       contentLink: "https://www.youtube.com/embed/EAiojmfv79M",
     },
@@ -32,13 +32,13 @@ const Grammar = () => {
     },
     {
       id: 5,
-      title: "English Grammer A - Z",
+      title: "English Grammar A - Z",
       duration: "9.30 minutes",
       contentLink: "https://www.youtube.com/embed/wyKxkcc1DNI",
     },
     {
       id: 6,
-      title: "Sentence Macking",
+      title: "Sentence Making",
       duration: "9.30 minutes",
       contentLink: "https://www.youtube.com/embed/NmyAGraz5vs",
     },
@@ -53,7 +53,7 @@ const Grammar = () => {
     <div className="grid grid-cols-3 gap-8 m-24">
       <div className=" border-2 rounded-lg">
         <header className="font-bold text-2xl text-white bg-blue-900 text-center py-4">
-          English Grammer Lectures
+          English Grammar Lectures
         </header>
         <div className="h-[60vh] overflow-auto bg-gray-50 px-4">
           {contents.map((content, index) => {

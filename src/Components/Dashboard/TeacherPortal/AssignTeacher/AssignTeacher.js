@@ -115,8 +115,8 @@ const AssignTeacher = () => {
               <tr>
                 <th>Index</th>
                 <th>Name</th>
-                <th>Class</th>
                 <th>Subject</th>
+                <th>Class</th>
                 <th>Status</th>
                 <th>Action</th>
               </tr>
@@ -127,8 +127,8 @@ const AssignTeacher = () => {
                   <tr className="" key={index}>
                     <td>{index + 1}</td>
                     <td>{teacher.teacher_name}</td>
-                    <td>{teacher.class}</td>
                     <td>{teacher.subject}</td>
+                    <td>{teacher.class}</td>
                     <td className="text-green-500">Active</td>
                     <td>
                       <FontAwesomeIcon
