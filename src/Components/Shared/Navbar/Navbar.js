@@ -298,7 +298,7 @@ const Navbar = () => {
                         to=""
                         className="
                         dropdown-toggle
-                        px-4
+                        px-2
                         py-2.5
                         bg-main
                         text-[12px]

@@ -22,7 +22,7 @@ const HeroArea2 = () => {
   return (
     <div>
       <div className="hero hero-area relative min-h-screen">
-        <div className="hero-content flex flex-col-reverse lg:flex-row gap-x-20 gap-y-8 lg:gap-y-14 pt-12">
+        <div className="hero-content flex flex-col-reverse lg:flex-row gap-x-20 gap-y-4 lg:gap-y-14 pt-12">
           <div className="max-w-lg text-center lg:text-start">
             <h1 className="font-[Galada] leading-loose text-3xl lg:text-5xl xl:text-6xl 2xl:text-6xl leading-[40px] lg:leading-[60px] xl:leading-[70px] text-white ">
               {/* বছর জুড়ে */}
@@ -51,7 +51,7 @@ const HeroArea2 = () => {
           <div className="">
             <Slider
               {...settings}
-              className="w-[320px] lg:w-[450px] xl:w-[500px]"
+              className="w-[300px] lg:w-[450px] xl:w-[500px]"
             >
               <div className="focus:outline-0">
                 <img
@@ -62,14 +62,14 @@ const HeroArea2 = () => {
               </div>
               <div className="focus:outline-0">
                 <img
-                  className="lg:w-[450px] xl:w-[800px] "
+                  className="  lg:w-[450px] xl:w-[800px] "
                   src="../images/hero_banner5.png"
                   alt=""
                 />
               </div>
               <div className="focus:outline-0">
                 <img
-                  className=" lg:w-[450px] xl:w-[800px] "
+                  className="  lg:w-[450px] xl:w-[800px] "
                   src="../images/hero_banner4.png"
                   alt=""
                 />
