@@ -212,7 +212,7 @@ const Chapters = () => {
             </div>
           )}
           <div
-            className={`bg-[url('https://i.ibb.co/K0vqn7p/wave.png')] bg-contain bg-no-repeat bg-bottom lg:h-[540px] bg-white rounded-xl shadow-2xl border-primary py-10 lg:py-4 px-4 lg:px-32 
+            className={`bg-[url('https://i.ibb.co/K0vqn7p/wave.png')] bg-contain bg-no-repeat bg-bottom lg:h-[540px] bg-white rounded-xl shadow-2xl border-primary py-10 lg:py-4 px-4 md:px-20 lg:px-12 xl:32
               ${IsShowCorrectAns && "overflow-y-scroll"}
               ${isMcqStart && "flex items-center justify-center"}`}
           >

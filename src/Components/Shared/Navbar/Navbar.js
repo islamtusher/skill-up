@@ -169,7 +169,7 @@ const Navbar = () => {
                           className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 "
                         >
                           <li>
-                            <Link className="" to="/english/grammer">
+                            <Link className="" to="/english/grammar">
                               Grammar
                             </Link>
                           </li>

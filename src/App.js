@@ -11,7 +11,6 @@ import Dashboard from "./Components/Dashboard/Dashboard";
 import McqChart from "./Components/Dashboard/Performance/McqChart";
 import MyProfile from "./Components/Dashboard/MyProfile/MyProfile";
 import ModelTest from "./Components/Dashboard/Performance/ModelTest";
-import QusestionUpload from "./Components/Dashboard/TeacherPortal/QusestionUpload";
 import { ToastContainer } from "react-toastify";
 import Classes from "./Components/Dashboard/StudyMaterial/Class/Classes";
 import ClassEdit from "./Components/Dashboard/StudyMaterial/Class/ClassEdit";
@@ -29,6 +28,8 @@ import StaffsEdit from "./Components/Dashboard/TeacherPortal/Staffs/StaffsEdit";
 import Subjects from "./Components/Dashboard/StudyMaterial/Subject/Subjects";
 import AllChapters from "./Components/Dashboard/StudyMaterial/AllChapter/AllChapters";
 import RequireAuth from "./Aditional/RequirAuth";
+import QuestionUpload from "./Components/Dashboard/TeacherPortal/QuestionUpload";
+import ChapterEdit from "./Components/Dashboard/StudyMaterial/AllChapter/ChapterEdit";
 
 
 function App() {
@@ -64,7 +65,8 @@ function App() {
           <Route path="class-edit/:id" element={<ClassEdit />}></Route>
           <Route path="subjects" element={<Subjects />}></Route>
           <Route path="chapters" element={<AllChapters />}></Route>
-          <Route path="addQuestion" element={<QusestionUpload />}></Route>
+          <Route path="chapter-edit/:id" element={<ChapterEdit />}></Route>
+          <Route path="addQuestion" element={<QuestionUpload />}></Route>
           <Route path="staffs" element={<Staffs />}></Route>
           <Route path="staffsEdit/:id" element={<StaffsEdit />}></Route>
           <Route path="assignTeacher" element={<AssignTeacher />}></Route>
@@ -78,7 +80,7 @@ function App() {
         <Route path="/webdesign" element={<WebDesign />}></Route>
         <Route path="/graphicsdesign" element={<GraphicsDesign />}></Route>
 
-        <Route path="/english/grammer" element={<Grammar />}></Route>
+        <Route path="/english/grammar" element={<Grammar />}></Route>
         <Route
           path="/english/spoken-english"
           element={<SpokenEnglish />}

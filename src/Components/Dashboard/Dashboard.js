@@ -33,8 +33,7 @@ const Dashboard = () => {
             <NavLink
               to="/dashboard/myprofile"
               className={({ isActive }) =>
-                `flex items-center hover:bg-[#4B4F55] px-0
-                ${isActive ? "font-bold" : "font-thin"}`
+                `flex items-center hover:bg-[#4B4F55] px-0 ${isActive ? "font-bold" : "font-thin"}`
               }
             >
               <FontAwesomeIcon className=" text-xl w-[34px]" icon={faUser} />
@@ -101,7 +100,7 @@ const Dashboard = () => {
               </div>
             </li>
           )}
-          {user.user_type === 1 && user.user_type === 2 && (
+          {(user.user_type === 1 || user.user_type === 2) && (
             <>
               {user.user_type === 1 && (
                 <>

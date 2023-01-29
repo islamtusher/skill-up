@@ -4,17 +4,16 @@ import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import API from "../../../../Network/API";
 import authHeader, { baseURL } from "../../../../Network/AuthApi";
 
 const AllChapters = () => {
   const [allSubjectsChapters, setAllSubjectsChapters] = useState([]);
   const [classes, setClasses] = useState([]);
-  const [chapterHandle, setchapterHandle] = useState(false);
+  const [chapterHandle, setChapterHandle] = useState(false);
   const [AllClasses, setAllClasses] = useState([]);
-  const [classWiseSubjeccts, setClassWiseSubjeccts] = useState([]);
+  const [classWiseSubjects, setClassWiseSubjects] = useState([]);
   const [chapters, setChapters] = useState([]);
   const navigate = useNavigate();
 
@@ -52,22 +51,12 @@ const AllChapters = () => {
     });
     if (response.status === 204) {
       toast.success("Chapter Added Successfully");
-      setchapterHandle(!chapterHandle);
+      setChapterHandle(!chapterHandle);
       reset();
     } else {
       toast.error("Something went wrong");
     }
   };
-
-  //   const deleteSubject = async (id) => {
-  //     const response = await API.delete(`subject/${id}`);
-  //     if (response.status === 204) {
-  //       toast.success("Subject Deleted Successfully");
-  //       setSubjectHandle(!subjectHandle);
-  //     } else {
-  //       toast.error("Something went wrong");
-  //     }
-  //   };
 
   //TODO: handle class-change onSelect
   const onClassChange = async (e) => {
@@ -75,7 +64,7 @@ const AllChapters = () => {
       baseURL + `class_wise_subject/${e.target.value}`,
       { headers: authHeader() }
     );
-    setClassWiseSubjeccts(response.data.data.subjects);
+    setClassWiseSubjects(response.data.data.subjects);
   };
 
   //TODO: handle subject-change onSelect
@@ -92,18 +81,18 @@ const AllChapters = () => {
   const handleChapterDelete = async (id) => {
     const response = await axios.delete(
       baseURL + `chapter/${id}`,
-      { headers: authHeader() }
+      { headers: authHeader()}
     );
-    console.log(response.data.data);
+    if (response.status === 204) {
+      toast.success("Chapter Successfully Deleted");
+    } else {
+      toast.error("Something went wrong");
+    }
   };
 
   //TODO: Handle Chapter Update 
   const handleChapterUpdate = async (id) => {
-    const response = await axios.put(
-      baseURL + `chapter/${id}`,
-      { headers: authHeader() }
-    );
-    console.log(response.data.data);
+    navigate(`/dashboard/chapter-Edit/${id}`);
   };
   return (
     <div className="py-24 px-20">
@@ -134,8 +123,8 @@ const AllChapters = () => {
                 <span className="label-text text-sm">Whice Subject ?</span>
               </label>
               <select
-                disabled={classWiseSubjeccts.length === 0 && true}
-                defaultValue= ""
+                disabled={classWiseSubjects.length === 0 && true}
+                defaultValue=""
                 title="Select Classs At First"
                 onChange={(e) => onSubjectChange(e)}
                 className="select border-black focus:outline-0 w-full "
@@ -143,7 +132,7 @@ const AllChapters = () => {
                 <option value="" disabled>
                   Select One
                 </option>
-                {classWiseSubjeccts.map((sub) => (
+                {classWiseSubjects.map((sub) => (
                   <option key={sub.uuid} value={sub.uuid}>
                     {sub.name}{" "}
                   </option>
@@ -184,7 +173,7 @@ const AllChapters = () => {
                         icon={faTrash}
                       />
                       <FontAwesomeIcon
-                        // onClick={() => editSubject(chapter?.uuid, chapter.name)}
+                        onClick={() => handleChapterUpdate(chapter?.uuid)}
                         className=" text-xl w-[34px] text-blue-400 hover:cursor-pointer"
                         icon={faEdit}
                       />
@@ -238,7 +227,7 @@ const AllChapters = () => {
                 </label>
                 <select
                   className="select select-bordered w-full focus:outline-0"
-                  {...register("subjects_id", {
+                  {...register("subject_id", {
                     required: {
                       value: true,
                       message: "Please Select Your Class",
@@ -250,14 +239,14 @@ const AllChapters = () => {
                   <option disabled value="">
                     Select
                   </option>
-                  {classWiseSubjeccts?.map((subject) => (
+                  {classWiseSubjects?.map((subject) => (
                     <option key={subject.uuid} value={subject.uuid}>
                       {subject.name}
                     </option>
                   ))}
                 </select>
-                {errors?.subjects_id?.type === "required" && (
-                  <p className="text-red-500">{errors?.subjects_id?.message}</p>
+                {errors?.subject_id?.type === "required" && (
+                  <p className="text-red-500">{errors?.subject_id?.message}</p>
                 )}
               </div>
               <div className="form-control w-full mx-auto">

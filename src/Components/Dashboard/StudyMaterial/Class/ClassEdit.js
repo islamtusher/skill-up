@@ -18,7 +18,7 @@ const ClassEdit = () => {
   const [singleClass, setSingleClass] = useState({});
   const [inputValue, setInputValue] = useState("");
   const [toggle, setToggle] = useState(false);
-  const [classeHandle, setClasseHandle] = useState(false);
+  const [classesHandle, setClassesHandle] = useState(false);
 
   const { register, handleSubmit, setValue, reset } = useForm(); // react form hooks
    
@@ -31,7 +31,7 @@ const ClassEdit = () => {
       });
       setClasses(data?.data);
     })();
-  }, [toggle, classeHandle]);
+  }, [toggle, classesHandle]);
 
   //TODO: Load Single Class
   useEffect(() => {
@@ -72,7 +72,7 @@ const ClassEdit = () => {
     });
     if (response.status === 204) {
       toast.success("Class Deleted Successfully");
-      setClasseHandle(!classeHandle);
+      setClassesHandle(!classesHandle);
     } else {
       toast.error("Something went wrong");
     }
