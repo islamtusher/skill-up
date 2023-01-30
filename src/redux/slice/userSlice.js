@@ -10,14 +10,12 @@ export const userSlice = createSlice({
   reducers: {
     loginStart: (state) => {
       state.pending = true;
-      state.error = false;
     },
     loginSuccess: (state, action) => {
       state.pending = false;
       state.userInfo = action.payload;
-      state.error = false;
     },
-    loginError: (state, action) => {
+    loginError: (state) => {
       state.error = true;
       state.pending = false;
     },

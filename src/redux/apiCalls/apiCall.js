@@ -1,8 +1,6 @@
 import axios from "axios";
 import { toast } from "react-toastify";
-import API from "../../Network/API.js";
 import authHeader, { baseURL } from "../../Network/AuthApi.js";
-import AuthApi from "../../Network/AuthApi.js";
 import { scoreLoading, scoreLoadSuccess } from "../slice/examScoreSlice";
 import {
   loginStart,
@@ -11,17 +9,18 @@ import {
   logOut,
 } from "../slice/userSlice";
 
-
 // get the current user Information after login
 export const getUserInfo = async( accessToken, dispatch, formReset, navigate, from) => {
   try {
-    const response = await API.get(`/user`, {
-      headers: { Authorization: `Bearer ${accessToken}` },
+    const response = await axios.get(baseURL+'user', {
+      headers: authHeader(),
+      // headers: { Authorization: `Bearer ${accessToken}` },
     });
 
     dispatch(loginSuccess(response.data.data));
-    localStorage.setItem("accessToken", accessToken);
+    //  localStorage.setItem("accessToken", accessToken);
     navigate(from, { replace: true });
+    toast.success("Login Successful");
     formReset();
   } catch (error) {
     console.log(error);
@@ -34,17 +33,17 @@ export const loginUser = async ( user, dispatch, formReset, navigate, from) => {
   try {
     //? Those are alternative APIs
     // const { data } = await authHeader().post(`/login`, user);
-    // const { data } = await axios.post(`http://127.0.0.1:8000/api/login`,  user);
 
     const { data } = await axios.post(baseURL + "login", user, {
       headers: authHeader(),
     });
     if (data?.access_token) {
+      localStorage.setItem("accessToken", data?.access_token);
       getUserInfo( data?.access_token, dispatch, formReset, navigate,from);
     }
   } catch (error) {
-    // dispatch(loginError(error.response.data.message));
     dispatch(loginError());
+    toast.error(error.response.data.message);
     console.log(error.response.data.message);
   }
 };
@@ -64,39 +63,13 @@ export const userLogout = async(dispatch, navigate) => {
       // window.location.href = '/';
     }
   } catch (error) {
+    console.log(error);
+    toast.error(error.response.data.message);
     dispatch(loginError());
   }
   
 };
 
-
-// User Logout Action
-// export const userLogout = async (dispatch, navigate) => {
-//   console.log(localStorage.getItem("accessToken"));
-//   try {
-//     const response = await axios.post(
-//       "http://127.0.0.1:8000/api/logout",
-//       {},
-//       {
-//         headers: {
-//           Accept: "application/json",
-//           "Content-Type": "application/json",
-//           Authorization: "Bearer " + localStorage.getItem("accessToken"),
-//         },
-//       }
-//     );
-//     if (response.status === 204) {
-//       localStorage.removeItem("accessToken");
-//       dispatch(logOut());
-//       navigate("/");
-//       toast.success("Logout Successful");
-//     }
-//   } catch (error) {
-//     console.log(error)
-//     dispatch(loginError());
-//   }
-  
-// };
 
 // Student Exam's Score Load
 export const getStudentExamScore = async (examId, selectedAns, dispatch) => {

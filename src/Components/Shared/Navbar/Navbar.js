@@ -252,7 +252,7 @@ const Navbar = () => {
                   </li>
                   <li>
                     <Link className="" to="">
-                      Collage Admission Test
+                      College Admission Test
                     </Link>
                   </li>
                   <li>

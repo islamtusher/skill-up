@@ -3,12 +3,11 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { loginUser } from "../../redux/apiCalls/apiCall";
-import Loading from "../Loading/Loading";
 
 const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || "/"; 
+  const from = location.state?.from?.pathname || "/";
   const {
     register,
     reset,
@@ -17,8 +16,10 @@ const Login = () => {
   } = useForm(); // react form hook
 
   // Redux Toolkit
-  const loading = useSelector((state) => state.user.panding);
+  const loading = useSelector((state) => state.user.pending);
   const loginError = useSelector((state) => state.user.error);
+  console.log(loginError, loading);
+
   const dispatch = useDispatch();
 
   // User Login Handler
@@ -26,10 +27,6 @@ const Login = () => {
     loginUser(data, dispatch, reset, navigate, from);
   };
 
-  // Show Loading on login panding
-  // if (loading) {
-  //   return <Loading></Loading>;
-  // }
   return (
     <div className="">
       <div className="hero min-h-screen pt-20">
@@ -60,7 +57,7 @@ const Login = () => {
                     })}
                   />
                   {errors?.phone_no?.type === "required" && (
-                    <p className="text-red-500">{errors?.phone?.message}</p>
+                    <p className="text-red-500">{errors?.phone_no?.message}</p>
                   )}
                 </div>
                 <div className="form-control w-full max-w-xs">
@@ -81,15 +78,20 @@ const Login = () => {
                   {errors?.password?.type === "required" && (
                     <p className="text-red-500">{errors?.password?.message}</p>
                   )}
-                  
                 </div>
                 <button
                   type="submit"
-                  className="btn bg-main hover:text-black hover:bg-white text-[17px] w-full mt-6 mb-2"
+                  className={`w-full hover:text-black hover:bg-white mt-6 mb-2  ${
+                    loading ? "btn bg-transparent" : "btn bg-main text-[17px] "
+                  } `}
                 >
-                  লগ ইন করুন
+                  {!loading ? (
+                    "লগ ইন করুন"
+                  ) : (
+                    <span className="w-6 h-6 mx-auto border-t-4 border-b-4 border-green-900 rounded-full animate-spin" />
+                  )}
                 </button>
-                <p className="text-center text-md ">
+                <p className="text-center text-md">
                   <span className="text-main font-bold">ই-একাডেমিতে</span> নতুন
                   ?{" "}
                   <span

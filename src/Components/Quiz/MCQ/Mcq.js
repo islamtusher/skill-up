@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import API from "../../../Network/API";
 import {faArrowRightLong} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useForm } from "react-hook-form";
@@ -12,7 +11,7 @@ import axios from "axios";
 const Mcq = () => {
   const navigate = useNavigate();
   const [currentClasses, setCurrentClasses] = useState([]);
-  const [availableSubjects, setAvailableSubjeccts] = useState([]);
+  const [availableSubjects, setAvailableSubjects] = useState([]);
   const [subjectId, setSubjectId] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const {
@@ -39,7 +38,7 @@ const Mcq = () => {
       baseURL + `class_wise_subject/${e.target.value}`,
       { headers: authHeader()}
     );
-    setAvailableSubjeccts(response.data.data.subjects);
+    setAvailableSubjects(response.data.data.subjects);
     // setIsLoading(!isLoading)
   };
 
@@ -53,23 +52,22 @@ const Mcq = () => {
     navigate(`/exam-type-${data.type}/${subjectId}`);
     console.log(data);
   };
-  // console.log(availableSubjects);
   return (
     <div className="academic-background flex flex-col items-center">
       <div className="hero min-h-screen  pt-16">
-        <div className="hero-content w-full flex-col-reverse lg:flex-row-reverse justify-evenly gap-y-10">
+        <div className="hero-content w-full flex-col-reverse lg:flex-row-reverse justify-evenly xl:gap-y-10">
           <img
             src="./images/quiz_banner.png"
-            className="lg:w-[800px]"
+            className="lg:w-[550px] xl:w-[800px]"
             alt=""
           />
-          <div className="shadow-2xl rounded-lg p-6 bg-white" >
+          <div className="shadow-2xl rounded-lg p-6 bg-white">
             <form
               onSubmit={handleSubmit(onSubmit)}
-              className="flex flex-col gap-y-4"
+              className="flex flex-col lg:gap-y-2 xl:gap-y-4"
             >
               <div className="my-2">
-                <h1 className="text-xl font-[jost] font-bold text-success mb-1">
+                <h1 className="text-md lg:text-lg xl:text-xl font-[jost] font-bold text-main mb-1">
                   Choose Quiz Type
                 </h1>
                 <div className="flex ">
@@ -103,14 +101,14 @@ const Mcq = () => {
                   <p className="text-red-500">{errors?.type?.message}</p>
                 )}
               </div>
-              <div className="my-2">
+              <div className="my-2 font-[Galada]  ">
                 <label className="label">
-                  <h1 className="text-xl font-[jost] font-bold text-success">
+                  <h1 className=" text-md lg:text-lg xl:text-xl  text-main">
                     ক্লাস নির্বাচন কর
                   </h1>
                 </label>
                 <select
-                  className="select select-bordered w-72 text-[20px]"
+                  className="select focus:outline-0 select-bordered font-thin text-gray-500  w-full  lg:w-64 xl:w-72 lg:text-[17px] xl:text-[20px]"
                   {...register("class", {
                     required: {
                       value: true,
@@ -134,15 +132,15 @@ const Mcq = () => {
                   <p className="text-red-500">{errors?.class?.message}</p>
                 )}
               </div>
-              <div className="my-2">
+              <div className="my-2 font-[Galada]">
                 <label className="label">
-                  <h1 className="text-xl font-[jost] font-bold text-success">
+                  <h1 className="text-md lg:text-lg xl:text-xl font-thin text-main">
                     বিষয় নির্বাচন কর
                   </h1>
                 </label>
                 <select
                   disabled={availableSubjects.length === 0 && true}
-                  className={`select select-bordered w-72 text-[20px]`}
+                  className={`select focus:outline-0 select-bordered text-gray-700 w-full  lg:w-64 xl:w-72 font-thin lg:text-[17px] xl:text-[20px]`}
                   title={
                     availableSubjects.length === 0
                       ? "প্রথমে ক্লাস নির্বাচন কর"
@@ -175,7 +173,9 @@ const Mcq = () => {
                   type="submit"
                   className="w-[68px] font-[jost] flex items-center justify-between border-b-2 border-zinc-500 hover:text-success hover:border-primary hover:cursor-pointer transition ease-in-out duration-300"
                 >
-                  <span className="text-lg tracking-[2px]">Next</span>
+                  <span className="text-md lg:text-md xl:text-xl tracking-[2px]">
+                    Next
+                  </span>
                   <FontAwesomeIcon
                     className=" text-md mt-1"
                     icon={faArrowRightLong}

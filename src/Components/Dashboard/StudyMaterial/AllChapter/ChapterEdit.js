@@ -39,7 +39,7 @@ const ChapterEdit = () => {
   useEffect(() => {
     (async () => {
       const { data } = await axios.get(baseURL + "student_classes", {
-        headers: authHeader(),
+        headers: authHeader()
       });
       setAllClasses(data?.data);
     })();
@@ -48,16 +48,6 @@ const ChapterEdit = () => {
   // TODO: Handle form submit (Add Subject)
   const onSubmit = async (data) => {
     console.log(data);
-    const response = await axios.post(baseURL + "chapter", data, {
-      headers: authHeader(),
-    });
-    if (response.status === 204) {
-      toast.success("Chapter Added Successfully");
-      setChapterHandle(!chapterHandle);
-      reset();
-    } else {
-      toast.error("Something went wrong");
-    }
   };
 
   //TODO: handle class-change onSelect
@@ -81,14 +71,7 @@ const ChapterEdit = () => {
 
   //TODO: Handle Chapter Delete
   const handleChapterDelete = async (id) => {
-    const response = await axios.delete(baseURL + `chapter/${id}`, {
-      headers: authHeader(),
-    });
-    if (response.status === 204) {
-      toast.success("Chapter Successfully Deleted");
-    } else {
-      toast.error("Something went wrong");
-    }
+    
   };
 
   //TODO: Handle Chapter Update

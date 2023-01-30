@@ -34,6 +34,7 @@ const McqChart = () => {
         { headers: authHeader()}
       );
       setAllSubjectsResult(response.data.data);
+      console.log(response.data.data);
     })();
   }, [])
 
@@ -86,7 +87,7 @@ const McqChart = () => {
 
   return (
     <div className="py-20">
-      <h1 className="text-xl text-peimary font-bold text-center py-6 ">
+      <h1 className="text-xl text-main font-bold text-center py-6 ">
         All Subjects MCQ Result
       </h1>
 

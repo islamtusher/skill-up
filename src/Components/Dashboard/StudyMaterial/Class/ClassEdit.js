@@ -57,12 +57,10 @@ const ClassEdit = () => {
     if (response.status === 204) {
       toast.success("success");
       setToggle((prevState) => !prevState);
-      console.log('reset');
       reset();
     } else {
       toast.error("Something went wrong");
     }
-    console.log(data)
   };
 
   // TODO: Handle Class Delete
