@@ -89,7 +89,7 @@ const ChapterEdit = () => {
           <div className="flex gap-x-4 items-center mb-4">
             <div className="">
               <label className="label">
-                <span className="label-text text-sm">Whice Class ?</span>
+                <span className="label-text text-sm">Which Class ?</span>
               </label>
               <select
                 defaultValue=""
@@ -108,7 +108,7 @@ const ChapterEdit = () => {
             </div>
             <div className="">
               <label className="label">
-                <span className="label-text text-sm">Whice Subject ?</span>
+                <span className="label-text text-sm">Which Subject ?</span>
               </label>
               <select
                 disabled={classWiseSubjects.length === 0 && true}
@@ -127,9 +127,6 @@ const ChapterEdit = () => {
                 ))}
               </select>
             </div>
-            {/* <div className="mt-8 text-end">
-                <button onClick={()=>navigate()} className='btn bg-success'> Add Chapter</button>
-            </div> */}
           </div>
           <h4 className="text-lg font-bold mb-3">Chapter List</h4>
           <table className="table w-full rounded shadow-lg">
