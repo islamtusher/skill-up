@@ -14,15 +14,15 @@ export const getUserInfo = async( accessToken, dispatch, formReset, navigate, fr
   try {
     const response = await axios.get(baseURL+'user', {
       headers: authHeader(),
-      // headers: { Authorization: `Bearer ${accessToken}` },
     });
 
     dispatch(loginSuccess(response.data.data));
-    //  localStorage.setItem("accessToken", accessToken);
+    // localStorage.setItem("accessToken", accessToken);
     navigate(from, { replace: true });
     toast.success("Login Successful");
     formReset();
   } catch (error) {
+    toast.error('Something Wrong on User Loading')
     console.log(error);
   }
 };
@@ -43,15 +43,14 @@ export const loginUser = async ( user, dispatch, formReset, navigate, from) => {
     }
   } catch (error) {
     dispatch(loginError());
-    toast.error(error.response.data.message);
-    console.log(error.response.data.message);
+    toast.error(error.response.data?.message);
+    console.log(error.response.data?.message);
   }
 };
 
 // User Logout Action
 export const userLogout = async(dispatch, navigate) => {
   try {
-    // const response = await API.post("/logout");
     const response = await axios.post(baseURL + 'logout',{}, {
       headers: authHeader(),
     });
@@ -60,7 +59,6 @@ export const userLogout = async(dispatch, navigate) => {
       dispatch(logOut());
       navigate("/");
       toast.success("Logout Successful");
-      // window.location.href = '/';
     }
   } catch (error) {
     console.log(error);
