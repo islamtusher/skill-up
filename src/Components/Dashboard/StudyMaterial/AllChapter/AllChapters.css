@@ -16,13 +16,20 @@
     text-decoration: none;
     background-color: #fff;
     padding: 0.375rem 0.75rem;
-    border: 1px solid #dee2e6;
+    margin: 0 3px;
+    border: 1px solid #d5d8dc;
     transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+.page-link:hover{
+    border: 1px solid #01438a;
 }
 .page-item.active .page-link {
     z-index: 3;
     color: #fff;
     background-color: #01438a;
     border-color: #01438a;
+}
+.page-item.active .page-link:hover {
+    background-color: #024b9b;
 }
 

@@ -54,15 +54,16 @@ const AllChapters = () => {
   }, []);
 
   // Handle Page Button click
-  const paginationHandler = (page) => {
+  const paginationHandler = async(page) => {
     console.log(page);
-    // console.log(page.selected + 1);
-    // try {
-    //   const { data } = axios.get(baseURL + `chapter?page=${page.selected + 1}`);
-    //   console.log(data)
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    try {
+      const { data } = await axios.get(baseURL + `chapter?page=${page.selected + 1}`, {
+        headers : authHeader()
+      });
+      setAllSubjectsChapters(data?.data);
+    } catch (error) {
+      console.log(error);
+    }
     
       
   };
