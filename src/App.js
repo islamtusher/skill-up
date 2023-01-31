@@ -30,6 +30,7 @@ import AllChapters from "./Components/Dashboard/StudyMaterial/AllChapter/AllChap
 import RequireAuth from "./Aditional/RequirAuth";
 import QuestionUpload from "./Components/Dashboard/TeacherPortal/QuestionUpload";
 import ChapterEdit from "./Components/Dashboard/StudyMaterial/AllChapter/ChapterEdit";
+import SubjectEdit from "./Components/Dashboard/StudyMaterial/Subject/SubjectEdit";
 
 
 function App() {
@@ -64,6 +65,7 @@ function App() {
           <Route path="classes" element={<Classes />}></Route>
           <Route path="class-edit/:id" element={<ClassEdit />}></Route>
           <Route path="subjects" element={<Subjects />}></Route>
+          <Route path="subject-edit/:id" element={<SubjectEdit/>}></Route>
           <Route path="chapters" element={<AllChapters />}></Route>
           <Route path="chapter-edit/:id" element={<ChapterEdit />}></Route>
           <Route path="addQuestion" element={<QuestionUpload />}></Route>

@@ -4,9 +4,8 @@ import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import API from "../../../../Network/API";
 import authHeader, { baseURL } from "../../../../Network/AuthApi";
 
 const Subjects = () => {
@@ -54,11 +53,10 @@ const Subjects = () => {
 
   // TODO: Handle Subject Edit
   const editSubject = async (id, className) => {
-    // const cls = className.split(" ")[0];
-    navigate(`/dashboard/subject-edit/${className}/${id}`);
-    // const data = await API.put(`student_subjects/${id}`);
+    // navigate(`/dashboard/subject-edit/${id}`);
   };
 
+  //TODO: Handle Delete Subject 
   const deleteSubject = async (id) => {
     const response = await axios.delete(baseURL + `subject/${id}`, {
       headers: authHeader(),
@@ -70,6 +68,7 @@ const Subjects = () => {
       toast.error("Something went wrong");
     }
   };
+  
   const onClassChange = (e) => {
     setValue("student_class_id", e.target.value);
   }
@@ -81,7 +80,7 @@ const Subjects = () => {
           <table className="table w-full rounded shadow-lg">
             <thead>
               <tr>
-                <th>Index</th>
+                <th>IN</th>
                 <th>Subject Name</th>
                 <th>Class</th>
                 <th>Status</th>
@@ -100,7 +99,7 @@ const Subjects = () => {
                         subject.status === 1 ? "text-green-600" : "text-red-500"
                       }`}
                     >
-                      {subject.status === 1 ? "Active" : "Deactive"}
+                      {subject.status === 1 ? "Active" : "Deactivate"}
                     </td>
                     <td>
                       <FontAwesomeIcon

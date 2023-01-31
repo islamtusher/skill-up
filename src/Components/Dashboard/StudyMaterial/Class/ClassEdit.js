@@ -3,14 +3,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
-import { useFieldArray, useForm } from "react-hook-form";
+import {  useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import API from "../../../../Network/API";
 import authHeader, { baseURL } from "../../../../Network/AuthApi";
 
 const ClassEdit = () => {
-  const { id, className } = useParams();
+  const { id } = useParams();
   const navigate = useNavigate();
 
   const [classes, setClasses] = useState([]);
@@ -20,11 +19,11 @@ const ClassEdit = () => {
   const [toggle, setToggle] = useState(false);
   const [classesHandle, setClassesHandle] = useState(false);
 
-  const { register, handleSubmit, setValue, reset } = useForm(); // react form hooks
-   
+  const { register, handleSubmit, setValue, reset } = useForm(); // react form hooks   
 
   //TODO: Load All Classes
   useEffect(() => {
+    console.log("inner 1");
     (async () => {
       const { data } = await axios.get(baseURL + "student_classes", {
         headers: authHeader(),
@@ -39,11 +38,13 @@ const ClassEdit = () => {
       const { data } = await axios.get(baseURL + `student_classes/${id}`, {
         headers: authHeader(),
       });
-      // setSingleClass(data?.data);
-      reset(data.data);
+      setValue("name", data.data.name);
+      setValue("status", data.data.status);
+      console.log('inner');
     })();
-  }, [id, reset]);
-
+  }, [id, setValue]);
+  console.log('mount')
+  
   // TODO: Handle form submit
   const onSubmit = async (data) => {
     const response = await axios.put(baseURL + `student_classes/${id}`,
@@ -55,13 +56,13 @@ const ClassEdit = () => {
         headers: authHeader(),
       });
     if (response.status === 204) {
-      toast.success("success");
+      toast.success("Chapter Edit Successfully");
       setToggle((prevState) => !prevState);
       reset();
     } else {
       toast.error("Something went wrong");
     }
-  };
+  }
 
   // TODO: Handle Class Delete
   const deleteClass = async (id) => {
@@ -79,15 +80,8 @@ const ClassEdit = () => {
   // TODO: Handle Class Edit Icon Events
   const editClass = (selectedClass) => {
     navigate(`/dashboard/class-edit/${selectedClass?.id}`);
-    // console.log(selectedClass);
-    // setSingleClass(selectedClass);
-    // setValue('name', singleClass.name)
   };
-  // console.log(singleClass);
-  const handleChange = (event) => {
-    // setInputValue(event.target.value);
-    console.log(event.target.value);
-  };
+
 
   return (
     <div className="py-24 px-20">
@@ -97,7 +91,7 @@ const ClassEdit = () => {
           <table className="table w-full rounded shadow-lg">
             <thead>
               <tr>
-                <th></th>
+                <th>IN</th>
                 <th>Name</th>
                 <th>Status</th>
                 <th>Action</th>
@@ -168,7 +162,7 @@ const ClassEdit = () => {
                   />
                 </div>
 
-                <button type="submit" className="btn btn-primary">
+                <button type="submit" className="btn bg-main hover:bg-primary">
                   Save
                 </button>
               </div>

@@ -1,4 +1,4 @@
-import { faArrowCircleLeft, faArrowRight, faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { useState } from "react";
@@ -11,12 +11,11 @@ import authHeader, { baseURL } from "../../../../Network/AuthApi";
 import './AllChapters.css'
 const AllChapters = () => {
   const [allSubjectsChapters, setAllSubjectsChapters] = useState([]);
-  const [classes, setClasses] = useState([]);
   const [chapterHandle, setChapterHandle] = useState(false);
   const [AllClasses, setAllClasses] = useState([]);
   const [classWiseSubjects, setClassWiseSubjects] = useState([]);
   const [pagination, setPagination] = useState({});
-  const [chapters, setChapters] = useState([]);
+
   const navigate = useNavigate();
 
   const {
@@ -53,16 +52,15 @@ const AllChapters = () => {
     })();
   }, []);
 
-  // Handle Page Button click
+  //TODO: Handle Page Button click
   const paginationHandler = async(page) => {
-    console.log(page);
     try {
       const { data } = await axios.get(baseURL + `chapter?page=${page.selected + 1}`, {
         headers : authHeader()
       });
       setAllSubjectsChapters(data?.data);
     } catch (error) {
-      console.log(error);
+      toast.error('Something went wrong')
     }
     
       
@@ -216,19 +214,11 @@ const AllChapters = () => {
               <nav>
                 <ReactPaginate
                   previousLabel={
-                    // <FontAwesomeIcon
-                    //   className=" page-link page-link-icon mr-2"
-                    //   icon={faArrowCircleLeft}
-                    // />
                     <span className=" page-link page-link-icon mr-2">
                       Previous
                     </span>
                   }
                   nextLabel={
-                    // <FontAwesomeIcon
-                    //   className=" page-link page-link-icon mr-2"
-                    //   icon={faArrowRight}
-                    // />
                     <span className=" page-link page-link-icon ml-2 ">
                       Next
                     </span>

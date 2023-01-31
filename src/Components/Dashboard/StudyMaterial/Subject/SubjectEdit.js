@@ -4,22 +4,35 @@ import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import API from "../../../../Network/API";
 import authHeader, { baseURL } from "../../../../Network/AuthApi";
 
-const Classes = () => {
-  const navigate = useNavigate()
-  const [classes, setClasses] = useState([]);
-  const [classeHandle, setClasseHandle] = useState(false)
+const SubjectEdit = () => {
+    const { id } = useParams();
+    const [subjects, setSubjects] = useState([]);
+    const [classes, setClasses] = useState([]);
+    const [subjectHandle, setSubjectHandle] = useState(false);
+    
+  const navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors },
   } = useForm(); // react form hooks
+
+  //TODO: GET All subjects
+  useEffect(() => {
+    (async () => {
+      const { data } = await axios.get(baseURL + "subject", {
+        headers: authHeader(),
+      });
+      setSubjects(data?.data);
+    })();
+  }, [subjectHandle]);
 
   // TODO: GET All Classes
   useEffect(() => {
@@ -29,79 +42,93 @@ const Classes = () => {
       });
       setClasses(data?.data);
     })();
-  }, [classeHandle]);
+  }, []);
 
-  // TODO: Handle form submit
+  //TODO: Load Single Subject
+  useEffect(() => {
+    (async () => {
+      const { data } = await axios.get(baseURL + `subject/${id}`, {
+        headers: authHeader(),
+      });
+        setValue("name", data.data.name);
+        setValue("status", data.data.status);
+        setValue("student_class_id");
+      console.log(data);
+    })();
+  }, [id, setValue]);
+
+  // TODO: Handle form submit (Edit Subject)
   const onSubmit = async (data) => {
-    const response = await axios.post(baseURL + "student_classes", data, {
-      headers: authHeader(),
-    });
-     if (response.status === 204) {
-       toast.success("Class Added Successfully");
-       setClasseHandle(!classeHandle);
-       reset();
-     } else {
-       toast.error("Something went wrong");
-     }
-  };
-  
-  // TODO: Handle Class Edit
-  const editClass = async (id, className) => {
-    // const cls = className.split(" ")[0]
-    navigate(`/dashboard/class-edit/${id}`)
-    // const data = await API.put(`student_classes/${id}`);
-    // console.log(cls)
-  }   
-
-
-  // TODO: Handle Class Delete
-  const deleteClass = async (id) => {
-    const response = await axios.delete(baseURL + `student_classes/${id}`, {
+    const response = await axios.put(baseURL + `subject/${id}`, data, {
       headers: authHeader(),
     });
     if (response.status === 204) {
-      toast.success("Class Deleted Successfully");
-      setClasseHandle(!classeHandle);
+      toast.success("Subject Edit Successfully");
+      setSubjectHandle(!subjectHandle);
+      reset();
     } else {
       toast.error("Something went wrong");
     }
-  }   
+  };
 
+  // TODO: Handle Subject Edit
+  const editSubject = async (id, className) => {
+    navigate(`/dashboard/subject-edit/${id}`);
+  };
+
+  //TODO: Handle Delete Subject
+  const deleteSubject = async (id) => {
+    const response = await axios.delete(baseURL + `subject/${id}`, {
+      headers: authHeader(),
+    });
+    if (response.status === 204) {
+      toast.success("Subject Deleted Successfully");
+      setSubjectHandle(!subjectHandle);
+    } else {
+      toast.error("Something went wrong");
+    }
+  };
+
+  const onClassChange = (e) => {
+    setValue("student_class_id", e.target.value);
+  };
   return (
     <div className="py-24 px-20">
       <div className="grid grid-cols-3 gap-10">
         <div className="col-span-2 ">
-          <h4 className="text-lg font-bold mb-3">Class List</h4>
+          <h4 className="text-lg font-bold mb-3">Subject List</h4>
           <table className="table w-full rounded shadow-lg">
             <thead>
               <tr>
                 <th>IN</th>
-                <th>Name</th>
+                <th>Subject Name</th>
+                <th>Class</th>
                 <th>Status</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              {classes?.map((cls, index) => {
+              {subjects?.map((subject, index) => {
                 return (
                   <tr key={index} className={`${index % 2 !== 0 && ""} `}>
                     <td>{index + 1}</td>
-                    <td>{cls.name}</td>
+                    <td>{subject.name}</td>
+                    <td>{subject.class}</td>
                     <td
                       className={`${
-                        cls.status === 1 ? "text-green-600" : "text-red-500"
+                        subject.status === 1 ? "text-green-600" : "text-red-500"
                       }`}
                     >
-                      {cls.status === 1 ? "Active" : "Deactivate"}
+                      {subject.status === 1 ? "Active" : "Deactivate"}
                     </td>
                     <td>
                       <FontAwesomeIcon
-                        onClick={() => deleteClass(cls.id)}
+                        onClick={() => deleteSubject(subject?.uuid)}
                         className=" text-xl w-[34px] text-red-600 mr-2 hover:cursor-pointer"
                         icon={faTrash}
                       />
                       <FontAwesomeIcon
-                        onClick={() => editClass(cls?.id, cls.name)}
+                        onClick={() => editSubject(subject?.uuid, subject.name)}
                         className=" text-xl w-[34px] text-blue-400 hover:cursor-pointer"
                         icon={faEdit}
                       />
@@ -113,15 +140,45 @@ const Classes = () => {
           </table>
         </div>
         <div className="">
-          <h4 className="text-lg font-bold mb-3">Add Class</h4>
+          <h4 className="text-lg font-bold mb-3">Edit Subject</h4>
           <form
             onSubmit={handleSubmit(onSubmit)}
             className="bg-white px-4 pt-2 pb-8 rounded"
           >
             <div className="flex flex-col gap-y-4">
+              {/* <div className="my-2">
+                <label className="label">
+                  <span className="label-text text-sm">Select Class</span>
+                </label>
+                <select
+                  className="select select-bordered w-full focus:outline-0"
+                  {...register("student_class_id", {
+                    required: {
+                      value: true,
+                      message: "Please Select Your Class",
+                    },
+                    onChange: (e) => onClassChange(e),
+                  })}
+                  defaultValue=""
+                >
+                  <option disabled value="">
+                    Select
+                  </option>
+                  {classes?.map((cls) => (
+                    <option key={cls.id} value={cls.id} className="">
+                      {cls.name}
+                    </option>
+                  ))}
+                </select>
+                {errors?.student_class_id?.type === "required" && (
+                  <p className="text-red-500">
+                    {errors?.student_class_id?.message}
+                  </p>
+                )}
+              </div> */}
               <div className="form-control w-full mx-auto">
                 <label className="label">
-                  <span className="label-text text-sm">Class Name</span>
+                  <span className="label-text text-sm">Subject Name</span>
                 </label>
                 <input
                   type="text"
@@ -129,7 +186,7 @@ const Classes = () => {
                   {...register("name", {
                     required: {
                       value: true,
-                      message: "Class Name Required",
+                      message: "Subject Name Required",
                     },
                   })}
                 />
@@ -165,6 +222,6 @@ const Classes = () => {
       </div>
     </div>
   );
-};;
+};
 
-export default Classes;
+export default SubjectEdit;
