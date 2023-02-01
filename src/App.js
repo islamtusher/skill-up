@@ -31,6 +31,7 @@ import RequireAuth from "./Aditional/RequirAuth";
 import QuestionUpload from "./Components/Dashboard/TeacherPortal/QuestionUpload";
 import ChapterEdit from "./Components/Dashboard/StudyMaterial/AllChapter/ChapterEdit";
 import SubjectEdit from "./Components/Dashboard/StudyMaterial/Subject/SubjectEdit";
+import AllQuestions from "./Components/Dashboard/StudyMaterial/Questions/AllQuestions";
 
 
 function App() {
@@ -68,6 +69,7 @@ function App() {
           <Route path="subject-edit/:id" element={<SubjectEdit/>}></Route>
           <Route path="chapters" element={<AllChapters />}></Route>
           <Route path="chapter-edit/:id" element={<ChapterEdit />}></Route>
+          <Route path="questions" element={<AllQuestions />}></Route>
           <Route path="addQuestion" element={<QuestionUpload />}></Route>
           <Route path="staffs" element={<Staffs />}></Route>
           <Route path="staffsEdit/:id" element={<StaffsEdit />}></Route>

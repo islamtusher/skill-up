@@ -168,9 +168,9 @@ const Dashboard = () => {
                                   Chapters
                                 </NavLink>
                               </li>
-                              <li>
+                              {/* <li>
                                 <NavLink
-                                  to="/dashboard/modelTest"
+                                  to="/dashboard/questions"
                                   className={({ isActive }) =>
                                     `flex items-center hover:font-bold transition pt-2 px-0 pb-0 
                           ${isActive ? "font-bold" : "font-thin"}`
@@ -179,7 +179,7 @@ const Dashboard = () => {
                                   <div className=" w-[34px]" />
                                   Questions
                                 </NavLink>
-                              </li>
+                              </li> */}
                             </ul>
                           </div>
                         </div>

@@ -82,13 +82,6 @@ const QuestionUpload = () => {
                   <select
                     defaultValue=""
                     className="select bg-gray-100 border-black focus:outline-0 w-full "
-                    // {...register("class", {
-                    //   required: {
-                    //     value: true,
-                    //     message: "Select a Class",
-                    //   },
-                    // onChange: onClassChange,
-                    // })}
                     onChange={(e) => onClassChange(e)}
                   >
                     <option value="" disabled>
@@ -115,13 +108,6 @@ const QuestionUpload = () => {
                     defaultValue=""
                     onChange={(e) => onSubjectChange(e)}
                     className="select bg-gray-100 border-black focus:outline-0 w-full "
-                    // {...register("subject", {
-                    //   required: {
-                    //     value: true,
-                    //     message: "Select a Subject",
-                    //   },
-                    //   onChange: onSubjectChange,
-                    // })}
                   >
                     <option value="" disabled>
                       Select One
