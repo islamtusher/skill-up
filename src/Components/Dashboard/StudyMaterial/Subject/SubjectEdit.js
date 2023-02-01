@@ -4,16 +4,18 @@ import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import ReactPaginate from "react-paginate";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import authHeader, { baseURL } from "../../../../Network/AuthApi";
 
 const SubjectEdit = () => {
-    const { id } = useParams();
-    const [subjects, setSubjects] = useState([]);
-    const [classes, setClasses] = useState([]);
-    const [subjectHandle, setSubjectHandle] = useState(false);
-    
+  const { id } = useParams();
+  const [subjects, setSubjects] = useState([]);
+  const [classes, setClasses] = useState([]);
+  const [pagination, setPagination] = useState({});
+  const [subjectHandle, setSubjectHandle] = useState(false);
+
   const navigate = useNavigate();
 
   const {
@@ -50,9 +52,9 @@ const SubjectEdit = () => {
       const { data } = await axios.get(baseURL + `subject/${id}`, {
         headers: authHeader(),
       });
-        setValue("name", data.data.name);
-        setValue("status", data.data.status);
-        setValue("student_class_id");
+      setValue("name", data.data.name);
+      setValue("status", data.data.status);
+      setValue("student_class_id", data.data.class_id);
       console.log(data);
     })();
   }, [id, setValue]);
@@ -91,6 +93,19 @@ const SubjectEdit = () => {
 
   const onClassChange = (e) => {
     setValue("student_class_id", e.target.value);
+  };
+
+  //TODO: Handle Page Button click
+  const paginationHandler = async (page) => {
+    try {
+      const { data } = await axios.get(
+        baseURL + `subject?page=${page.selected + 1}`,
+        { headers: authHeader() }
+      );
+      setSubjects(data?.data);
+    } catch (error) {
+      toast.error("Something went wrong");
+    }
   };
   return (
     <div className="py-24 px-20">
@@ -138,6 +153,37 @@ const SubjectEdit = () => {
               })}
             </tbody>
           </table>
+
+          {/* Pagination */}
+          {/* <div className="mt-6 mx-auto">
+            {subjects?.length > 0 && (
+              <nav>
+                <ReactPaginate
+                  previousLabel={
+                    <span className=" page-link page-link-icon mr-2">
+                      Previous
+                    </span>
+                  }
+                  nextLabel={
+                    <span className=" page-link page-link-icon ml-2 ">
+                      Next
+                    </span>
+                  }
+                  breakLabel={"..."}
+                  breakClassName={"break-me"}
+                  activeClassName={"active"}
+                  containerClassName={"pagination pagination-space m-b-0"}
+                  pageClassName="page-item"
+                  pageLinkClassName="page-link"
+                  initialPage={pagination ? pagination?.current_page : 1}
+                  pageCount={pagination?.totalPage ? pagination.totalPage : 1}
+                  marginPagesDisplayed={2}
+                  pageRangeDisplayed={5}
+                  onPageChange={paginationHandler}
+                />
+              </nav>
+            )}
+          </div> */}
         </div>
         <div className="">
           <h4 className="text-lg font-bold mb-3">Edit Subject</h4>

@@ -4,6 +4,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import ReactPaginate from "react-paginate";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import authHeader, { baseURL } from "../../../../Network/AuthApi";
@@ -12,6 +13,7 @@ const Subjects = () => {
   const [subjects, setSubjects] = useState([]);
   const [classes, setClasses] = useState([]);
   const [subjectHandle, setSubjectHandle] = useState(false);
+  const [pagination, setPagination] = useState({});
   const navigate = useNavigate();
 
   const {
@@ -22,17 +24,28 @@ const Subjects = () => {
     formState: { errors },
   } = useForm(); // react form hooks
 
+  //TODO: GET All Subjects
   useEffect(() => {
     (async () => {
-      const { data } = await axios.get(baseURL + "subject", { headers: authHeader()});
+      const { data } = await axios.get(baseURL + "subject", {
+        headers: authHeader(),
+      });
       setSubjects(data?.data);
+      // setPagination({
+      //   current_page: data.meta.current_page,
+      //   totalPage: data.meta.last_page,
+      //   total: data.meta.total,
+      // });
+      console.log(data);
     })();
   }, [subjectHandle]);
 
   // TODO: GET All Classes
   useEffect(() => {
     (async () => {
-      const { data } = await axios.get(baseURL + "student_classes", {  headers: authHeader()});
+      const { data } = await axios.get(baseURL + "student_classes", {
+        headers: authHeader(),
+      });
       setClasses(data?.data);
     })();
   }, []);
@@ -42,21 +55,21 @@ const Subjects = () => {
     const response = await axios.post(baseURL + "subject", data, {
       headers: authHeader(),
     });
-     if (response.status === 204) {
-       toast.success("Subject Added Successfully");
-       setSubjectHandle(!subjectHandle);
-       reset();
-     } else {
-       toast.error("Something went wrong");
-     }
+    if (response.status === 204) {
+      toast.success("Subject Added Successfully");
+      setSubjectHandle(!subjectHandle);
+      reset();
+    } else {
+      toast.error("Something went wrong");
+    }
   };
 
   // TODO: Handle Subject Edit
   const editSubject = async (id, className) => {
-    // navigate(`/dashboard/subject-edit/${id}`);
+    navigate(`/dashboard/subject-edit/${id}`);
   };
 
-  //TODO: Handle Delete Subject 
+  //TODO: Handle Delete Subject
   const deleteSubject = async (id) => {
     const response = await axios.delete(baseURL + `subject/${id}`, {
       headers: authHeader(),
@@ -68,10 +81,23 @@ const Subjects = () => {
       toast.error("Something went wrong");
     }
   };
-  
+
   const onClassChange = (e) => {
     setValue("student_class_id", e.target.value);
-  }
+  };
+
+  //TODO: Handle Page Button click
+  const paginationHandler = async (page) => {
+    try {
+      const { data } = await axios.get(
+        baseURL + `subject?page=${page.selected + 1}`,
+        { headers: authHeader()}
+      );
+      setSubjects(data?.data);
+    } catch (error) {
+      toast.error("Something went wrong");
+    }
+  };
   return (
     <div className="py-24 px-20">
       <div className="grid grid-cols-3 gap-10">
@@ -118,6 +144,36 @@ const Subjects = () => {
               })}
             </tbody>
           </table>
+          {/* Pagination */}
+          {/* <div className="mt-6 mx-auto">
+            {subjects?.length > 0 && (
+              <nav>
+                <ReactPaginate
+                  previousLabel={
+                    <span className=" page-link page-link-icon mr-2">
+                      Previous
+                    </span>
+                  }
+                  nextLabel={
+                    <span className=" page-link page-link-icon ml-2 ">
+                      Next
+                    </span>
+                  }
+                  breakLabel={"..."}
+                  breakClassName={"break-me"}
+                  activeClassName={"active"}
+                  containerClassName={"pagination pagination-space m-b-0"}
+                  pageClassName="page-item"
+                  pageLinkClassName="page-link"
+                  initialPage={pagination ? pagination?.current_page : 1}
+                  pageCount={pagination?.totalPage ? pagination.totalPage : 1}
+                  marginPagesDisplayed={2}
+                  pageRangeDisplayed={5}
+                  onPageChange={paginationHandler}
+                />
+              </nav>
+            )}
+          </div> */}
         </div>
         <div className="">
           <h4 className="text-lg font-bold mb-3">Add Subject</h4>

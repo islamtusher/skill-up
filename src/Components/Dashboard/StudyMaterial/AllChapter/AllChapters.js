@@ -8,7 +8,8 @@ import ReactPaginate from "react-paginate";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import authHeader, { baseURL } from "../../../../Network/AuthApi";
-import './AllChapters.css'
+import './AllChapters.css';
+
 const AllChapters = () => {
   const [allSubjectsChapters, setAllSubjectsChapters] = useState([]);
   const [chapterHandle, setChapterHandle] = useState(false);
@@ -29,18 +30,19 @@ const AllChapters = () => {
   // TODO: Load All Chapters
   useEffect(() => {
     (async () => {
-      const { data } = await axios.get(baseURL + "chapter", {
+      const { data } = await axios.get(baseURL + `chapter?page=1`, {
         headers: authHeader(),
       });
       setAllSubjectsChapters(data?.data);
       setPagination({
-        current: data.meta.current_page,
+        current_page: data.meta.current_page,
         totalPage: data.meta.last_page,
         total: data.meta.total,
       });
       console.log(data);
     })();
   }, [chapterHandle]);
+  console.log(pagination);
 
   // TODO: GET All Classes
   useEffect(() => {
@@ -61,9 +63,7 @@ const AllChapters = () => {
       setAllSubjectsChapters(data?.data);
     } catch (error) {
       toast.error('Something went wrong')
-    }
-    
-      
+    } 
   };
 
   // TODO: Handle form submit (Add Subject)
@@ -229,7 +229,7 @@ const AllChapters = () => {
                   containerClassName={"pagination pagination-space m-b-0"}
                   pageClassName="page-item"
                   pageLinkClassName="page-link"
-                  initialPage={pagination ? pagination.current_page : 1}
+                  initialPage={ pagination.current_page ? pagination?.current_page -1 : 1}
                   pageCount={pagination?.totalPage ? pagination.totalPage : 1}
                   marginPagesDisplayed={2}
                   pageRangeDisplayed={5}
