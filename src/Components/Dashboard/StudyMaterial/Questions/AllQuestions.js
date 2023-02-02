@@ -66,21 +66,6 @@ const AllQuestions = () => {
     }
   };
 
-  // TODO: Handle form submit (Add Subject)
-  // const onSubmit = async (data) => {
-  //   console.log(data);
-  //   const response = await axios.post(baseURL + "chapter", data, {
-  //     headers: authHeader(),
-  //   });
-  //   if (response.status === 204) {
-  //     toast.success("Chapter Added Successfully");
-  //     setChapterHandle(!chapterHandle);
-  //     reset();
-  //   } else {
-  //     toast.error("Something went wrong");
-  //   }
-  // };
-
   //TODO: Handle form Submission (Add Question)
   const onSubmit = async (formData) => {
     const {
@@ -116,7 +101,7 @@ const AllQuestions = () => {
     }
   };
 
-  //TODO: handle class-change onSelect
+  //TODO: handle class-change on-Select
   const onClassChange = async (e) => {
     const response = await axios.get(
       baseURL + `class_wise_subject/${e.target.value}`,
@@ -125,18 +110,17 @@ const AllQuestions = () => {
     setClassWiseSubjects(response.data.data.subjects);
   };
 
-  //TODO: handle subject-change onSelect
+  //TODO: handle subject-change on-Select
   const onSubjectChange = async (e) => {
     const response = await axios.get(
       baseURL + `subject_wise_chapter/${e.target.value}`,
       { headers: authHeader() }
     );
-    // setSubjectWiseChapters(response.data.data.chapters);
     setChapters(response.data.data.chapters);
     console.log(response.data.data.chapters);
   };
     
-  //TODO: handle subject-change onSelect
+  //TODO: handle subject-change on-Select
   const onChapterChange = async (e) => {
     const {data} = await axios.get(
       baseURL + `chapter_wise_mcq_question/${e.target.value}`,
@@ -147,13 +131,13 @@ const AllQuestions = () => {
   };
 
   //TODO: Handle Chapter Delete
-  const handleChapterDelete = async (id) => {
-    const response = await axios.delete(baseURL + `chapter/${id}`, {
+  const handleQuestionDelete = async (id) => {
+    const response = await axios.delete(baseURL + `mcq_question/${id}`, {
       headers: authHeader(),
     });
     if (response.status === 204) {
-      setChapterHandle(!chapterHandle);
-      toast.success("Chapter Successfully Deleted");
+      setHandleQuestionUp(!handleQuestionUp);
+      toast.success("Question Delete Successfully");
     } else {
       toast.error("Something went wrong");
     }
@@ -262,7 +246,7 @@ const AllQuestions = () => {
                   {/* <td>{question?.chapter_name}</td> */}
                   <td>
                     <FontAwesomeIcon
-                      onClick={() => handleChapterDelete(question?.uuid)}
+                      onClick={() => handleQuestionDelete(question?.uuid)}
                       className=" text-xl w-[34px] text-red-600 mr-2 hover:cursor-pointer"
                       icon={faTrash}
                     />
