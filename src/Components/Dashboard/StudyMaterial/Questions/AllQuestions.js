@@ -11,6 +11,7 @@ import authHeader, { baseURL } from "../../../../Network/AuthApi";
 
 const AllQuestions = () => {
   const [subjectWiseChapters, setSubjectWiseChapters] = useState([]);
+  const [chapters, setChapters] = useState([]);
   const [chapterHandle, setChapterHandle] = useState(false);
   const [AllClasses, setAllClasses] = useState([]);
   const [allQuestions, setAllQuestions] = useState([]);
@@ -18,7 +19,7 @@ const AllQuestions = () => {
   const [pagination, setPagination] = useState({});
 
   const navigate = useNavigate();
-
+  console.log(chapters);
   const {
     register,
     handleSubmit,
@@ -36,22 +37,6 @@ const AllQuestions = () => {
       setAllClasses(data?.data);
     })();
   }, []);
-
-  // TODO: Load All Chapters
-//   useEffect(() => {
-//     (async () => {
-//       const { data } = await axios.get(baseURL + `chapter?page=1`, {
-//         headers: authHeader(),
-//       });
-//       setSubjectWiseChapters(data?.data);
-//       setPagination({
-//         current_page: data.meta.current_page,
-//         totalPage: data.meta.last_page,
-//         total: data.meta.total,
-//       });
-//       console.log(data);
-//     })();
-//   }, [chapterHandle]);
 
   // TODO: GET All questions
   useEffect(() => {
@@ -109,18 +94,19 @@ const AllQuestions = () => {
       baseURL + `subject_wise_chapter/${e.target.value}`,
       { headers: authHeader() }
     );
-    setSubjectWiseChapters(response.data.data.chapters);
+    // setSubjectWiseChapters(response.data.data.chapters);
+    setChapters(response.data.data.chapters);
     console.log(response.data.data.chapters);
   };
     
   //TODO: handle subject-change onSelect
   const onChapterChange = async (e) => {
-    // const response = await axios.get(
-    //   baseURL + `subject_wise_chapter/${e.target.value}`,
-    //   { headers: authHeader() }
-    // );
-    // setSubjectWiseChapters(response.data.data.chapters);
-    console.log(e);
+    const {data} = await axios.get(
+      baseURL + `chapter_wise_mcq_question/${e.target.value}`,
+      { headers: authHeader()}
+    );
+    setAllQuestions(data.data.mcq_questions);
+    // console.log(data);
   };
 
   //TODO: Handle Chapter Delete
@@ -190,16 +176,16 @@ const AllQuestions = () => {
                 <span className="label-text text-sm">Which Chapters ?</span>
               </label>
               <select
-                disabled={subjectWiseChapters.length === 0 && true}
+                disabled={chapters.length === 0 && true}
                 defaultValue=""
-                title="Select Classes At First"
+                title="Select Subject At First"
                 onChange={(e) => onChapterChange(e)}
                 className="select border-black focus:outline-0 w-full "
               >
                 <option value="" disabled>
                   Select One
                 </option>
-                {subjectWiseChapters.map((sub) => (
+                {chapters.map((sub) => (
                   <option key={sub.uuid} value={sub.uuid}>
                     {sub.name}{" "}
                   </option>

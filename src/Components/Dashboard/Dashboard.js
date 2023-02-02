@@ -168,18 +168,18 @@ const Dashboard = () => {
                                   Chapters
                                 </NavLink>
                               </li>
-                              {/* <li>
+                              <li>
                                 <NavLink
                                   to="/dashboard/questions"
                                   className={({ isActive }) =>
                                     `flex items-center hover:font-bold transition pt-2 px-0 pb-0 
-                          ${isActive ? "font-bold" : "font-thin"}`
+                                    ${isActive ? "font-bold" : "font-thin"}`
                                   }
                                 >
                                   <div className=" w-[34px]" />
                                   Questions
                                 </NavLink>
-                              </li> */}
+                              </li>
                             </ul>
                           </div>
                         </div>

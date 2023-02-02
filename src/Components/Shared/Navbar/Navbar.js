@@ -374,7 +374,8 @@ const Navbar = () => {
                             hover:cursor-pointer                            
                           "
                         >
-                          ডেসবোর্ড
+                          {/* ড্যাশবোর্ড */}
+                          Dashboard
                         </li>
                         <li
                           onClick={handleLogOut}
@@ -390,7 +391,8 @@ const Navbar = () => {
                             hover:cursor-pointer                            
                           "
                         >
-                          লগ আউট
+                          {/* লগ আউট */}
+                          Logout
                         </li>
                       </ul>
                     </div>
@@ -401,12 +403,14 @@ const Navbar = () => {
               <div className="flex gap-x-4 items-center font-[jost] font-bold text-white lg:text-[13px] xl:text-[16px] 2xl:text-[17px]">
                 <Link className="" to="/login">
                   <button className="bg-main py-2 px-2 xl:px-6 lg:px-4 rounded ">
-                    লগ ইন
+                      {/* লগ ইন */}
+                      Log In
                   </button>
                 </Link>
                 <Link to="/signup">
                   <button className="bg-main py-2 px-2 xl:px-6 lg:px-4 rounded  ">
-                    সাইন আপ
+                      {/* সাইন আপ */}
+                      Sign Up
                   </button>
                 </Link>
               </div>
