@@ -246,7 +246,7 @@ const Dashboard = () => {
                   </li>
                 </>
               )}
-              <li>
+              {/* <li>
                 <NavLink
                   to="/dashboard/addQuestion"
                   className={({ isActive }) =>
@@ -260,7 +260,7 @@ const Dashboard = () => {
                   />
                   Teacher Portal
                 </NavLink>
-              </li>
+              </li> */}
             </>
           )}
         </ul>

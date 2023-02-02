@@ -6,7 +6,7 @@ import authHeader, { baseURL } from '../../../Network/AuthApi';
 
 const QuestionUpload = () => {
     const [currentClasses, setCurrentClasses] = useState([]);
-    const [availableSubjects, setAvailableSubjeccts] = useState([]);
+    const [availableSubjects, setAvailableSubjects] = useState([]);
     const [chapters, setChapters] = useState([]);
 
     const {
@@ -30,7 +30,7 @@ const QuestionUpload = () => {
     const onClassChange = async (e) => {
       const response = await axios.get(baseURL + `class_wise_subject/${e.target.value}`,
         { headers: authHeader() });
-      setAvailableSubjeccts(response.data.data.subjects);
+      setAvailableSubjects(response.data.data.subjects);
     };
 
     // handle subject-change onSelect
