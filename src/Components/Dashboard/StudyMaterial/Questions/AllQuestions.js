@@ -1,4 +1,4 @@
-import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faEye, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { useState } from "react";
@@ -230,7 +230,7 @@ const AllQuestions = () => {
             <tr>
               <th>IN</th>
               <th>Question</th>
-              <th>Answer</th>
+              {/* <th>Answer</th> */}
               {/* <th>Options</th> */}
               {/* <th>Chapter</th> */}
               <th>Action</th>
@@ -241,19 +241,27 @@ const AllQuestions = () => {
               return (
                 <tr key={index} className={`${index % 2 !== 0 && ""}`}>
                   <td>{index + 1}</td>
-                  <td className="text-[14px]">{question.question}</td>
-                  <td>{question?.answer}</td>
+                  <td className="text-[16px]">{question.question}</td>
+                  {/* <td>{question?.answer}</td> */}
                   {/* <td>{question?.chapter_name}</td> */}
                   <td>
                     <FontAwesomeIcon
-                      onClick={() => handleQuestionDelete(question?.uuid)}
-                      className=" text-xl w-[34px] text-red-600 mr-2 hover:cursor-pointer"
-                      icon={faTrash}
+                      title='View Details'
+                      onClick={() => handleChapterUpdate(question?.uuid)}
+                      className=" text-xl w-[34px] text-green-500 hover:cursor-pointer"
+                      icon={faEye}
                     />
                     <FontAwesomeIcon
+                      title='Edit Question'
                       onClick={() => handleChapterUpdate(question?.uuid)}
-                      className=" text-xl w-[34px] text-blue-400 hover:cursor-pointer"
+                      className=" text-xl w-[34px] text-blue-400  hover:cursor-pointer"
                       icon={faEdit}
+                    />
+                    <FontAwesomeIcon
+                      title='Delete Question'
+                      onClick={() => handleQuestionDelete(question?.uuid)}
+                      className=" text-xl w-[34px] text-red-600  hover:cursor-pointer"
+                      icon={faTrash}
                     />
                   </td>
                 </tr>
@@ -547,117 +555,7 @@ const AllQuestions = () => {
             </form>
           </div>
         </div>
-      </div>
-      {/* <div className="">
-          <h4 className="text-lg font-bold mb-3">Add Chapter</h4>
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="bg-white px-4 pt-2 pb-8 rounded"
-          >
-            <div className="flex flex-col gap-y-1">
-              <div className="form-control w-full mx-auto">
-                <label className="label">
-                  <span className="label-text text-sm">Select Class</span>
-                </label>
-                <select
-                  className="select select-bordered w-full focus:outline-0"
-                  {...register("student_class_id", {
-                    required: {
-                      value: true,
-                      message: "Please Select Your Class",
-                    },
-                    onChange: (e) => onClassChange(e),
-                  })}
-                  defaultValue=""
-                >
-                  <option disabled value="">
-                    Select
-                  </option>
-                  {AllClasses?.map((cls) => (
-                    <option key={cls.id} value={cls.id} className="">
-                      {cls.name}
-                    </option>
-                  ))}
-                </select>
-                {errors?.student_class_id?.type === "required" && (
-                  <p className="text-red-500">
-                    {errors?.student_class_id?.message}
-                  </p>
-                )}
-              </div>
-              <div className="my-2">
-                <label className="label">
-                  <span className="label-text text-sm">Select Subject</span>
-                </label>
-                <select
-                  className="select select-bordered w-full focus:outline-0"
-                  {...register("subject_id", {
-                    required: {
-                      value: true,
-                      message: "Please Select Your Class",
-                    },
-                    onChange: (e) => onSubjectChange(e),
-                  })}
-                  defaultValue=""
-                >
-                  <option disabled value="">
-                    Select
-                  </option>
-                  {classWiseSubjects?.map((subject) => (
-                    <option key={subject.uuid} value={subject.uuid}>
-                      {subject.name}
-                    </option>
-                  ))}
-                </select>
-                {errors?.subject_id?.type === "required" && (
-                  <p className="text-red-500">{errors?.subject_id?.message}</p>
-                )}
-              </div>
-              <div className="form-control w-full mx-auto">
-                <label className="label">
-                  <span className="label-text text-sm">Chapter Name</span>
-                </label>
-                <input
-                  type="text"
-                  className="input border-black focus:outline-0 focus:border-primary w-full  "
-                  {...register("name", {
-                    required: {
-                      value: true,
-                      message: "Chapter Required",
-                    },
-                  })}
-                />
-                {errors?.name?.type === "required" && (
-                  <p className="text-red-500">{errors?.name?.message}</p>
-                )}
-              </div>
-              <div className="form-control w-full mx-auto">
-                <label className="label">
-                  <span className="label-text text-sm">Status</span>
-                </label>
-                <input
-                  type="text"
-                  className="input border-black focus:outline-0 focus:border-primary w-full  "
-                  {...register("status", {
-                    required: {
-                      value: true,
-                      message: "Status Required",
-                    },
-                  })}
-                />
-                {errors?.status?.type === "required" && (
-                  <p className="text-red-500">{errors?.status?.message}</p>
-                )}
-              </div>
-              <button
-                type="submit"
-                className="btn bg-main hover:bg-primary mt-1"
-              >
-                Save
-              </button>
-            </div>
-          </form>
-        </div> */}
+      </div>      
     </div>
   );
 };

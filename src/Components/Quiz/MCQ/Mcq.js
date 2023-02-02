@@ -67,7 +67,7 @@ const Mcq = () => {
               className="flex flex-col lg:gap-y-2 xl:gap-y-4"
             >
               <div className="my-2">
-                <h1 className="text-md lg:text-lg xl:text-xl font-[jost] font-bold text-main mb-1">
+                <h1 className="text-md lg:text-md xl:text-xl font-[jost] font-bold text-main mb-1">
                   Choose Quiz Type
                 </h1>
                 <div className="flex ">
@@ -103,12 +103,12 @@ const Mcq = () => {
               </div>
               <div className="my-2 font-[Galada]  ">
                 <label className="label">
-                  <h1 className=" text-md lg:text-lg xl:text-xl  text-main">
+                  <h1 className=" text-md lg:text-md xl:text-xl  text-main">
                     ক্লাস নির্বাচন কর
                   </h1>
                 </label>
                 <select
-                  className="select focus:outline-0 select-bordered font-thin text-gray-500  w-full  lg:w-64 xl:w-72 lg:text-[17px] xl:text-[20px]"
+                  className="select focus:outline-0 select-bordered font-thin text-gray-500  w-full  lg:w-64 xl:w-72 lg:text-[15px] xl:text-[20px]"
                   {...register("class", {
                     required: {
                       value: true,
@@ -134,13 +134,13 @@ const Mcq = () => {
               </div>
               <div className="my-2 font-[Galada]">
                 <label className="label">
-                  <h1 className="text-md lg:text-lg xl:text-xl font-thin text-main">
+                  <h1 className="text-md lg:text-md xl:text-xl font-thin text-main">
                     বিষয় নির্বাচন কর
                   </h1>
                 </label>
                 <select
                   disabled={availableSubjects.length === 0 && true}
-                  className={`select focus:outline-0 select-bordered text-gray-700 w-full  lg:w-64 xl:w-72 font-thin lg:text-[17px] xl:text-[20px]`}
+                  className={`select focus:outline-0 select-bordered text-gray-700 w-full  lg:w-64 xl:w-72 font-thin lg:text-[15px] xl:text-[20px]`}
                   title={
                     availableSubjects.length === 0
                       ? "প্রথমে ক্লাস নির্বাচন কর"
