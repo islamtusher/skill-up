@@ -17,6 +17,7 @@ const AllQuestions = () => {
   const [allQuestions, setAllQuestions] = useState([]);
   const [classWiseSubjects, setClassWiseSubjects] = useState([]);
   const [handleQuestionUp, setHandleQuestionUp] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
   const [pagination, setPagination] = useState({});
 
   const navigate = useNavigate();
@@ -106,14 +107,13 @@ const AllQuestions = () => {
       if (response.status === 204) {
         setHandleQuestionUp(!handleQuestionUp)
         reset();
+        setOpenModal(!openModal)
         toast.success("Question Upload Successful");
-       }      
+
+      }
     } catch (error) {
       toast.error("Something went wrong uploading");
     }
-
-    
-    
   };
 
   //TODO: handle class-change onSelect
@@ -232,6 +232,7 @@ const AllQuestions = () => {
           </div>
           <div className="">
             <label
+              onClick={() => setOpenModal(!openModal)}
               htmlFor="my-modal-6"
               className="btn bg-main hover:bg-primary"
             >
@@ -307,10 +308,20 @@ const AllQuestions = () => {
           )}
         </div>
       </div>
-      <input type="checkbox" id="my-modal-6" className="modal-toggle" />
-      <div className="modal modal-bottom sm:modal-middle ">
+      <input
+        checked={openModal && true}
+        type="checkbox"
+        id="my-modal-6"
+        className="modal-toggle"
+      />
+      <div
+        className={`modal modal-bottom sm:modal-middle ${
+          openModal && "modal-open"
+        }`}
+      >
         <div className="modal-box relative lg:mt-10 lg:pt-2 xl:pt-4">
           <label
+            onClick={() => setOpenModal(!openModal)}
             title="Close"
             htmlFor="my-modal-6"
             className="btn bg-red-600 border-0 btn-sm btn-circle absolute right-2 lg:top-2 xl:top-4"
