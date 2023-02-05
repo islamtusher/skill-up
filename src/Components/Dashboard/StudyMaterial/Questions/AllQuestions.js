@@ -1,5 +1,7 @@
+import { library } from "@fortawesome/fontawesome-svg-core";
 import { faEdit, faEye, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { computeHeadingLevel } from "@testing-library/react";
 import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -15,6 +17,7 @@ const AllQuestions = () => {
   const [chapterHandle, setChapterHandle] = useState(false);
   const [AllClasses, setAllClasses] = useState([]);
   const [allQuestions, setAllQuestions] = useState([]);
+  const [viewQuestion, setViewQuestion] = useState({});
   const [classWiseSubjects, setClassWiseSubjects] = useState([]);
   const [handleQuestionUp, setHandleQuestionUp] = useState(false);
   const [openModal, setOpenModal] = useState(false);
@@ -47,7 +50,6 @@ const AllQuestions = () => {
         headers: authHeader(),
       });
       setAllQuestions(data?.data);
-      console.log(data);
     })();
   }, [handleQuestionUp]);
 
@@ -128,6 +130,14 @@ const AllQuestions = () => {
     );
     setAllQuestions(data.data.mcq_questions);
     // console.log(data);
+  };
+
+  //TODO: Handle Chapter Delete
+  const handleQuestionView = (id) => {
+    const question = allQuestions.find((qus) => qus.uuid === id);
+    console.log(question);
+    setViewQuestion(question);
+    
   };
 
   //TODO: Handle Chapter Delete
@@ -217,7 +227,7 @@ const AllQuestions = () => {
           <div className="">
             <label
               onClick={() => setOpenModal(!openModal)}
-              htmlFor="my-modal-6"
+              htmlFor="question-add-modal"
               className="btn bg-main hover:bg-primary"
             >
               Add Question
@@ -245,24 +255,26 @@ const AllQuestions = () => {
                   {/* <td>{question?.answer}</td> */}
                   {/* <td>{question?.chapter_name}</td> */}
                   <td>
+                    <label htmlFor="question-view-modal">
+                      <FontAwesomeIcon
+                        title="View Details"
+                        className="text-xl w-[34px] text-green-500 hover:cursor-pointer"
+                        onClick={() => handleQuestionView(question?.uuid)}
+                        icon={faEye}
+                      />
+                    </label>
                     <FontAwesomeIcon
-                      title='View Details'
-                      onClick={() => handleChapterUpdate(question?.uuid)}
-                      className=" text-xl w-[34px] text-green-500 hover:cursor-pointer"
-                      icon={faEye}
-                    />
-                    <FontAwesomeIcon
-                      title='Edit Question'
-                      onClick={() => handleChapterUpdate(question?.uuid)}
+                      title="Edit Question"
+                      // onClick={() => handleChapterUpdate(question?.uuid)}
                       className=" text-xl w-[34px] text-blue-400  hover:cursor-pointer"
                       icon={faEdit}
                     />
                     <FontAwesomeIcon
-                      title='Delete Question'
+                      title="Delete Question"
                       onClick={() => handleQuestionDelete(question?.uuid)}
                       className=" text-xl w-[34px] text-red-600  hover:cursor-pointer"
                       icon={faTrash}
-                    />
+                    ></FontAwesomeIcon>
                   </td>
                 </tr>
               );
@@ -300,10 +312,11 @@ const AllQuestions = () => {
           )}
         </div>
       </div>
+      {/* Question Upload Modal */}
       <input
         checked={openModal && true}
         type="checkbox"
-        id="my-modal-6"
+        id="question-add-modal"
         className="modal-toggle"
       />
       <div
@@ -315,7 +328,7 @@ const AllQuestions = () => {
           <label
             onClick={() => setOpenModal(!openModal)}
             title="Close"
-            htmlFor="my-modal-6"
+            htmlFor="question-add-modal"
             className="btn bg-red-600 border-0 btn-sm btn-circle absolute right-2 lg:top-2 xl:top-4"
           >
             ✕
@@ -543,7 +556,7 @@ const AllQuestions = () => {
 
                   <div className="modal-action mt-[34px]">
                     <button
-                      // htmlFor="my-modal-6"
+                      // htmlFor="question-add-modal"
                       type="submit"
                       className="btn bg-main hover:bg-primary w-full min-h-[30px] max-h-[36px] rounded"
                     >
@@ -555,7 +568,40 @@ const AllQuestions = () => {
             </form>
           </div>
         </div>
-      </div>      
+      </div>
+
+      {/* Question View Modal */}
+      <input
+        type="checkbox"
+        id="question-view-modal"
+        className="modal-toggle"
+      />
+      <label htmlFor="question-view-modal" className="modal cursor-pointer">
+        <label className="modal-box relative flex flex-col gap-y-2" htmlFor="">
+          <label
+            htmlFor="question-view-modal"
+            className="btn btn-sm btn-circle absolute right-2 top-2"
+          >
+            ✕
+          </label>
+          <h3 className="text-xl ">
+            <span className="text-main font-bold">Question :</span>{" "}
+            {viewQuestion.question}
+          </h3>
+          <h3 className="text-lg ">
+            <span className="text-green-500 font-bold">Correct Answer :</span>{" "}
+            {viewQuestion.answer}
+          </h3>
+          <ul>
+            <span className="text-green-500 font-bold">Options : </span>
+            {viewQuestion.options?.map((option, index) => (
+              <li key={index}>
+                {index + 1}. {option},
+              </li>
+            ))}
+          </ul>
+        </label>
+      </label>
     </div>
   );
 };

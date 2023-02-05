@@ -1,6 +1,8 @@
 import {
   faBook,
+  faBookOpen,
   faChartColumn,
+  faPeopleGroup,
   faPersonChalkboard,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
@@ -119,7 +121,7 @@ const Dashboard = () => {
                         >
                           <FontAwesomeIcon
                             className=" text-xl w-[34px]"
-                            icon={faBook}
+                            icon={faBookOpen}
                           />
                           Study Material
                         </h2>
@@ -201,7 +203,7 @@ const Dashboard = () => {
                         >
                           <FontAwesomeIcon
                             className=" text-xl w-[34px]"
-                            icon={faBook}
+                            icon={faPeopleGroup}
                           />
                           Human Resource
                         </h2>

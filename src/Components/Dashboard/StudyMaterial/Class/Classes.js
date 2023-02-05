@@ -1,18 +1,20 @@
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
+import { current } from "daisyui/src/colors";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import API from "../../../../Network/API";
 import authHeader, { baseURL } from "../../../../Network/AuthApi";
+import Loading from '../../.././Loading/Loading'
 
 const Classes = () => {
   const navigate = useNavigate()
   const [classes, setClasses] = useState([]);
-  const [classeHandle, setClasseHandle] = useState(false)
+  const [loading, setLoading] = useState(false);
+  const [classesHandle, setClassesHandle] = useState(false)
 
   const {
     register,
@@ -24,21 +26,23 @@ const Classes = () => {
   // TODO: GET All Classes
   useEffect(() => {
     (async () => {
+      setLoading((current) => !current);
       const { data } = await axios.get(baseURL + "student_classes", {
         headers: authHeader(),
       });
-      setClasses(data?.data);
+        setClasses(data?.data);
+        setLoading((current) => !current);
     })();
-  }, [classeHandle]);
+  }, [classesHandle]);
 
   // TODO: Handle form submit
-  const onSubmit = async (data) => {
+  const onSubmit = async (data) => {    
     const response = await axios.post(baseURL + "student_classes", data, {
       headers: authHeader(),
     });
      if (response.status === 204) {
        toast.success("Class Added Successfully");
-       setClasseHandle(!classeHandle);
+       setClassesHandle(!classesHandle);
        reset();
      } else {
        toast.error("Something went wrong");
@@ -46,13 +50,9 @@ const Classes = () => {
   };
   
   // TODO: Handle Class Edit
-  const editClass = async (id, className) => {
-    // const cls = className.split(" ")[0]
+  const editClass = async (id) => {
     navigate(`/dashboard/class-edit/${id}`)
-    // const data = await API.put(`student_classes/${id}`);
-    // console.log(cls)
   }   
-
 
   // TODO: Handle Class Delete
   const deleteClass = async (id) => {
@@ -61,11 +61,16 @@ const Classes = () => {
     });
     if (response.status === 204) {
       toast.success("Class Deleted Successfully");
-      setClasseHandle(!classeHandle);
+      setClassesHandle(!classesHandle);
     } else {
       toast.error("Something went wrong");
     }
   }   
+
+  // Loading Showing
+  // if (loading) {
+  //   return <Loading></Loading>
+  // }
 
   return (
     <div className="py-24 px-20">
@@ -82,33 +87,40 @@ const Classes = () => {
               </tr>
             </thead>
             <tbody>
-              {classes?.map((cls, index) => {
-                return (
-                  <tr key={index} className={`${index % 2 !== 0 && ""} `}>
-                    <td>{index + 1}</td>
-                    <td>{cls.name}</td>
-                    <td
-                      className={`${
-                        cls.status === 1 ? "text-green-600" : "text-red-500"
-                      }`}
-                    >
-                      {cls.status === 1 ? "Active" : "Deactivate"}
-                    </td>
-                    <td>
-                      <FontAwesomeIcon
-                        onClick={() => deleteClass(cls.id)}
-                        className=" text-xl w-[34px] text-red-600 mr-2 hover:cursor-pointer"
-                        icon={faTrash}
-                      />
-                      <FontAwesomeIcon
-                        onClick={() => editClass(cls?.id, cls.name)}
-                        className=" text-xl w-[34px] text-blue-400 hover:cursor-pointer"
-                        icon={faEdit}
-                      />
-                    </td>
-                  </tr>
-                );
-              })}
+              {
+                // loading ?
+                //   <div className="w-full h-auto flex items-center justify-center">
+                //     <div className=" w-10 h-10 border-t-4 border-b-4 border-green-900 rounded-full animate-spin"></div>
+                //   </div>
+                //   :
+                  classes?.map((cls, index) => {
+                    return (
+                      <tr key={index} className={`${index % 2 !== 0 && ""} `}>
+                        <td>{index + 1}</td>
+                        <td>{cls.name}</td>
+                        <td
+                          className={`${
+                            cls.status === 1 ? "text-green-600" : "text-red-500"
+                          }`}
+                        >
+                          {cls.status === 1 ? "Active" : "Deactivate"}
+                        </td>
+                        <td>
+                          <FontAwesomeIcon
+                            onClick={() => deleteClass(cls.id)}
+                            className=" text-xl w-[34px] text-red-600 mr-2 hover:cursor-pointer"
+                            icon={faTrash}
+                          />
+                          <FontAwesomeIcon
+                            onClick={() => editClass(cls?.id)}
+                            className=" text-xl w-[34px] text-blue-400 hover:cursor-pointer"
+                            icon={faEdit}
+                          />
+                        </td>
+                      </tr>
+                    );
+                  })
+              }              
             </tbody>
           </table>
         </div>
